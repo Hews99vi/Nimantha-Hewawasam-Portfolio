@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  --background: #eef4fa;
+  --foreground: #071426;
+  --deep-navy: #071426;
+  --ink-navy: #111827;
+  --suit-blue: #102a4c;
+  --royal-blue: #0057d9;
+  --tie-blue: #2b83d8;
+  --shirt-blue: #dce7f3;
+  --soft-blue: #eef4fa;
+  --muted: #6e7f95;
+  --off-white: #f8fafc;
+  --radius-panel: 28px;
+  --radius-card: 20px;
+  --radius-control: 999px;
+  --radius-badge: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(0, 87, 217, 0.2);
+  color: #071426;
+}
+
+.container-shell {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.soft-card {
+  border: 1px solid rgba(16, 42, 76, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-card);
+  box-shadow: 0 18px 48px rgba(7, 20, 38, 0.06);
+}
+
+.hero-panel {
+  border-radius: var(--radius-panel);
+  background:
+    radial-gradient(circle at 48% 28%, rgba(255, 255, 255, 0.48), transparent 28%),
+    radial-gradient(circle at 73% 58%, rgba(43, 131, 216, 0.15), transparent 28%),
+    linear-gradient(135deg, #dce7f3 0%, #e8eef7 55%, #d8e2f0 100%);
+}
+
+.portrait-fallback {
+  background:
+    linear-gradient(180deg, rgba(0, 87, 217, 0.14), rgba(0, 87, 217, 0)),
+    radial-gradient(circle at 50% 28%, rgba(43, 131, 216, 0.18), transparent 34%);
+}
+
+.blog-prose {
+  border-radius: var(--radius-panel);
+  font-size: 1.0625rem;
+  line-height: 1.95;
+  color: #36475c;
+}
+
+.blog-prose h2,
+.blog-prose h3 {
+  color: #071426;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.blog-prose h2 {
+  margin: 2.2rem 0 1rem;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.blog-prose h3 {
+  margin: 1.8rem 0 0.9rem;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.blog-prose p,
+.blog-prose ul,
+.blog-prose ol {
+  margin: 0 0 1.2rem;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  padding-left: 1.3rem;
+}
+
+.blog-prose li {
+  margin-bottom: 0.45rem;
+}
