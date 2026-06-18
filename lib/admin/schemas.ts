@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { normalizePublicAssetPath } from "@/lib/asset-path";
 import { allowedIconKeys } from "@/lib/icons";
 import { normalizeDateTimeInput, slugify } from "@/lib/slug";
 
@@ -7,6 +8,11 @@ const optionalNullableString = z.string().trim().nullish().transform((value) => 
   if (!value) return null;
   return value;
 });
+const optionalAssetPath = z
+  .string()
+  .trim()
+  .nullish()
+  .transform((value) => normalizePublicAssetPath(value));
 const slugSchema = z
   .string()
   .trim()
@@ -132,7 +138,7 @@ export const trustedBrandSchema = z.object({
   sort_order: z.number().int().nonnegative(),
   name: nonEmpty,
   url: optionalNullableString,
-  logo_src: optionalNullableString,
+  logo_src: optionalAssetPath,
   industry: optionalNullableString,
   is_active: z.boolean(),
 });
@@ -150,7 +156,7 @@ export const blogPostSchema = z
     title: nonEmpty,
     slug: slugSchema,
     excerpt: nonEmpty,
-    cover_image: optionalNullableString,
+    cover_image: optionalAssetPath,
     content_markdown: nonEmpty,
     author_name: nonEmpty,
     reading_time: nonEmpty,

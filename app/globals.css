@@ -36,6 +36,13 @@ body {
   overflow-x: hidden;
 }
 
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
 ::selection {
   background: rgba(0, 87, 217, 0.2);
   color: #071426;
@@ -110,4 +117,23 @@ body {
 
 .blog-prose li {
   margin-bottom: 0.45rem;
+}
+
+@media (max-width: 640px) {
+  .container-shell {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .blog-prose {
+    font-size: 1rem;
+    line-height: 1.82;
+  }
+
+  .blog-prose h2 {
+    font-size: 1.65rem;
+  }
+
+  .blog-prose h3 {
+    font-size: 1.22rem;
+  }
 }

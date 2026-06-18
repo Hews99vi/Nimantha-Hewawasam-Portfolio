@@ -29,7 +29,7 @@ export default async function BlogPage() {
 
   return (
     <main className="min-h-screen bg-[#EEF4FA] text-[#071426]">
-      <section className="border-b border-[#102A4C]/10 bg-[#E8EEF7] px-5 py-8 sm:px-8 lg:px-12">
+      <section className="border-b border-[#102A4C]/10 bg-[#E8EEF7] px-4 py-6 sm:px-8 sm:py-8 lg:px-12">
         <div className="mx-auto max-w-[1200px]">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <Link
@@ -48,25 +48,25 @@ export default async function BlogPage() {
             </div>
           </div>
 
-          <div className="mt-16 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div className="mt-10 grid gap-6 lg:mt-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-10">
             <div>
               <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-[#0057D9]">
                 {settings.eyebrow}
               </p>
-              <h1 className="mt-5 max-w-3xl text-balance text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+              <h1 className="mt-5 max-w-3xl text-balance text-[2.35rem] font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl lg:leading-tight">
                 {settings.title}
               </h1>
             </div>
-            <p className="max-w-2xl text-lg leading-8 text-[#52657C]">{settings.intro}</p>
+            <p className="max-w-2xl text-base leading-7 text-[#52657C] lg:text-lg lg:leading-8">{settings.intro}</p>
           </div>
         </div>
       </section>
 
-      <section className="px-5 py-14 sm:px-8 lg:px-12">
+      <section className="px-4 py-10 sm:px-8 sm:py-14 lg:px-12">
         <div className="mx-auto max-w-[1200px]">
           {featuredPost ? (
             <article className="grid overflow-hidden rounded-[28px] border border-[#102A4C]/10 bg-white shadow-[0_22px_60px_rgba(7,20,38,0.06)] lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="flex flex-col justify-between bg-[#071426] p-8 text-white sm:p-10">
+              <div className="flex flex-col justify-between bg-[#071426] p-6 text-white sm:p-10">
                 <div>
                   <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-[#82B9F1]">
                     {settings.featured_title}
@@ -74,10 +74,10 @@ export default async function BlogPage() {
                   <p className="mt-4 max-w-xl text-sm leading-7 text-white/65">
                     {settings.featured_intro}
                   </p>
-                  <h2 className="mt-8 max-w-2xl text-balance text-3xl font-extrabold leading-tight sm:text-5xl">
+                  <h2 className="mt-7 max-w-2xl text-balance text-[2rem] font-extrabold leading-tight sm:text-5xl">
                     {featuredPost.title}
                   </h2>
-                  <p className="mt-5 max-w-2xl text-lg leading-8 text-white/76">
+                  <p className="mt-5 max-w-2xl text-base leading-7 text-white/76 sm:text-lg sm:leading-8">
                     {featuredPost.excerpt}
                   </p>
                 </div>
@@ -87,7 +87,7 @@ export default async function BlogPage() {
                   <span>{featuredPost.reading_time}</span>
                 </div>
               </div>
-              <div className="flex flex-col justify-between bg-[#F8FAFC] p-8 sm:p-10">
+              <div className="flex flex-col justify-between bg-[#F8FAFC] p-6 sm:p-10">
                 <div>
                   <div className="mb-6 flex flex-wrap gap-2">
                     {featuredPost.categories.map((category) => (
@@ -105,11 +105,11 @@ export default async function BlogPage() {
                       <img
                         src={featuredPost.cover_image}
                         alt={featuredPost.title}
-                        className="h-[280px] w-full object-cover object-center"
+                        className="h-[220px] w-full object-cover object-center sm:h-[280px]"
                       />
                     </div>
                   ) : (
-                    <div className="flex h-[280px] items-end rounded-[20px] border border-[#102A4C]/10 bg-[#DCE7F3] p-8">
+                    <div className="flex h-[220px] items-end rounded-[20px] border border-[#102A4C]/10 bg-[#DCE7F3] p-6 sm:h-[280px] sm:p-8">
                       <div>
                         <p className="text-sm font-extrabold uppercase tracking-[0.2em] text-[#0057D9]">
                           {featuredPost.author_name}
@@ -133,7 +133,7 @@ export default async function BlogPage() {
               </div>
             </article>
           ) : (
-            <div className="rounded-[28px] border border-[#102A4C]/10 bg-white p-10 text-center shadow-[0_18px_48px_rgba(7,20,38,0.05)]">
+            <div className="rounded-[28px] border border-[#102A4C]/10 bg-white p-7 text-center shadow-[0_18px_48px_rgba(7,20,38,0.05)] sm:p-10">
               <h2 className="text-2xl font-extrabold text-[#071426]">No published posts yet.</h2>
               <p className="mt-3 text-[#52657C]">
                 New writing will appear here once posts are published from the admin panel.
@@ -146,7 +146,7 @@ export default async function BlogPage() {
               {supportingPosts.map((post) => (
                 <article
                   key={post.id}
-                  className="rounded-[20px] border border-[#102A4C]/10 bg-white p-6 transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/30 hover:shadow-[0_18px_44px_rgba(7,20,38,0.06)]"
+                  className="rounded-[20px] border border-[#102A4C]/10 bg-white p-5 transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/30 hover:shadow-[0_18px_44px_rgba(7,20,38,0.06)] sm:p-6"
                 >
                   <div className="flex flex-wrap gap-2">
                     {post.categories.map((category) => (

@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-[#071426]">
-      <section className="border-b border-[#102A4C]/10 bg-[#EEF4FA] px-5 py-8 sm:px-8 lg:px-12">
+      <section className="border-b border-[#102A4C]/10 bg-[#EEF4FA] px-4 py-6 sm:px-8 sm:py-8 lg:px-12">
         <div className="mx-auto max-w-[920px]">
           <Link
             href="/blog"
@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             Back to Blog
           </Link>
 
-          <div className="mt-12">
+          <div className="mt-9 sm:mt-12">
             <div className="flex flex-wrap gap-2">
               {post.categories.map((category) => (
                 <span
@@ -72,10 +72,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </span>
               ))}
             </div>
-            <h1 className="mt-6 text-balance text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+            <h1 className="mt-6 text-balance text-[2.35rem] font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl lg:leading-tight">
               {post.title}
             </h1>
-            <p className="mt-6 max-w-3xl text-xl leading-9 text-[#52657C]">{post.excerpt}</p>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-[#52657C] sm:mt-6 sm:text-xl sm:leading-9">{post.excerpt}</p>
             <div className="mt-7 flex flex-wrap items-center gap-4 text-sm font-semibold text-[#6E7F95]">
               <span>{post.author_name}</span>
               <span className="h-1 w-1 rounded-full bg-[#6E7F95]" />
@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </section>
 
-      <section className="px-5 py-12 sm:px-8 lg:px-12">
+      <section className="px-4 py-10 sm:px-8 sm:py-12 lg:px-12">
         <div className="mx-auto max-w-[920px]">
           {post.cover_image ? (
             <div className="mb-10 overflow-hidden rounded-[28px] border border-[#102A4C]/10 bg-[#DCE7F3] shadow-[0_18px_48px_rgba(7,20,38,0.05)]">
@@ -95,13 +95,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <img
                 src={post.cover_image}
                 alt={post.title}
-                className="h-[320px] w-full object-cover object-center"
+                className="h-[230px] w-full object-cover object-center sm:h-[320px]"
               />
             </div>
           ) : null}
 
           <article
-            className="blog-prose border border-[#102A4C]/10 bg-white p-6 shadow-[0_18px_48px_rgba(7,20,38,0.05)] sm:p-10"
+            className="blog-prose border border-[#102A4C]/10 bg-white p-5 shadow-[0_18px_48px_rgba(7,20,38,0.05)] sm:p-10"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         </div>

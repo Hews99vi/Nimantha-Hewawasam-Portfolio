@@ -15,6 +15,7 @@ import type {
   TrustedBrand,
   WhyWorkItem,
 } from "@/types/content";
+import { normalizePublicAssetPath } from "@/lib/asset-path";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { BlogCategoriesEditor, BlogPostsEditor, BlogSettingsEditor } from "@/app/admin/BlogEditors";
 import { IconSelect } from "@/app/admin/IconSelect";
@@ -602,116 +603,125 @@ function TrustedBrandsEditor({
         </button>
       </div>
 
-      {brands.map((brand, index) => (
-        <div key={brand.id} className="border border-[#102A4C]/10 p-5">
-          <div className="mb-4 flex items-center justify-between">
-            <p className="text-sm font-extrabold text-[#071426]">Brand {index + 1}</p>
-            <button
-              type="button"
-              onClick={() =>
-                handleDeleteListItem({
-                  item: brand,
-                  items: brands,
-                  onChange,
-                  saveEndpoint: "/api/admin/trusted-brands",
-                  runAction,
-                  setMessage,
-                })
-              }
-              className="text-sm font-bold text-[#B91C1C]"
-            >
-              Remove
-            </button>
-          </div>
+      {brands.map((brand, index) => {
+        const previewLogoSrc = normalizePublicAssetPath(brand.logo_src);
 
-          <div className="mb-5 flex min-h-24 items-center justify-center border border-[#102A4C]/10 bg-[#F8FAFC] px-5">
-            {brand.logo_src ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={brand.logo_src}
-                alt={`${brand.name || "Brand"} logo preview`}
-                className="max-h-14 max-w-[220px] object-contain"
-              />
-            ) : (
-              <span className="text-center text-lg font-black tracking-[-0.03em] text-[#102A4C]">
-                {brand.name || "Text wordmark preview"}
-              </span>
-            )}
-          </div>
+        return (
+          <div key={brand.id} className="border border-[#102A4C]/10 p-5">
+            <div className="mb-4 flex items-center justify-between">
+              <p className="text-sm font-extrabold text-[#071426]">Brand {index + 1}</p>
+              <button
+                type="button"
+                onClick={() =>
+                  handleDeleteListItem({
+                    item: brand,
+                    items: brands,
+                    onChange,
+                    saveEndpoint: "/api/admin/trusted-brands",
+                    runAction,
+                    setMessage,
+                  })
+                }
+                className="text-sm font-bold text-[#B91C1C]"
+              >
+                Remove
+              </button>
+            </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            <AdminField
-              label="Brand name"
-              value={brand.name}
-              onChange={(value) =>
-                onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, name: value })))
-              }
-            />
-            <AdminField
-              label="URL"
-              value={brand.url ?? ""}
-              onChange={(value) =>
-                onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, url: value })))
-              }
-            />
-            <AdminField
-              label="Logo path or URL"
-              value={brand.logo_src ?? ""}
-              onChange={(value) =>
-                onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, logo_src: value })))
-              }
-            />
-            <AdminField
-              label="Industry label"
-              value={brand.industry ?? ""}
-              onChange={(value) =>
-                onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, industry: value })))
-              }
-            />
-            <AdminField
-              label="Order"
-              value={String(brand.sort_order)}
-              onChange={(value) =>
-                onChange(
-                  updateCollectionItem(brands, brand.id, (item) => ({
-                    ...item,
-                    sort_order: Number(value) || 0,
-                  })),
-                )
-              }
-            />
-            <div className="flex items-end pb-3">
-              <CheckField
-                label="Active"
-                checked={brand.is_active}
-                onChange={(checked) =>
-                  onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, is_active: checked })))
+            <div className="mb-5 flex min-h-24 items-center justify-center border border-[#102A4C]/10 bg-[#F8FAFC] px-5">
+              {previewLogoSrc ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={previewLogoSrc}
+                  alt={`${brand.name || "Brand"} logo preview`}
+                  className="max-h-14 max-w-[220px] object-contain"
+                />
+              ) : (
+                <span className="text-center text-lg font-black tracking-[-0.03em] text-[#102A4C]">
+                  {brand.name || "Text wordmark preview"}
+                </span>
+              )}
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              <AdminField
+                label="Brand name"
+                value={brand.name}
+                onChange={(value) =>
+                  onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, name: value })))
                 }
               />
+              <AdminField
+                label="URL"
+                value={brand.url ?? ""}
+                onChange={(value) =>
+                  onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, url: value })))
+                }
+              />
+              <div>
+                <AdminField
+                  label="Logo path or URL"
+                  value={brand.logo_src ?? ""}
+                  onChange={(value) =>
+                    onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, logo_src: value })))
+                  }
+                />
+                <p className="mt-2 text-xs font-semibold text-[#52657C]">
+                  Use /images/... for files inside public/images. public/images/... also works.
+                </p>
+              </div>
+              <AdminField
+                label="Industry label"
+                value={brand.industry ?? ""}
+                onChange={(value) =>
+                  onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, industry: value })))
+                }
+              />
+              <AdminField
+                label="Order"
+                value={String(brand.sort_order)}
+                onChange={(value) =>
+                  onChange(
+                    updateCollectionItem(brands, brand.id, (item) => ({
+                      ...item,
+                      sort_order: Number(value) || 0,
+                    })),
+                  )
+                }
+              />
+              <div className="flex items-end pb-3">
+                <CheckField
+                  label="Active"
+                  checked={brand.is_active}
+                  onChange={(checked) =>
+                    onChange(updateCollectionItem(brands, brand.id, (item) => ({ ...item, is_active: checked })))
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="mt-4 flex gap-3">
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() =>
+                  handleSaveListItem({
+                    item: brand,
+                    items: brands,
+                    onChange,
+                    saveEndpoint: "/api/admin/trusted-brands",
+                    runAction,
+                    setMessage,
+                  })
+                }
+                className="inline-flex min-h-11 items-center justify-center bg-[#071426] px-4 text-sm font-bold text-white disabled:opacity-60"
+              >
+                {pending ? "Saving..." : "Save Brand"}
+              </button>
             </div>
           </div>
-
-          <div className="mt-4 flex gap-3">
-            <button
-              type="button"
-              disabled={pending}
-              onClick={() =>
-                handleSaveListItem({
-                  item: brand,
-                  items: brands,
-                  onChange,
-                  saveEndpoint: "/api/admin/trusted-brands",
-                  runAction,
-                  setMessage,
-                })
-              }
-              className="inline-flex min-h-11 items-center justify-center bg-[#071426] px-4 text-sm font-bold text-white disabled:opacity-60"
-            >
-              {pending ? "Saving..." : "Save Brand"}
-            </button>
-          </div>
-        </div>
-      ))}
+        );
+      })}
 
       <button
         type="button"

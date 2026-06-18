@@ -7,6 +7,7 @@ import {
   MapPin,
   Workflow,
 } from "lucide-react";
+import { normalizePublicAssetPath } from "@/lib/asset-path";
 import { getPortfolioContent } from "@/lib/content";
 import { iconMap } from "@/lib/icons";
 import type {
@@ -59,7 +60,7 @@ function SectionHeading({
   tone?: "light" | "dark";
 }) {
   return (
-    <div className="mb-12 grid gap-6 md:grid-cols-[0.72fr_1fr] md:items-end">
+    <div className="mb-9 grid gap-5 md:grid-cols-[0.72fr_1fr] md:items-end lg:mb-12 lg:gap-6">
       <div>
         <p
           className={`mb-4 text-xs font-extrabold uppercase tracking-[0.22em] ${
@@ -69,7 +70,7 @@ function SectionHeading({
           {eyebrow}
         </p>
         <h2
-          className={`text-balance text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl ${
+          className={`text-balance text-[2rem] font-extrabold leading-[1.08] sm:text-4xl lg:text-5xl lg:leading-tight ${
             tone === "dark" ? "text-white" : "text-[#071426]"
           }`}
         >
@@ -78,7 +79,7 @@ function SectionHeading({
       </div>
       {intro ? (
         <p
-          className={`max-w-2xl text-base leading-8 md:justify-self-end ${
+          className={`max-w-2xl text-[0.98rem] leading-7 md:justify-self-end lg:text-base lg:leading-8 ${
             tone === "dark" ? "text-white/68" : "text-[#52657C]"
           }`}
         >
@@ -99,9 +100,84 @@ function HeroSection({
   return (
     <section
       id="home"
-      className="flex min-h-screen items-center bg-[#c5d0d6] px-4 py-8 sm:px-8 lg:px-12 lg:py-10"
+      className="flex min-h-svh items-center bg-[#c5d0d6] px-3 py-4 sm:px-6 sm:py-6 lg:min-h-screen lg:px-12 lg:py-10"
     >
-      <div className="relative mx-auto min-h-[920px] w-full max-w-[1760px] overflow-hidden rounded-[28px] bg-[#aebbd1] shadow-[0_8px_34px_rgba(16,42,76,0.08)] md:min-h-[760px] lg:h-[calc(100vh-5rem)] lg:min-h-[680px] lg:max-h-[980px]">
+      <div className="relative mx-auto flex min-h-[calc(100svh-2rem)] w-full max-w-[680px] flex-col overflow-hidden rounded-[26px] bg-[#aebbd1] p-5 shadow-[0_8px_34px_rgba(16,42,76,0.08)] sm:min-h-[calc(100svh-3rem)] sm:p-7 lg:hidden">
+        <div className="relative z-20 flex items-start justify-between gap-4">
+          <a href="#home" className="block" aria-label="Nimantha Hewawasam home">
+            <Image
+              src="/images/Main logo.png?v=2"
+              alt="Nimantha Hewawasam logo"
+              width={72}
+              height={72}
+              priority
+              unoptimized
+              className="h-12 w-12 object-contain sm:h-14 sm:w-14"
+            />
+          </a>
+          <nav className="flex items-center gap-4 text-xs font-extrabold uppercase tracking-[0.16em] text-white/72">
+            <a href="#services">Services</a>
+            <a href="#projects">Works</a>
+            <Link href="/blog">Blog</Link>
+          </nav>
+        </div>
+
+        <div className="relative z-10 mt-10">
+          <h1 className="max-w-[12ch] text-[clamp(3.4rem,18vw,5.6rem)] font-black leading-[0.9] tracking-[-0.045em] text-white drop-shadow-[0_2px_0_rgba(7,20,38,0.08)]">
+            {intro.headline_line_1}
+            <span className="block">{intro.headline_line_2}</span>
+          </h1>
+          <div className="mt-6 h-2 w-24 bg-[#0057D9]" />
+        </div>
+
+        <div className="relative z-10 mt-4 flex min-h-[31svh] flex-1 items-end justify-center">
+          <div className="absolute bottom-0 h-[82%] w-[76%] rounded-t-full bg-white/8 blur-sm" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/nimantha-hero.png"
+            alt="Nimantha Hewawasam"
+            className="relative z-10 max-h-[42svh] min-h-[250px] w-auto max-w-[118%] object-contain object-bottom drop-shadow-[0_24px_34px_rgba(7,20,38,0.16)]"
+          />
+        </div>
+
+        <div className="relative z-20 rounded-[22px] bg-white/10 p-4 backdrop-blur-sm sm:p-5">
+          <p className="mb-2 text-sm font-bold text-[#6E7F95]">
+            &mdash; {intro.intro_label}
+          </p>
+          <h2 className="text-[1.35rem] font-black leading-[1.15] tracking-[-0.02em] text-white sm:text-[1.55rem]">
+            {intro.intro_heading}
+          </h2>
+          <p className="mt-3 text-sm leading-6 text-white/84">
+            {intro.intro_body}
+          </p>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <ButtonLink href={intro.cta_href}>{intro.cta_label}</ButtonLink>
+            <a
+              href={intro.work_link_href}
+              className="inline-flex min-h-12 items-center gap-3 text-sm font-black underline decoration-2 underline-offset-4"
+              style={{ color: "#0057D9" }}
+            >
+              {intro.work_link_label} <ArrowRight size={20} />
+            </a>
+          </div>
+        </div>
+
+        <div className="relative z-20 mt-5 flex items-center gap-6">
+          {socialLinks
+            .filter((item) => item.is_active)
+            .sort((a, b) => a.sort_order - b.sort_order)
+            .map((item) => {
+              const Icon = iconMap[item.icon_key];
+              return (
+                <a key={item.id} href={item.href} aria-label={item.label} className="text-white/82">
+                  <Icon className="text-current" size={21} strokeWidth={2.4} />
+                </a>
+              );
+            })}
+        </div>
+      </div>
+
+      <div className="relative mx-auto hidden min-h-[920px] w-full max-w-[1760px] overflow-hidden rounded-[28px] bg-[#aebbd1] shadow-[0_8px_34px_rgba(16,42,76,0.08)] md:min-h-[760px] lg:block lg:h-[calc(100vh-5rem)] lg:min-h-[680px] lg:max-h-[980px]">
         <div className="absolute left-[10%] top-[7%] z-20 text-[#0057D9]">
           <a href="#home" className="block" aria-label="Nimantha Hewawasam home">
             <Image
@@ -210,14 +286,14 @@ function TrustedBrandsSection({ brands }: { brands: TrustedBrand[] }) {
   }
 
   return (
-    <section className="bg-[#F8FAFC] py-24 lg:py-28">
+    <section className="bg-[#F8FAFC] py-16 lg:py-28">
       <div className="container-shell">
-        <div className="mb-14 grid gap-8 rounded-[28px] border border-[#102A4C]/8 bg-white/40 p-7 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+        <div className="mb-8 grid gap-6 rounded-[24px] border border-[#102A4C]/8 bg-white/40 p-5 sm:p-7 lg:mb-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
           <div>
             <p className="mb-5 text-[0.72rem] font-extrabold uppercase tracking-[0.34em] text-[#0057D9]">
               Trusted By
             </p>
-            <h2 className="max-w-3xl text-balance text-4xl font-extrabold leading-[1.06] tracking-[-0.025em] text-[#071426] sm:text-5xl lg:text-6xl">
+            <h2 className="max-w-3xl text-balance text-[2.35rem] font-extrabold leading-[1.06] tracking-[-0.025em] text-[#071426] sm:text-5xl lg:text-6xl">
               Brands that trust me to build with care.
             </h2>
           </div>
@@ -237,32 +313,34 @@ function TrustedBrandsSection({ brands }: { brands: TrustedBrand[] }) {
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {activeBrands.map((brand) => {
-            const content = brand.logo_src ? (
+            const logoSrc = normalizePublicAssetPath(brand.logo_src);
+            const content = logoSrc ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={brand.logo_src}
+                src={logoSrc}
                 alt={`${brand.name} logo`}
-                className="max-h-12 max-w-[190px] object-contain opacity-85 transition duration-300 ease-out group-hover:scale-[1.025] group-hover:opacity-100"
+                className="max-h-20 max-w-[280px] object-contain opacity-100 contrast-125 saturate-110 drop-shadow-[0_6px_14px_rgba(7,20,38,0.08)] transition duration-300 ease-out group-hover:scale-[1.035]"
               />
             ) : (
-              <span className="max-w-[220px] text-center text-xl font-black leading-tight tracking-[-0.03em] text-[#102A4C] transition duration-300 ease-out group-hover:text-[#0057D9]">
+              <span className="max-w-[260px] text-center text-2xl font-black leading-tight tracking-[-0.03em] text-[#102A4C] transition duration-300 ease-out group-hover:text-[#0057D9]">
                 {brand.name}
               </span>
             );
+            const showIndustry = brand.industry && brand.industry !== brand.name;
             const inner = (
               <>
-                <div className="flex min-h-16 items-center justify-center">
+                <div className="flex min-h-24 w-full items-center justify-center rounded-2xl bg-white/70 px-4 py-3">
                   {content}
                 </div>
-                {brand.industry ? (
-                  <span className="mt-5 text-center text-[0.66rem] font-extrabold uppercase tracking-[0.18em] text-[#6E7F95]/80 transition duration-300 ease-out group-hover:text-[#102A4C]">
+                {showIndustry ? (
+                  <span className="mt-5 text-center text-[0.64rem] font-extrabold uppercase tracking-[0.18em] text-[#6E7F95]/80 transition duration-300 ease-out group-hover:text-[#102A4C]">
                     {brand.industry}
                   </span>
                 ) : null}
               </>
             );
             const tileClass =
-              "group relative flex min-h-36 flex-col items-center justify-center overflow-hidden rounded-[20px] border border-[#102A4C]/8 bg-white/72 px-8 py-8 shadow-[0_18px_54px_rgba(7,20,38,0.04)] transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/22 hover:bg-white hover:shadow-[0_26px_70px_rgba(7,20,38,0.08)]";
+              "group relative flex min-h-44 flex-col items-center justify-center overflow-hidden rounded-[20px] border border-[#102A4C]/8 bg-white/72 px-5 py-7 shadow-[0_18px_54px_rgba(7,20,38,0.04)] transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/22 hover:bg-white hover:shadow-[0_26px_70px_rgba(7,20,38,0.08)] sm:min-h-48 sm:px-8 sm:py-8";
 
             return brand.url && brand.url !== "#" ? (
               <a
@@ -296,16 +374,18 @@ function AboutSection({
   stats: PortfolioContent["aboutStats"];
 }) {
   return (
-    <section id="about" className="bg-white py-24">
+    <section id="about" className="bg-white py-16 lg:py-24">
       <div className="container-shell">
         <SectionHeading
           eyebrow={section.eyebrow}
           title={section.title}
           intro={section.intro}
         />
-        <div className="grid gap-10 lg:grid-cols-[0.74fr_1fr] lg:items-start">
-          <div className="rounded-[20px] border border-[#0057D9]/16 bg-[#EEF4FA]/60 p-6">
-            <p className="text-lg leading-9 text-[#36475C]">{section.body}</p>
+        <div className="grid gap-8 lg:grid-cols-[1.08fr_1.2fr] lg:items-stretch">
+          <div className="flex rounded-[20px] border border-[#0057D9]/16 bg-[#EEF4FA]/60 p-5 sm:p-7">
+            <p className="max-w-none self-center text-base leading-7 text-[#36475C] sm:text-[1.05rem] sm:leading-8">
+              {section.body}
+            </p>
           </div>
           <div className="grid overflow-hidden rounded-[24px] border border-[#102A4C]/10 bg-white sm:grid-cols-2">
             {stats
@@ -317,7 +397,7 @@ function AboutSection({
                   className="flex min-h-28 items-start gap-4 border-[#102A4C]/10 p-6 sm:odd:border-r"
                 >
                   <CheckCircle2 className="mt-1 shrink-0 text-[#0057D9]" size={22} />
-                  <p className="text-lg font-extrabold leading-7 text-[#071426]">
+                  <p className="min-w-0 text-base font-extrabold leading-7 text-[#071426] sm:text-lg">
                     {stat.label}
                   </p>
                 </div>
@@ -331,7 +411,7 @@ function AboutSection({
 
 function ServicesSection({ services }: { services: ServiceItem[] }) {
   return (
-    <section id="services" className="bg-[#EEF4FA] py-24">
+    <section id="services" className="bg-[#EEF4FA] py-16 lg:py-24">
       <div className="container-shell">
         <SectionHeading
           eyebrow="Services"
@@ -347,7 +427,7 @@ function ServicesSection({ services }: { services: ServiceItem[] }) {
               return (
                 <article
                   key={service.id}
-                  className="group rounded-[20px] border border-[#102A4C]/10 bg-white/64 p-7 transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/30 hover:bg-white hover:shadow-[0_18px_44px_rgba(7,20,38,0.06)]"
+                  className="group rounded-[20px] border border-[#102A4C]/10 bg-white/64 p-5 transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/30 hover:bg-white hover:shadow-[0_18px_44px_rgba(7,20,38,0.06)] sm:p-7"
                 >
                   <div className="mb-7 flex items-center justify-between">
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#102A4C] text-white transition group-hover:bg-[#0057D9]">
@@ -390,7 +470,7 @@ function ProjectsSection({ projects }: { projects: ProjectItem[] }) {
   }
 
   return (
-    <section id="projects" className="bg-white py-24">
+    <section id="projects" className="bg-white py-16 lg:py-24">
       <div className="container-shell">
         <SectionHeading
           eyebrow="Selected Projects"
@@ -398,11 +478,11 @@ function ProjectsSection({ projects }: { projects: ProjectItem[] }) {
           intro="A small selection of platforms, CMS builds, automation ideas, and business systems shaped around actual workflows."
         />
         <article className="grid overflow-hidden rounded-[28px] border border-[#102A4C]/12 bg-[#071426] text-white lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="bg-[#102A4C] p-8 md:p-10">
+          <div className="bg-[#102A4C] p-6 sm:p-8 md:p-10">
             <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#82B9F1]">
               Featured Case Study
             </p>
-            <h3 className="mt-5 max-w-xl text-3xl font-extrabold leading-tight md:text-5xl">
+            <h3 className="mt-5 max-w-xl text-[2rem] font-extrabold leading-tight md:text-5xl">
               {featuredProject.title}
             </h3>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/76">
@@ -419,7 +499,7 @@ function ProjectsSection({ projects }: { projects: ProjectItem[] }) {
             <ProjectMeta label="Category" value={featuredProject.category} />
             <ProjectMeta label="Role" value={featuredProject.role} />
             <ProjectMeta label="Problem" value={featuredProject.problem} />
-            <div className="p-6 md:p-8">
+            <div className="p-5 sm:p-6 md:p-8">
               <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.2em] text-white/45">
                 Built with
               </p>
@@ -441,7 +521,7 @@ function ProjectsSection({ projects }: { projects: ProjectItem[] }) {
           {supportingProjects.map((project) => (
             <article
               key={project.id}
-              className="rounded-[20px] border border-[#102A4C]/12 bg-[#F8FAFC] p-6 transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/32 hover:bg-white hover:shadow-[0_18px_44px_rgba(7,20,38,0.06)]"
+              className="rounded-[20px] border border-[#102A4C]/12 bg-[#F8FAFC] p-5 transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/32 hover:bg-white hover:shadow-[0_18px_44px_rgba(7,20,38,0.06)] sm:p-6"
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#0057D9]">
@@ -489,7 +569,7 @@ function ProjectMeta({ label, value }: { label: string; value: string }) {
 
 function TechStackSection({ techGroups }: { techGroups: TechGroup[] }) {
   return (
-    <section className="bg-[#EEF4FA] py-24">
+    <section className="bg-[#EEF4FA] py-16 lg:py-24">
       <div className="container-shell">
         <SectionHeading
           eyebrow="Tech Stack"
@@ -505,7 +585,7 @@ function TechStackSection({ techGroups }: { techGroups: TechGroup[] }) {
               return (
                 <article
                   key={group.id}
-                  className="grid gap-5 rounded-[20px] border border-[#102A4C]/10 bg-white/64 p-5 md:grid-cols-[220px_1fr] md:items-center"
+                  className="grid gap-4 rounded-[20px] border border-[#102A4C]/10 bg-white/64 p-5 md:grid-cols-[220px_1fr] md:items-center lg:gap-5"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#102A4C] text-white">
@@ -521,7 +601,7 @@ function TechStackSection({ techGroups }: { techGroups: TechGroup[] }) {
                       .map((item) => (
                         <span
                           key={item.id}
-                          className="rounded-full border border-[#102A4C]/10 bg-[#F8FAFC] px-3 py-2 text-sm font-bold text-[#36475C]"
+                          className="max-w-full rounded-full border border-[#102A4C]/10 bg-[#F8FAFC] px-3 py-2 text-sm font-bold text-[#36475C]"
                         >
                           {item.label}
                         </span>
@@ -536,31 +616,42 @@ function TechStackSection({ techGroups }: { techGroups: TechGroup[] }) {
   );
 }
 
+function getProcessGridClass(count: number) {
+  if (count <= 1) return "lg:grid-cols-1";
+  if (count === 2) return "lg:grid-cols-2";
+  if (count === 3) return "lg:grid-cols-3";
+  if (count === 4) return "lg:grid-cols-4";
+  if (count === 5) return "lg:grid-cols-5";
+  if (count === 6) return "lg:grid-cols-6";
+  return "lg:grid-cols-4";
+}
+
 function ProcessSection({ processSteps }: { processSteps: ProcessStep[] }) {
+  const activeSteps = processSteps
+    .filter((step) => step.is_active)
+    .sort((a, b) => a.sort_order - b.sort_order);
+
   return (
-    <section className="bg-white py-24">
+    <section className="bg-white py-16 lg:py-24">
       <div className="container-shell">
         <SectionHeading
           eyebrow="Process"
           title="From idea to launch, every step is clear."
           intro="A simple, visible process keeps momentum high and makes sure every feature has a reason to exist."
         />
-        <div className="relative grid gap-5 lg:grid-cols-5">
-          {processSteps
-            .filter((step) => step.is_active)
-            .sort((a, b) => a.sort_order - b.sort_order)
-            .map((step, index) => (
+        <div className={`relative grid gap-5 md:grid-cols-2 ${getProcessGridClass(activeSteps.length)}`}>
+          {activeSteps.map((step, index) => (
               <article
                 key={step.id}
-                className="relative rounded-[20px] border border-[#102A4C]/10 bg-[#F8FAFC] p-6 transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/22 hover:bg-white"
+                className="relative rounded-[20px] border border-[#102A4C]/10 bg-[#F8FAFC] p-5 transition duration-300 ease-out hover:-translate-y-1 hover:border-[#0057D9]/22 hover:bg-white sm:p-6 lg:p-5"
               >
-                <div className="mb-7 inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-[#071426] px-3 text-sm font-extrabold text-white">
+                <div className="mb-7 inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-[#071426] px-3 text-sm font-extrabold text-white lg:mb-6">
                   {String(index + 1).padStart(2, "0")}
                 </div>
-                <h3 className="text-xl font-extrabold text-[#071426]">
+                <h3 className="text-xl font-extrabold leading-tight text-[#071426] lg:text-lg">
                   {step.title}
                 </h3>
-                <p className="mt-4 text-sm leading-7 text-[#52657C]">
+                <p className="mt-4 text-sm leading-7 text-[#52657C] lg:leading-6">
                   {step.description}
                 </p>
               </article>
@@ -573,7 +664,7 @@ function ProcessSection({ processSteps }: { processSteps: ProcessStep[] }) {
 
 function WhyWorkWithMeSection({ items }: { items: WhyWorkItem[] }) {
   return (
-    <section className="bg-[#071426] py-24 text-white">
+    <section className="bg-[#071426] py-16 text-white lg:py-24">
       <div className="container-shell">
         <SectionHeading
           eyebrow="Why Work With Me"
@@ -590,7 +681,7 @@ function WhyWorkWithMeSection({ items }: { items: WhyWorkItem[] }) {
               return (
                 <article
                   key={item.id}
-                  className="bg-[#071426] p-7 transition duration-300 ease-out hover:bg-[#102A4C]"
+                  className="bg-[#071426] p-5 transition duration-300 ease-out hover:bg-[#102A4C] sm:p-7"
                 >
                   <Icon className="mb-8 text-[#82B9F1]" size={27} />
                   <h3 className="text-lg font-extrabold">{item.title}</h3>
@@ -608,14 +699,14 @@ function WhyWorkWithMeSection({ items }: { items: WhyWorkItem[] }) {
 
 function ContactSection({ section }: { section: ContactSectionType }) {
   return (
-    <section id="contact" className="bg-[#DCE7F3] py-24">
+    <section id="contact" className="bg-[#DCE7F3] py-16 lg:py-24">
       <div className="container-shell">
-        <div className="grid gap-10 rounded-[28px] border border-[#102A4C]/12 bg-[#071426] p-8 text-white md:p-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+        <div className="grid gap-8 rounded-[28px] border border-[#102A4C]/12 bg-[#071426] p-6 text-white md:p-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-10">
           <div>
             <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.24em] text-[#82B9F1]">
               {section.eyebrow}
             </p>
-            <h2 className="text-balance text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
+            <h2 className="text-balance text-[2rem] font-extrabold leading-tight sm:text-4xl lg:text-5xl">
               {section.title}
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72">
@@ -675,7 +766,7 @@ function Footer() {
     <footer className="bg-[#071426] py-8 text-white">
       <div className="container-shell flex flex-col gap-6 border-t border-white/10 pt-8 text-sm md:flex-row md:items-center md:justify-between">
         <p className="font-bold">Nimantha Hewawasam - Software Developer</p>
-        <nav className="flex flex-wrap gap-5 text-white/58">
+        <nav className="flex flex-wrap gap-x-5 gap-y-3 text-white/58">
           <a href="#home" className="hover:text-white">
             Home
           </a>
