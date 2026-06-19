@@ -86,6 +86,7 @@ jobs:
           CPANEL_PORT: ${{ secrets.CPANEL_PORT }}
           CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
           CPANEL_APP_PATH: ${{ secrets.CPANEL_APP_PATH }}
+          GITHUB_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
 
@@ -110,13 +111,17 @@ jobs:
                exit 1
              fi
              cp -R __next_release/. .
+             printf '%s\n' '$GITHUB_SHA' > DEPLOYED_SHA
              rm -rf __next_release deploy.tar.gz
              test -f server.js
              live_size=\$(wc -c < server.js)
              if [ \"\$live_size\" -lt 1000 ]; then
                echo \"Live server.js was not replaced: \$live_size bytes\"
                exit 1
-             fi"
+             fi
+             echo \"Deployment path: \$(pwd)\"
+             echo \"Live server.js size: \$live_size bytes\"
+             ls -la | sed -n '1,40p'"
 
       - name: Restart cPanel Node.js app
         env:
