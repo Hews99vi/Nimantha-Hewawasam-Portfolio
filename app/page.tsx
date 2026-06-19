@@ -122,10 +122,12 @@ function HeroSection({
           </nav>
         </div>
 
-        <div className="relative z-10 mt-10">
-          <h1 className="max-w-[12ch] text-[clamp(3.4rem,18vw,5.6rem)] font-black leading-[0.9] tracking-[-0.045em] text-white drop-shadow-[0_2px_0_rgba(7,20,38,0.08)]">
+        <div className="relative z-10 mt-9 min-w-0">
+          <h1 className="w-full max-w-full text-[clamp(3.1rem,15.5vw,5.25rem)] font-black leading-[0.92] tracking-[-0.025em] text-white drop-shadow-[0_2px_0_rgba(7,20,38,0.08)]">
             {intro.headline_line_1}
-            <span className="block">{intro.headline_line_2}</span>
+            <span className="block text-[clamp(2.9rem,13.6vw,4.85rem)]">
+              {intro.headline_line_2}
+            </span>
           </h1>
           <div className="mt-6 h-2 w-24 bg-[#0057D9]" />
         </div>
