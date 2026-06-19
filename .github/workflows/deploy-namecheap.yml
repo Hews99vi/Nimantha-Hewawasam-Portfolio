@@ -98,7 +98,25 @@ jobs:
 
           ssh -p "$CPANEL_PORT" -T -o BatchMode=yes -o LogLevel=ERROR \
             "$CPANEL_USERNAME@$CPANEL_HOST" \
-            "cd '$CPANEL_APP_PATH' && tar -xzf deploy.tar.gz && rm -f deploy.tar.gz"
+            "set -e
+             cd '$CPANEL_APP_PATH'
+             rm -rf __next_release
+             mkdir -p __next_release
+             tar -xzf deploy.tar.gz -C __next_release
+             test -f __next_release/server.js
+             server_size=\$(wc -c < __next_release/server.js)
+             if [ \"\$server_size\" -lt 1000 ]; then
+               echo \"Extracted server.js is too small: \$server_size bytes\"
+               exit 1
+             fi
+             cp -R __next_release/. .
+             rm -rf __next_release deploy.tar.gz
+             test -f server.js
+             live_size=\$(wc -c < server.js)
+             if [ \"\$live_size\" -lt 1000 ]; then
+               echo \"Live server.js was not replaced: \$live_size bytes\"
+               exit 1
+             fi"
 
       - name: Restart cPanel Node.js app
         env:
