@@ -40,6 +40,7 @@ jobs:
           cp -R .next/standalone/. deploy/
           cp -R .next/static/. deploy/.next/static/
           cp -R public deploy/public
+          tar -czf deploy.tar.gz -C deploy .
 
       - name: Configure SSH
         env:
@@ -79,18 +80,32 @@ jobs:
           ssh-keyscan -p "$CPANEL_PORT" "$CPANEL_HOST" >> ~/.ssh/known_hosts
 
       - name: Upload files to Namecheap
+        env:
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_PORT: ${{ secrets.CPANEL_PORT }}
+          CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
+          CPANEL_APP_PATH: ${{ secrets.CPANEL_APP_PATH }}
         run: |
-          rsync -az --delete \
-            --exclude=".env" \
-            --exclude="tmp/" \
-            --exclude="nodevenv/" \
-            --exclude=".well-known/" \
-            --exclude=".htaccess" \
-            -e "ssh -p ${{ secrets.CPANEL_PORT }} -T -o BatchMode=yes -o LogLevel=ERROR" \
-            deploy/ "${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:${{ secrets.CPANEL_APP_PATH }}/"
+          set -euo pipefail
+
+          ssh -p "$CPANEL_PORT" -T -o BatchMode=yes -o LogLevel=ERROR \
+            "$CPANEL_USERNAME@$CPANEL_HOST" \
+            "mkdir -p '$CPANEL_APP_PATH'"
+
+          scp -P "$CPANEL_PORT" -o BatchMode=yes -o LogLevel=ERROR \
+            deploy.tar.gz "$CPANEL_USERNAME@$CPANEL_HOST:$CPANEL_APP_PATH/deploy.tar.gz"
+
+          ssh -p "$CPANEL_PORT" -T -o BatchMode=yes -o LogLevel=ERROR \
+            "$CPANEL_USERNAME@$CPANEL_HOST" \
+            "cd '$CPANEL_APP_PATH' && tar -xzf deploy.tar.gz && rm -f deploy.tar.gz"
 
       - name: Restart cPanel Node.js app
+        env:
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_PORT: ${{ secrets.CPANEL_PORT }}
+          CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
+          CPANEL_APP_PATH: ${{ secrets.CPANEL_APP_PATH }}
         run: |
-          ssh -p "${{ secrets.CPANEL_PORT }}" -T -o BatchMode=yes -o LogLevel=ERROR \
-            "${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}" \
-            "mkdir -p '${{ secrets.CPANEL_APP_PATH }}/tmp' && touch '${{ secrets.CPANEL_APP_PATH }}/tmp/restart.txt'"
+          ssh -p "$CPANEL_PORT" -T -o BatchMode=yes -o LogLevel=ERROR \
+            "$CPANEL_USERNAME@$CPANEL_HOST" \
+            "mkdir -p '$CPANEL_APP_PATH/tmp' && touch '$CPANEL_APP_PATH/tmp/restart.txt'"
