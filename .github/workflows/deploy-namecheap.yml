@@ -41,7 +41,7 @@ jobs:
           cp -R .next/static/. deploy/.next/static/
           cp -R public deploy/public
           rm -f deploy/.env
-          tar -czf deploy.tar.gz -C deploy .
+          printf '%s\n' "${GITHUB_SHA}" > deploy/DEPLOYED_SHA
 
       - name: Configure SSH
         env:
@@ -90,38 +90,15 @@ jobs:
         run: |
           set -euo pipefail
 
-          ssh -p "$CPANEL_PORT" -T -o BatchMode=yes -o LogLevel=ERROR \
-            "$CPANEL_USERNAME@$CPANEL_HOST" \
-            "mkdir -p '$CPANEL_APP_PATH'"
+          test -f deploy/server.js
+          server_size=$(wc -c < deploy/server.js)
+          if [ "$server_size" -lt 1000 ]; then
+            echo "Local standalone server.js is too small: $server_size bytes"
+            exit 1
+          fi
 
-          scp -P "$CPANEL_PORT" -o BatchMode=yes -o LogLevel=ERROR \
-            deploy.tar.gz "$CPANEL_USERNAME@$CPANEL_HOST:$CPANEL_APP_PATH/deploy.tar.gz"
-
-          ssh -p "$CPANEL_PORT" -T -o BatchMode=yes -o LogLevel=ERROR \
-            "$CPANEL_USERNAME@$CPANEL_HOST" \
-            "set -e
-             cd '$CPANEL_APP_PATH'
-             rm -rf __next_release
-             mkdir -p __next_release
-             tar -xzf deploy.tar.gz -C __next_release
-             test -f __next_release/server.js
-             server_size=\$(wc -c < __next_release/server.js)
-             if [ \"\$server_size\" -lt 1000 ]; then
-               echo \"Extracted server.js is too small: \$server_size bytes\"
-               exit 1
-             fi
-             cp -R __next_release/. .
-             printf '%s\n' '$GITHUB_SHA' > DEPLOYED_SHA
-             rm -rf __next_release deploy.tar.gz
-             test -f server.js
-             live_size=\$(wc -c < server.js)
-             if [ \"\$live_size\" -lt 1000 ]; then
-               echo \"Live server.js was not replaced: \$live_size bytes\"
-               exit 1
-             fi
-             echo \"Deployment path: \$(pwd)\"
-             echo \"Live server.js size: \$live_size bytes\"
-             ls -la | sed -n '1,40p'"
+          scp -r -P "$CPANEL_PORT" -o BatchMode=yes -o LogLevel=ERROR \
+            deploy/. "$CPANEL_USERNAME@$CPANEL_HOST:$CPANEL_APP_PATH/"
 
       - name: Restart cPanel Node.js app
         env:
@@ -130,6 +107,7 @@ jobs:
           CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
           CPANEL_APP_PATH: ${{ secrets.CPANEL_APP_PATH }}
         run: |
-          ssh -p "$CPANEL_PORT" -T -o BatchMode=yes -o LogLevel=ERROR \
-            "$CPANEL_USERNAME@$CPANEL_HOST" \
-            "mkdir -p '$CPANEL_APP_PATH/tmp' && touch '$CPANEL_APP_PATH/tmp/restart.txt'"
+          mkdir -p restart-tmp/tmp
+          date > restart-tmp/tmp/restart.txt
+          scp -r -P "$CPANEL_PORT" -o BatchMode=yes -o LogLevel=ERROR \
+            restart-tmp/tmp "$CPANEL_USERNAME@$CPANEL_HOST:$CPANEL_APP_PATH/"
