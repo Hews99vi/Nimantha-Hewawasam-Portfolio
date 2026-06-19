@@ -40,6 +40,7 @@ jobs:
           cp -R .next/standalone/. deploy/
           cp -R .next/static/. deploy/.next/static/
           cp -R public deploy/public
+          rm -f deploy/.env
           tar -czf deploy.tar.gz -C deploy .
 
       - name: Configure SSH
