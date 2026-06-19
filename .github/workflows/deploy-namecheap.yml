@@ -48,6 +48,8 @@ jobs:
           CPANEL_SSH_KEY: ${{ secrets.CPANEL_SSH_KEY }}
           CPANEL_SSH_PASSPHRASE: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
         run: |
+          set -euo pipefail
+
           test -n "$CPANEL_HOST" || (echo "Missing CPANEL_HOST secret" && exit 1)
           test -n "$CPANEL_PORT" || (echo "Missing CPANEL_PORT secret" && exit 1)
           test -n "$CPANEL_SSH_KEY" || (echo "Missing CPANEL_SSH_KEY secret" && exit 1)
@@ -57,14 +59,23 @@ jobs:
           printf '%s\n' "$CPANEL_SSH_KEY" > ~/.ssh/namecheap_deploy_key
           chmod 600 ~/.ssh/namecheap_deploy_key
 
+          if ! grep -q "BEGIN .*PRIVATE KEY" ~/.ssh/namecheap_deploy_key; then
+            echo "CPANEL_SSH_KEY does not look like a private key. Copy the private key, not the .pub public key."
+            exit 1
+          fi
+
+          echo "Checking SSH private key and passphrase..."
+          ssh-keygen -y -P "$CPANEL_SSH_PASSPHRASE" -f ~/.ssh/namecheap_deploy_key > /dev/null
+
           printf '%s\n' '#!/usr/bin/env bash' 'printf "%s\n" "$CPANEL_SSH_PASSPHRASE"' > ~/.ssh/askpass.sh
           chmod 700 ~/.ssh/askpass.sh
 
           eval "$(ssh-agent -s)"
           echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
           echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
-          DISPLAY=:0 SSH_ASKPASS=~/.ssh/askpass.sh SSH_ASKPASS_REQUIRE=force ssh-add ~/.ssh/namecheap_deploy_key < /dev/null
+          DISPLAY=:0 SSH_ASKPASS="$HOME/.ssh/askpass.sh" SSH_ASKPASS_REQUIRE=force ssh-add ~/.ssh/namecheap_deploy_key < /dev/null
 
+          echo "Adding Namecheap host key..."
           ssh-keyscan -p "$CPANEL_PORT" "$CPANEL_HOST" >> ~/.ssh/known_hosts
 
       - name: Upload files to Namecheap
