@@ -86,11 +86,11 @@ jobs:
             --exclude="nodevenv/" \
             --exclude=".well-known/" \
             --exclude=".htaccess" \
-            -e "ssh -p ${{ secrets.CPANEL_PORT }} -o BatchMode=yes -o LogLevel=ERROR" \
+            -e "ssh -p ${{ secrets.CPANEL_PORT }} -T -o BatchMode=yes -o LogLevel=ERROR" \
             deploy/ "${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:${{ secrets.CPANEL_APP_PATH }}/"
 
       - name: Restart cPanel Node.js app
         run: |
-          ssh -p "${{ secrets.CPANEL_PORT }}" -o BatchMode=yes -o LogLevel=ERROR \
+          ssh -p "${{ secrets.CPANEL_PORT }}" -T -o BatchMode=yes -o LogLevel=ERROR \
             "${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}" \
             "mkdir -p '${{ secrets.CPANEL_APP_PATH }}/tmp' && touch '${{ secrets.CPANEL_APP_PATH }}/tmp/restart.txt'"
