@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./interior.css";
 :root {
   --paper: #f7f7f2;
   --surface: #eeeee7;
@@ -1096,41 +1097,6 @@ dd {
 .about-tools {
   background: var(--surface);
 }
-.about-tools-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.75fr);
-  gap: clamp(40px, 6vw, 80px);
-}
-.about-tools h2 {
-  max-width: 10ch;
-}
-.skill-groups {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 36px 40px;
-}
-.skill-groups > div {
-  min-width: 0;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
-}
-.skill-groups h3 {
-  font-size: 1.15rem;
-  margin-bottom: 16px;
-}
-.skill-groups ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.skill-groups li {
-  font-size: 0.95rem;
-  max-width: 100%;
-  overflow-wrap: anywhere;
-}
 .about-principles h2 {
   max-width: 18ch;
 }
@@ -1153,13 +1119,6 @@ dd {
   max-width: 65ch;
 }
 @media (max-width: 960px) {
-  .about-tools-layout {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 40px;
-  }
-  .about-tools h2 {
-    max-width: none;
-  }
   .about-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: 24px;
@@ -1192,12 +1151,6 @@ dd {
     margin-top: 20px;
   }
 }
-@media (max-width: 480px) {
-  .skill-groups {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 28px;
-  }
-}
 .service-list details {
   border-top: 1px solid var(--line);
   scroll-margin-top: 30px;
@@ -1220,7 +1173,7 @@ dd {
 .service-list h2 {
   font-size: clamp(1.5rem, 2.6vw, 2.2rem);
 }
-.service-list details[open] summary svg {
+.service-list details[open] summary .service-toggle {
   transform: rotate(45deg);
 }
 .service-list details > div {
@@ -1263,24 +1216,6 @@ dd {
   min-height: 75vh;
   padding-bottom: 100px;
 }
-.contact-details {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 70px;
-  border-top: 1px solid var(--line);
-  padding-top: 40px;
-}
-.email-address {
-  display: inline-flex;
-  gap: 20px;
-  align-items: center;
-  font-size: clamp(1.2rem, 2.7vw, 2.3rem);
-  letter-spacing: -0.03em;
-  word-break: break-word;
-}
-.email-address:hover {
-  color: var(--accent);
-}
 .copy-email {
   margin-top: 15px;
 }
@@ -1295,11 +1230,6 @@ dd {
   color: var(--muted);
   min-height: 25px;
   margin-top: 8px;
-}
-.contact-details dl {
-  margin: 0;
-  display: grid;
-  gap: 25px;
 }
 .contact-socials {
   display: flex;
@@ -1752,10 +1682,6 @@ dd {
     flex-direction: column;
   }
   .project-context {
-    gap: 40px;
-  }
-  .contact-details {
-    grid-template-columns: 1fr;
     gap: 40px;
   }
   .article-card:first-child {

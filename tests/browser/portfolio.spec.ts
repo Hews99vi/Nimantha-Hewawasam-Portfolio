@@ -54,9 +54,9 @@ test("public routes, gallery navigation, original view and keyboard focus", asyn
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   }
   await page.goto("/services");
-  const summary = page.locator("summary").first();
+  const summary = page.locator("summary").nth(1);
   await summary.click();
-  await expect(page.locator("details").first()).toHaveAttribute("open", "");
+  await expect(page.locator("details").nth(1)).toHaveAttribute("open", "");
   await page.screenshot({
     path: ".impeccable/review/services-expanded-1440.png",
     fullPage: true,
