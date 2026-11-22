@@ -1,0 +1,202 @@
+/* Home uses real artifacts and one service-selection drawing as its motion focus. */
+.home-page .project-compact .project-caption p:not(.project-category) {
+  line-height: 1.7;
+  max-width: 60ch;
+}
+.project-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  list-style: none;
+  padding: 18px 0 0;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.project-technologies li {
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+.home-page .project-featured {
+  align-items: center;
+}
+.home-capabilities {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.home-capabilities > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding-right: 12px;
+  font-size: 0.85rem;
+}
+.home-capabilities svg {
+  color: var(--accent);
+}
+.home-services-explorer {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+}
+.home-service-preview {
+  min-width: 0;
+}
+.home-service-preview .service-diagram {
+  border: 0;
+  border-radius: 0;
+}
+.home-service-preview .service-diagram figcaption {
+  padding: 20px 24px;
+}
+.home-service-preview > div > p {
+  margin-top: 18px;
+  font-size: 0.94rem;
+  max-width: 55ch;
+}
+.home-service-links {
+  min-width: 0;
+}
+.home-service-hint {
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+}
+.home-service-links a {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  min-height: 76px;
+  padding-block: 18px;
+  border-top: 1px solid var(--line);
+  transition: color 180ms ease;
+}
+.home-service-links a:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.home-service-links h3 {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.45;
+}
+.home-service-links a[data-selected="true"],
+.home-service-links a:hover,
+.home-service-links a:focus-visible {
+  color: var(--accent);
+}
+.home-service-open {
+  font-size: 0.75rem;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.testimonial-browsable .testimonial-layout {
+  align-items: start;
+}
+.feedback-browser {
+  min-width: 0;
+}
+.feedback-controls {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.83rem;
+  font-variant-numeric: tabular-nums;
+}
+.feedback-ready .feedback-controls {
+  display: flex;
+}
+.feedback-controls > div {
+  display: flex;
+  gap: 8px;
+}
+.feedback-controls button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+.feedback-controls button:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
+}
+.feedback-controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.feedback-scroll-hint {
+  font-size: 0.83rem;
+  margin-bottom: 20px;
+}
+.feedback-ready .feedback-scroll-hint {
+  display: none;
+}
+.feedback-rail {
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  padding-bottom: 24px;
+}
+.feedback-rail::-webkit-scrollbar {
+  display: none;
+}
+.feedback-rail .testimonial-card {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  padding: 0 24px 8px 0;
+}
+.feedback-rail .testimonial-card:focus-visible {
+  outline-offset: -3px;
+}
+.feedback-rail .testimonial-card blockquote {
+  max-width: 42ch;
+  font-size: clamp(1.35rem, 2.1vw, 1.85rem);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+@media (max-width: 768px) {
+  .home-services-explorer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .home-service-preview {
+    max-width: 480px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .home-service-links a {
+    min-height: 70px;
+    gap: 14px;
+  }
+  .home-service-open {
+    font-size: 0.72rem;
+  }
+  .feedback-rail .testimonial-card {
+    padding-right: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-service-preview .diagram-trace {
+    animation: none;
+  }
+  .feedback-rail {
+    scroll-behavior: auto;
+  }
+}

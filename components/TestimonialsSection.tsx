@@ -1,5 +1,6 @@
 import type { TestimonialItem } from "@/types/content";
 import { Quote } from "lucide-react";
+import { FeedbackRail } from "@/components/home/FeedbackRail";
 
 function customerInitials(name: string) {
   const words = name.trim().split(/\s+/u).filter(Boolean);
@@ -20,7 +21,7 @@ export function TestimonialsSection({ items }: { items: TestimonialItem[] }) {
 
   return (
     <section
-      className="testimonial-section section-space"
+      className="testimonial-section testimonial-browsable section-space"
       id="testimonials"
       aria-labelledby="testimonials-title"
     >
@@ -29,17 +30,20 @@ export function TestimonialsSection({ items }: { items: TestimonialItem[] }) {
           <h2 id="testimonials-title">In their words.</h2>
           <p>Feedback from people I’ve worked with.</p>
         </div>
-        <div className="testimonials">
+        <FeedbackRail count={published.length}>
           {published.map((item, index) => (
-            <figure className="testimonial-card" key={item.id}>
-              {index === 0 && (
-                <Quote
-                  className="testimonial-quote-mark"
-                  size={28}
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                />
-              )}
+            <figure
+              className="testimonial-card"
+              key={item.id}
+              tabIndex={0}
+              aria-label={`Review ${index + 1} of ${published.length}`}
+            >
+              <Quote
+                className="testimonial-quote-mark"
+                size={28}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
               <blockquote>
                 <p>{item.quote}</p>
               </blockquote>
@@ -54,7 +58,7 @@ export function TestimonialsSection({ items }: { items: TestimonialItem[] }) {
               </figcaption>
             </figure>
           ))}
-        </div>
+        </FeedbackRail>
       </div>
     </section>
   );

@@ -266,7 +266,7 @@ The primary action is cobalt with white text, the control radius, a minimum heig
 
 Hero actions use a wrapping flex row with a (12px) gap and stretch alignment. Both links have a (48px) minimum height, (14px) semibold (600) text, (6px) corners, (12px 20px) padding, and a (140px) minimum width bounded by the available space. The primary uses cobalt; the secondary has a transparent background, hero-ink text, and a (1px) current-color outline. Labels may wrap and increase height. Defaults are “View projects” → `/work` and “Get in touch” → `/contact`; both stay editable in Introduction. Only exact shipped legacy action pairs normalize to these defaults; custom values are retained. No database migration or reseeding is needed.
 
-Home, shared project cards, and shared contact invitations use text and hover/focus treatments rather than decorative diagonal arrows. Keep functional previous/next controls in galleries and pagination. Homepage service rows remain full-width links with underlined cobalt text on hover/focus.
+Home, shared project cards, and shared contact invitations use text and hover/focus treatments rather than decorative diagonal arrows. Keep functional previous/next controls in galleries and pagination. Homepage service rows remain full-width navigation links; the selected row, hover, and keyboard focus use cobalt, with an underlined “View service” action.
 
 Links, buttons, disclosure summaries, and form controls receive a cobalt (3px) focus outline with a (5px) offset. Do not infer a universal pressed treatment: source defines only the component states that exist.
 
@@ -280,6 +280,8 @@ The logo and two-line name anchor the left edge; Work, About, Services, Blog, an
 
 The artifact leads the card; caption metadata, a linked title, description, and underlined project action sit outside the image mat. Hover gently scales cover imagery to (1.025) over (0.6s) with the shared easing curve. A project without an image shows an explicit text preview using its actual problem, category, and tags, rather than a fabricated screenshot. Image failures show “Image unavailable.”
 
+Home shows the first three public projects in its compact preview variant. It uses the first description sentence, shortened from a (220-character) clipping window with a word boundary and ellipsis when needed, followed by up to four saved technology tags separated by fine bottom rules. The first project retains the featured image-and-caption split. Work and project detail pages retain complete descriptions; the compact presentation does not change CMS content.
+
 ### Gallery and native dialog
 
 Every detail-page image is a labeled button with a small “View image” badge. The native modal dialog fills the viewport. It provides a close control, fit/original zoom toggle, original-file link, caption, image count, and, for multiple images, arrows and a horizontally scrollable thumbnail strip. Left/right keys cycle images; Escape closes; closing restores focus to the opener and body scrolling. Switching images resets zoom and error state.
@@ -288,7 +290,7 @@ Previews use image quality (90); detail and fitted viewer images use (95). The i
 
 ### Home About teaser
 
-“A person behind the pixels” pairs the same uncropped, user-supplied portrait with the complete CMS introduction and biography on the soft surface. Shared image corners and a fine footer rule connect the underlined “More about me” link to the saved contact location; the location is omitted when empty. The original PNG remains unchanged, with responsive quality-(95) lazy delivery. The existing `#about` anchor, CMS content ownership, and Services layout are preserved; no database migration is required.
+“A person behind the pixels” pairs the same uncropped, user-supplied portrait with the CMS introduction on the soft surface. A ruled three-column capability strip shows the first three active CMS technology groups in saved order, with their existing cobalt category icons. The complete biography remains on About. Shared image corners and a fine footer rule frame the underlined “More about me” link. Home omits the saved contact location; location content elsewhere remains unchanged. The original PNG remains unchanged, with responsive quality-(95) lazy delivery. The existing `#about` anchor, CMS content ownership, and Services layout are preserved; no database migration is required.
 
 ### About portrait, biography, and approach
 
@@ -297,6 +299,12 @@ The About opening uses the shared paper canvas, ink, Manrope, image radius, and 
 Tools use the soft surface with a connected discipline map and a selected-tools inspector. Each discipline is a native button with an icon, label, and `aria-pressed` state; the first active discipline is initially selected. Selected buttons receive cobalt borders and icons. The inspector updates its heading and saved tool labels, announces the update politely, and separates tool labels with fine bottom rules. CMS active state and ordering remain authoritative; no illustrative tools enter runtime content.
 
 The user supplied `public/images/nimantha-about.png` at (3506 × 4381px); the original PNG is used unchanged. Responsive image delivery uses quality (95) and preload without cropping the portrait. Existing CMS biography, facts, tool groups, principles, ordering, and visibility remain authoritative. This refinement adds no photo-upload schema or new content ownership rule.
+
+### Home service explorer
+
+Home pairs a conceptual schematic and the selected description with the published service navigation list. The six services in the reviewed content use native links to `/services#service-{id}`; CMS active state and ordering remain authoritative. The first published service is initially selected. Keyboard focus or non-touch pointer entry changes the diagram, title, and description; touch activation follows the link. Each newly selected schematic runs its existing finite cobalt connection trace once. Selection remains navigation rather than a tab or disclosure.
+
+The preview has a flat soft-surface mat, caption rule, and no enclosing rounded border. The explorer uses a (0.9fr / 1.1fr) split and a responsive (32–80px) gap; at or below (768px), its preview sits above the links, capped at (480px). Rows have fine dividers, a saved category icon, title, and underlined action, with (76px) minimum height, tightening to (70px) on narrow screens. With JavaScript unavailable, the first preview and every native service link remain usable; unpublished services produce explanatory empty text.
 
 ### Service disclosures and process
 
@@ -310,7 +318,9 @@ The shared contact invitation remains a dark tonal section with a large underlin
 
 The panel repeats the saved location beside a real clock with tabular numerals. A location matching “Sri Lanka” uses `Asia/Colombo` and the “Local time” label; other saved locations use an explicit “UTC” label rather than an inferred local zone. The direct email link uses `mailto:`. Copy email keeps its text action and reserved status area; actual clipboard success or failure is announced and cleared after (5s). Email text wraps, and panel actions receive a paper-colored keyboard focus outline for contrast.
 
-Testimonials form an open editorial composition on the soft surface. A compact heading column sits beside the quotations with a (48–100px) responsive gap. The first quotation leads at (24–32px), with a small cobalt quote mark; further reviews use smaller body type in paired columns separated by fine neutral top rules. A final unpaired review spans the available width. There are no white panels, enclosing borders, card radii, or minimum heights. Circular (44px) text initials sit beside the name and role/company as one attribution group, (24–32px) below the complete quotation. The heading stacks above the reviews at (960px); paired reviews become one column at (640px). Preserve admin order, initials-only identity, and the supplied wording. These are static reading surfaces with no hover lift. Only genuine published feedback belongs in runtime content; omit the section when none is published.
+Home testimonials form an open editorial composition on the soft surface. A compact heading column sits beside an automatically advancing native scroll-snap rail with manual controls with a (48–100px) responsive gap. Each review occupies the rail’s full width and preserves its complete quotation, a small cobalt quote mark, and initials-only attribution. All quotes use the same responsive (1.35–1.85rem) scale with (1.6) leading and a (42ch) measure. Circular (44px) initials sit beside the name and role/company, (32px) below the quotation. There are no white panels, enclosing card borders, card radii, or hover lift. The heading stacks above the rail at (960px).
+
+After JavaScript enhancement, a fine ruled control row shows a “Review n of total” counter and (44px) previous/next buttons when multiple reviews exist. Automatic advances are not announced; the counter is polite when reduced motion disables rotation. Boundary buttons disable at the first and last review. The focusable rail and individual quotations retain native keyboard focus and scrolling; swipe, trackpad, and keyboard browsing remain available; the native scrollbar is visually hidden. All published quotes stay in the document in saved order. Without JavaScript, controls stay hidden and a swipe/scroll hint accompanies the native rail, so no inert buttons appear. Reviews advance every (6s) while at least half the rail is visible, then return immediately from the last to the first. Rotation pauses on hover, keyboard focus, hidden tabs, and offscreen content. Rotation resumes after hover and focus leave. Manual navigation keeps the same automatic rotation; no pause/play control is displayed. Reduced motion disables automatic rotation and makes button scrolling immediate. Only genuine published feedback belongs in runtime content; omit the section when none is published.
 
 ### Fields and CMS boundary
 
@@ -318,7 +328,7 @@ There is no public contact form. The media editor’s labeled inputs/textareas h
 
 ### Motion and reading
 
-Project hover uses the shared easing; primary and text actions use brief color transitions. About, Services, and Contact add one-time section entrances of (550ms) with a small (12px) vertical movement. Content is visible before enhancement; the observer unobserves entered sections and disconnects on unmount. Toolkit selection uses a (250ms) entrance. Service traces run once over (900ms); the contact connection trace runs once over (1400ms). These interior effects add no infinite decorative loops.
+Project hover uses the shared easing; primary and text actions use brief color transitions. About, Services, and Contact add one-time section entrances of (550ms) with a small (12px) vertical movement. Content is visible before enhancement; the observer unobserves entered sections and disconnects on unmount. Toolkit selection uses a (250ms) entrance. Service traces run once over (900ms); the contact connection trace runs once over (1400ms). These interior effects add no infinite decorative loops. Home reuses the service trace on selection; the feedback rail advances every (6s) when visible and idle, with reading pauses and manual navigation. Reduced motion disables this automatic rotation.
 
 Reduced motion leaves all content and selected state visible, stops spatial entrances and wire traces, and removes toolkit/toggle transitions. Smooth page scrolling is also disabled, with existing global animations and transitions effectively removed. Articles use deliberate paragraph/heading spacing, underlined cobalt links, dark code blocks, and horizontally scrollable code or tables where required.
 

@@ -45,7 +45,7 @@ test("home and shared components remain navigable without decorative diagonal ar
       "main svg.lucide-arrow-up-right,main svg.lucide-arrow-down-right",
     ),
   ).toHaveCount(0);
-  const service = page.locator(".service-summary a").first();
+  const service = page.locator(".home-service-links a").first();
   await expect(service).toHaveAttribute("href", /\/services#service-/);
   await service.click();
   await expect(page).toHaveURL(/\/services#service-/);
@@ -61,7 +61,7 @@ test("home and shared components remain navigable without decorative diagonal ar
   await expect(page.locator(".project-pagination a").first()).toBeVisible();
   await expect(
     page.getByRole("button", {
-      name: "Open image 1: Synthetic test screenshot 1",
+      name: /^Open image 1:/,
     }),
   ).toBeVisible();
 });

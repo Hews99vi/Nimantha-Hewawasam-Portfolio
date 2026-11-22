@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./interior.css";
+@import "./home.css";
 :root {
   --paper: #f7f7f2;
   --surface: #eeeee7;
@@ -620,25 +621,10 @@ hr {
   max-width: 25ch;
   margin-top: 24px;
 }
-.testimonials {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 36px;
-}
 .testimonial-card {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding-block: 28px 32px;
-  border-top: 1px solid var(--line);
-}
-.testimonial-card:first-child {
-  grid-column: 1 / -1;
-  padding-block: 0 40px;
-  border-top: 0;
-}
-.testimonial-card:last-child:nth-child(even) {
-  grid-column: 1 / -1;
 }
 .testimonial-quote-mark {
   color: var(--accent);
@@ -663,14 +649,6 @@ hr {
   font-size: clamp(1.05rem, 1.35vw, 1.15rem);
   line-height: 1.75;
   letter-spacing: -0.015em;
-}
-.testimonial-card:first-child blockquote {
-  max-width: 40ch;
-  margin-bottom: 32px;
-  font-size: clamp(1.5rem, 2.25vw, 2rem);
-  font-weight: 450;
-  line-height: 1.5;
-  letter-spacing: -0.025em;
 }
 .testimonial-card blockquote p {
   color: var(--ink);
@@ -1519,14 +1497,6 @@ dd {
   .testimonial-heading p {
     max-width: none;
     margin-top: 16px;
-  }
-}
-@media (max-width: 640px) {
-  .testimonials {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .testimonial-card:first-child {
-    padding-bottom: 32px;
   }
 }
 @media (max-width: 800px) {

@@ -8,6 +8,8 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { getPortfolioContent } from "@/lib/content";
 import { publicProjects } from "@/lib/projects";
 import { normalizePublicAssetPath } from "@/lib/asset-path";
+import { HomeServices } from "@/components/home/HomeServices";
+import { iconMap } from "@/lib/icons";
 
 export default async function Home() {
   const content = await getPortfolioContent();
@@ -16,7 +18,7 @@ export default async function Home() {
     .filter((b) => b.is_active)
     .sort((a, b) => a.sort_order - b.sort_order);
   return (
-    <main id="content">
+    <main id="content" className="home-page">
       <Hero intro={content.siteIntro} socialLinks={content.socialLinks} />
       <section id="projects" className="section-space container-shell">
         <div className="section-heading">
@@ -30,7 +32,7 @@ export default async function Home() {
         {projects.length ? (
           <div className="project-grid">
             {projects.map((p, i) => (
-              <ProjectCard key={p.id} project={p} featured={i === 0} />
+              <ProjectCard key={p.id} project={p} featured={i === 0} compact />
             ))}
           </div>
         ) : (
@@ -58,14 +60,25 @@ export default async function Home() {
           </figure>
           <div className="home-about-copy">
             <p className="lead">{content.aboutSection.intro}</p>
-            <p>{content.aboutSection.body}</p>
+            <div className="home-capabilities" aria-label="Areas I work across">
+              {content.techGroups
+                .filter((group) => group.is_active)
+                .sort((a, b) => a.sort_order - b.sort_order)
+                .slice(0, 3)
+                .map((group) => {
+                  const Icon = iconMap[group.icon_key];
+                  return (
+                    <div key={group.id}>
+                      <Icon size={24} strokeWidth={1.5} aria-hidden="true" />
+                      <span>{group.title}</span>
+                    </div>
+                  );
+                })}
+            </div>
             <div className="home-about-footer">
               <Link className="text-action" href="/about">
                 More about me
               </Link>
-              {content.contactSection.location && (
-                <span>{content.contactSection.location}</span>
-              )}
             </div>
           </div>
         </div>
@@ -77,16 +90,11 @@ export default async function Home() {
             Explore services
           </Link>
         </div>
-        <div className="service-summary">
-          {content.services
+        <HomeServices
+          services={content.services
             .filter((s) => s.is_active)
-            .sort((a, b) => a.sort_order - b.sort_order)
-            .map((service) => (
-              <Link key={service.id} href={`/services#service-${service.id}`}>
-                <h3>{service.title}</h3>
-              </Link>
-            ))}
-        </div>
+            .sort((a, b) => a.sort_order - b.sort_order)}
+        />
       </section>
       {brands.length > 0 && (
         <section className="brand-section section-space">

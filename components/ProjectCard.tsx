@@ -2,16 +2,19 @@ import Link from "next/link";
 import type { ProjectItem } from "@/types/content";
 import { imageUrl } from "@/lib/project-media";
 import { MediaImage } from "@/components/MediaImage";
+import { projectTeaser } from "@/lib/project-teaser";
 export function ProjectCard({
   project,
   featured = false,
+  compact = false,
 }: {
   project: ProjectItem;
   featured?: boolean;
+  compact?: boolean;
 }) {
   const cover = project.images[0];
   return (
-    <article className={`project-card ${featured ? "project-featured" : ""}`}>
+    <article className={`project-card ${featured ? "project-featured" : ""} ${compact ? "project-compact" : ""}`}>
       {cover && imageUrl(cover.storage_path) ? (
         <Link
           href={`/work/${project.slug}`}
@@ -45,7 +48,12 @@ export function ProjectCard({
           <h3>
             <Link href={`/work/${project.slug}`}>{project.title}</Link>
           </h3>
-          <p>{project.description}</p>
+          <p>{compact ? projectTeaser(project.description) : project.description}</p>
+          {compact && project.tags.length > 0 && (
+            <ul className="project-technologies" aria-label="Technologies">
+              {project.tags.slice(0, 4).map((tag) => <li key={tag}>{tag}</li>)}
+            </ul>
+          )}
         </div>
         <Link href={`/work/${project.slug}`} className="text-action">
           Explore project
