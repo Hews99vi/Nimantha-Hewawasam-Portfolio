@@ -18,6 +18,7 @@ import type {
 import { normalizePublicAssetPath } from "@/lib/asset-path";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { BlogCategoriesEditor, BlogPostsEditor, BlogSettingsEditor } from "@/app/admin/BlogEditors";
+import { ProjectMediaEditor } from "@/app/admin/ProjectMediaEditor";
 import { IconSelect } from "@/app/admin/IconSelect";
 
 type AdminDashboardProps = {
@@ -56,6 +57,7 @@ type ApiResult<T> = {
   message?: string;
   data?: T;
   fieldErrors?: Record<string, string[]>;
+  cleanupPaths?: string[];
 };
 
 function createTempId() {
@@ -229,24 +231,24 @@ export function AdminDashboard({ initialData, adminEmail }: AdminDashboardProps)
                 />
                 <div className="grid gap-5 md:grid-cols-2">
                   <AdminField
-                    label="CTA label"
+                    label="Primary action label"
                     value={data.siteIntro.cta_label}
                     onChange={(value) => updateSingleton("siteIntro", "cta_label", value)}
                   />
                   <AdminField
-                    label="CTA href"
+                    label="Primary action destination"
                     value={data.siteIntro.cta_href}
                     onChange={(value) => updateSingleton("siteIntro", "cta_href", value)}
                   />
                 </div>
                 <div className="grid gap-5 md:grid-cols-2">
                   <AdminField
-                    label="Work link label"
+                    label="Secondary action label"
                     value={data.siteIntro.work_link_label}
                     onChange={(value) => updateSingleton("siteIntro", "work_link_label", value)}
                   />
                   <AdminField
-                    label="Work link href"
+                    label="Secondary action destination"
                     value={data.siteIntro.work_link_href}
                     onChange={(value) => updateSingleton("siteIntro", "work_link_href", value)}
                   />
@@ -463,14 +465,14 @@ export function AdminDashboard({ initialData, adminEmail }: AdminDashboardProps)
                 quote: "",
                 name: "",
                 role: "",
-                is_active: true,
+                is_active: false,
               })}
               fields={[
                 { key: "quote", label: "Quote", type: "textarea" },
                 { key: "name", label: "Name", type: "text" },
-                { key: "role", label: "Role", type: "text" },
+                { key: "role", label: "Role / company", type: "text" },
                 { key: "sort_order", label: "Order", type: "number" },
-                { key: "is_active", label: "Active", type: "checkbox" },
+                { key: "is_active", label: "Publicly visible", type: "checkbox" },
               ]}
               saveEndpoint="/api/admin/testimonials"
               pending={isPending}
@@ -755,18 +757,22 @@ function ProjectsEditor({
   runAction: RunAction;
   setMessage: MessageSetter;
 }) {
+  const [uploading, setUploading] = useState(false);
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-extrabold text-[#071426]">Projects</h2>
         <button
           type="button"
+          disabled={pending || uploading}
           onClick={() =>
             onChange([
               ...projects,
               {
                 id: createTempId(),
                 sort_order: projects.length + 1,
+                slug: "",
+                images: [],
                 category: "",
                 title: "",
                 description: "",
@@ -790,6 +796,7 @@ function ProjectsEditor({
             <p className="text-sm font-extrabold text-[#071426]">Project {index + 1}</p>
             <button
               type="button"
+              disabled={pending || uploading}
               onClick={() =>
                 handleDeleteListItem({
                   item: project,
@@ -807,6 +814,7 @@ function ProjectsEditor({
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
+            {project.slug && <p className="text-sm text-[#52657C] md:col-span-2">Public URL: /work/{project.slug} (kept when the title changes)</p>}
             <AdminField
               label="Category"
               value={project.category}
@@ -871,6 +879,8 @@ function ProjectsEditor({
             />
           </div>
 
+          <ProjectMediaEditor projectId={project.id} images={project.images ?? []} disabled={pending || uploading} onBusyChange={setUploading} onChange={(images) => onChange(updateCollectionItem(projects, project.id, item => ({...item, images})))}/>
+
           <div className="mt-4 flex flex-wrap gap-5">
             <CheckField
               label="Featured"
@@ -896,7 +906,7 @@ function ProjectsEditor({
           <div className="mt-4 flex gap-3">
             <button
               type="button"
-              disabled={pending}
+              disabled={pending || uploading}
               onClick={() =>
                 handleSaveListItem({
                   item: project,
@@ -917,7 +927,7 @@ function ProjectsEditor({
 
       <button
         type="button"
-        disabled={pending}
+        disabled={pending || uploading}
         onClick={() =>
           handleSaveOrder({
             items: projects,

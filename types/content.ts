@@ -1,4 +1,6 @@
 export type IconKey =
+  | "linkedin"
+  | "github"
   | "code2"
   | "briefcaseBusiness"
   | "camera"
@@ -73,7 +75,18 @@ export type ServiceItem = {
   is_active: boolean;
 };
 
+export type ProjectImage = {
+  storage_path: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+  size: number;
+};
+
 export type ProjectItem = {
+  slug: string;
+  images: ProjectImage[];
   id: string;
   sort_order: number;
   category: string;

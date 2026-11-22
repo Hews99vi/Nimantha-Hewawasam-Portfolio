@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { projectImagesSchema } from "@/lib/project-media";
 import { normalizePublicAssetPath } from "@/lib/asset-path";
 import { allowedIconKeys } from "@/lib/icons";
 import { normalizeDateTimeInput, slugify } from "@/lib/slug";
@@ -87,6 +88,7 @@ export const serviceSchema = z.object({
 });
 
 export const projectSchema = z.object({
+  images: projectImagesSchema.optional(),
   sort_order: z.number().int().nonnegative(),
   category: nonEmpty,
   title: nonEmpty,

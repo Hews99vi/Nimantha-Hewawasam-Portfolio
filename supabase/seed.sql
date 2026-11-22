@@ -19,10 +19,10 @@ values (
   'Introducing',
   'Software Developer, building digital products for modern businesses.',
   'I design and develop professional web applications, mobile apps, dashboards, automation systems, and AI-powered solutions that help businesses grow with confidence.',
-  'View Projects',
-  '#projects',
-  'My work',
-  '#projects'
+  'View projects',
+  '/work',
+  'Get in touch',
+  '/contact'
 )
 on conflict (id) do update
 set
@@ -88,8 +88,8 @@ delete from social_links;
 
 insert into social_links (id, sort_order, label, href, icon_key, is_active)
 values
-  ('11111111-1111-4111-8111-111111111111', 1, 'GitHub', '#', 'code2', true),
-  ('11111111-1111-4111-8111-111111111112', 2, 'LinkedIn', '#', 'briefcaseBusiness', true),
+  ('11111111-1111-4111-8111-111111111111', 1, 'GitHub', '#', 'github', true),
+  ('11111111-1111-4111-8111-111111111112', 2, 'LinkedIn', '#', 'linkedin', true),
   ('11111111-1111-4111-8111-111111111113', 3, 'Instagram', '#', 'camera', true),
   ('11111111-1111-4111-8111-111111111114', 4, 'Email', 'mailto:vidunethnim@gmail.com', 'mail', true);
 
@@ -171,9 +171,9 @@ values
 
 insert into testimonials (id, sort_order, quote, name, role, is_active)
 values
-  ('99999999-9999-4999-8999-999999999991', 1, 'Nimantha understood the project clearly and delivered a clean, working system with the features we needed.', 'Client Name', 'Business Owner', true),
-  ('99999999-9999-4999-8999-999999999992', 2, 'The communication was smooth, and the final result looked professional and easy to manage.', 'Client Name', 'Startup Founder', true),
-  ('99999999-9999-4999-8999-999999999993', 3, 'He was able to turn the idea into a real digital product with proper structure and practical features.', 'Project Supervisor', 'Academic Platform', true);
+  ('99999999-9999-4999-8999-999999999991', 1, 'Nimantha understood the project clearly and delivered a clean, working system with the features we needed.', 'Client Name', 'Business Owner', false),
+  ('99999999-9999-4999-8999-999999999992', 2, 'The communication was smooth, and the final result looked professional and easy to manage.', 'Client Name', 'Startup Founder', false),
+  ('99999999-9999-4999-8999-999999999993', 3, 'He was able to turn the idea into a real digital product with proper structure and practical features.', 'Project Supervisor', 'Academic Platform', false);
 
 insert into trusted_brands (id, sort_order, name, url, logo_src, industry, is_active)
 values

@@ -1,0 +1,431 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-27T14:59:43.859323+00:00",
+  "title": "Design System: Nimantha Hewawasam Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "tonalRamp": [
+          "oklch(15% 0.0066 106.52)",
+          "oklch(26% 0.0066 106.52)",
+          "oklch(38% 0.0066 106.52)",
+          "oklch(49% 0.0066 106.52)",
+          "oklch(61% 0.0066 106.52)",
+          "oklch(72% 0.0066 106.52)",
+          "oklch(84% 0.0066 106.52)",
+          "oklch(95% 0.0066 106.52)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Soft Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0093 106.58)",
+          "oklch(26% 0.0093 106.58)",
+          "oklch(38% 0.0093 106.58)",
+          "oklch(49% 0.0093 106.58)",
+          "oklch(61% 0.0093 106.58)",
+          "oklch(72% 0.0093 106.58)",
+          "oklch(84% 0.0093 106.58)",
+          "oklch(95% 0.0093 106.58)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0135 229.52)",
+          "oklch(26% 0.0135 229.52)",
+          "oklch(38% 0.0135 229.52)",
+          "oklch(49% 0.0135 229.52)",
+          "oklch(61% 0.0135 229.52)",
+          "oklch(72% 0.0135 229.52)",
+          "oklch(84% 0.0135 229.52)",
+          "oklch(95% 0.0135 229.52)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0093 216.69)",
+          "oklch(26% 0.0093 216.69)",
+          "oklch(38% 0.0093 216.69)",
+          "oklch(49% 0.0093 216.69)",
+          "oklch(61% 0.0093 216.69)",
+          "oklch(72% 0.0093 216.69)",
+          "oklch(84% 0.0093 216.69)",
+          "oklch(95% 0.0093 216.69)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Fine Divider",
+        "tonalRamp": [
+          "oklch(15% 0.0097 119.60)",
+          "oklch(26% 0.0097 119.60)",
+          "oklch(38% 0.0097 119.60)",
+          "oklch(49% 0.0097 119.60)",
+          "oklch(61% 0.0097 119.60)",
+          "oklch(72% 0.0097 119.60)",
+          "oklch(84% 0.0097 119.60)",
+          "oklch(95% 0.0097 119.60)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Cobalt",
+        "tonalRamp": [
+          "oklch(15% 0.2115 260.60)",
+          "oklch(26% 0.2115 260.60)",
+          "oklch(38% 0.2115 260.60)",
+          "oklch(49% 0.2115 260.60)",
+          "oklch(61% 0.2115 260.60)",
+          "oklch(72% 0.2115 260.60)",
+          "oklch(84% 0.2115 260.60)",
+          "oklch(95% 0.2115 260.60)"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Cobalt Hover",
+        "tonalRamp": [
+          "oklch(15% 0.1647 260.45)",
+          "oklch(26% 0.1647 260.45)",
+          "oklch(38% 0.1647 260.45)",
+          "oklch(49% 0.1647 260.45)",
+          "oklch(61% 0.1647 260.45)",
+          "oklch(72% 0.1647 260.45)",
+          "oklch(84% 0.1647 260.45)",
+          "oklch(95% 0.1647 260.45)"
+        ]
+      },
+      "dark": {
+        "role": "neutral",
+        "displayName": "Deep Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0265 235.53)",
+          "oklch(26% 0.0265 235.53)",
+          "oklch(38% 0.0265 235.53)",
+          "oklch(49% 0.0265 235.53)",
+          "oklch(61% 0.0265 235.53)",
+          "oklch(72% 0.0265 235.53)",
+          "oklch(84% 0.0265 235.53)",
+          "oklch(95% 0.0265 235.53)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(26% 0.0000 0.00)",
+          "oklch(38% 0.0000 0.00)",
+          "oklch(49% 0.0000 0.00)",
+          "oklch(61% 0.0000 0.00)",
+          "oklch(72% 0.0000 0.00)",
+          "oklch(84% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      },
+      "hero-surround": {
+        "role": "neutral",
+        "displayName": "Hero Surround",
+        "tonalRamp": [
+          "oklch(15% 0.0084 157.07)",
+          "oklch(26% 0.0084 157.07)",
+          "oklch(38% 0.0084 157.07)",
+          "oklch(49% 0.0084 157.07)",
+          "oklch(61% 0.0084 157.07)",
+          "oklch(72% 0.0084 157.07)",
+          "oklch(84% 0.0084 157.07)",
+          "oklch(95% 0.0084 157.07)"
+        ]
+      },
+      "hero-surface": {
+        "role": "neutral",
+        "displayName": "Hero Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0244 250.12)",
+          "oklch(26% 0.0244 250.12)",
+          "oklch(38% 0.0244 250.12)",
+          "oklch(49% 0.0244 250.12)",
+          "oklch(61% 0.0244 250.12)",
+          "oklch(72% 0.0244 250.12)",
+          "oklch(84% 0.0244 250.12)",
+          "oklch(95% 0.0244 250.12)"
+        ]
+      },
+      "hero-ink": {
+        "role": "neutral",
+        "displayName": "Hero Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0448 251.67)",
+          "oklch(26% 0.0448 251.67)",
+          "oklch(38% 0.0448 251.67)",
+          "oklch(49% 0.0448 251.67)",
+          "oklch(61% 0.0448 251.67)",
+          "oklch(72% 0.0448 251.67)",
+          "oklch(84% 0.0448 251.67)",
+          "oklch(95% 0.0448 251.67)"
+        ]
+      },
+      "hero-muted": {
+        "role": "neutral",
+        "displayName": "Hero Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0429 247.72)",
+          "oklch(26% 0.0429 247.72)",
+          "oklch(38% 0.0429 247.72)",
+          "oklch(49% 0.0429 247.72)",
+          "oklch(61% 0.0429 247.72)",
+          "oklch(72% 0.0429 247.72)",
+          "oklch(84% 0.0429 247.72)",
+          "oklch(95% 0.0429 247.72)"
+        ]
+      },
+      "hero-line": {
+        "role": "neutral",
+        "displayName": "Hero Line",
+        "tonalRamp": [
+          "oklch(15% 0.0344 249.74)",
+          "oklch(26% 0.0344 249.74)",
+          "oklch(38% 0.0344 249.74)",
+          "oklch(49% 0.0344 249.74)",
+          "oklch(61% 0.0344 249.74)",
+          "oklch(72% 0.0344 249.74)",
+          "oklch(84% 0.0344 249.74)",
+          "oklch(95% 0.0344 249.74)"
+        ]
+      },
+      "lightbox": {
+        "role": "neutral",
+        "displayName": "Viewer Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0206 236.71)",
+          "oklch(26% 0.0206 236.71)",
+          "oklch(38% 0.0206 236.71)",
+          "oklch(49% 0.0206 236.71)",
+          "oklch(61% 0.0206 236.71)",
+          "oklch(72% 0.0206 236.71)",
+          "oklch(84% 0.0206 236.71)",
+          "oklch(95% 0.0206 236.71)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "General page headings."
+      },
+      "hero-display": {
+        "displayName": "Hero Display",
+        "purpose": "Desktop hero name; responsive overrides documented in Layout."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Third-level headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Inherited public body copy."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Introductory paragraphs."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Main navigation."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Primary action labels."
+      },
+      "article-body": {
+        "displayName": "Article Body",
+        "purpose": "Long-form article text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "portrait",
+        "value": "drop-shadow(0 20px 25px #20304016)",
+        "purpose": "CSS filter on the transparent hero portrait."
+      },
+      {
+        "name": "mobile-menu",
+        "value": "0 15px 30px #17262f16",
+        "purpose": "Box shadow on the open mobile navigation."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Project cover hover easing."
+      },
+      {
+        "name": "cover-hover",
+        "value": "transform 0.6s var(--ease)",
+        "purpose": "Cover scale to 1.025 on hover."
+      },
+      {
+        "name": "action-color",
+        "value": "0.2s",
+        "purpose": "Primary background and text action color transitions."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Effectively disables animations/transitions; scrolling becomes auto."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "hero-stack",
+        "value": "1100px"
+      },
+      {
+        "name": "mobile-navigation-and-layout",
+        "value": "800px"
+      },
+      {
+        "name": "single-column",
+        "value": "560px"
+      },
+      {
+        "name": "wide-hero",
+        "value": "1500px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary link or action; cobalt at rest and darker on hover.",
+      "html": "<a class=\"ds-button\" href=\"#work\">View projects</a>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--accent,#0057d9);color:#fff;min-height:50px;padding:13px 22px;border:0;border-radius:6px;font-size:.88rem;font-weight:700;text-decoration:none;transition:background .2s;font-family:var(--font-manrope),sans-serif;}.ds-button:hover{background:#003d9c}.ds-button:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Text Action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Quiet underlined link used under copy and beside section headings.",
+      "html": "<a class=\"ds-text-action\" href=\"#project\">Explore project</a>",
+      "css": ".ds-text-action{display:inline-flex;align-items:center;gap:10px;color:var(--ink,#20282c);font-size:.9rem;font-weight:650;min-height:44px;text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--line,#d7d9d2);transition:color .2s;font-family:var(--font-manrope),sans-serif;}.ds-text-action:hover{color:var(--accent,#0057d9);text-decoration-color:currentColor}.ds-text-action:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Current item is cobalt with a two-pixel underline.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Preview navigation\"><a href=\"#work\" aria-current=\"page\">Work</a><a href=\"#about\">About</a><a href=\"#contact\">Contact</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:32px;font-size:.88rem;font-weight:650;color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}.ds-nav a{position:relative;padding:10px 0;text-decoration:none;color:inherit}.ds-nav a:hover,.ds-nav a[aria-current=\"page\"]{color:var(--accent,#0057d9)}.ds-nav a[aria-current=\"page\"]:after{content:\"\";position:absolute;bottom:2px;left:0;right:0;height:2px;background:var(--accent,#0057d9)}.ds-nav a:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Project Text Preview",
+      "kind": "card",
+      "refersTo": "project-cover",
+      "description": "Actual no-image variant; specimen wording is explicitly illustrative.",
+      "html": "<article class=\"ds-project\"><div class=\"ds-project-preview\"><span>Project category</span><p>Project problem statement</p><span>Project technology / tools</span></div><h3><a href=\"#project\">Project title</a></h3></article>",
+      "css": ".ds-project{max-width:500px;color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}.ds-project-preview{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:240px;padding:35px;background:var(--surface,#eeeee7);border-radius:var(--radius,12px)}.ds-project-preview span{font-size:.75rem;color:var(--muted,#5b6264)}.ds-project-preview p{font-size:1.7rem;line-height:1.3;letter-spacing:-.03em;max-width:25ch;margin:0}.ds-project h3{font-size:1.4rem;line-height:1.25;letter-spacing:-.035em;margin:23px 0 0}.ds-project h3 a{display:flex;justify-content:space-between;gap:18px;color:inherit;text-decoration:none}.ds-project h3 a:hover{color:var(--accent,#0057d9)}.ds-project a:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Media Editor Field",
+      "kind": "input",
+      "refersTo": "media-input",
+      "description": "Existing CMS media field; public contact has no form.",
+      "html": "<label class=\"ds-field\">Alternative text<input type=\"text\" placeholder=\"Describe the screenshot\" /></label>",
+      "css": ".ds-field{display:block;font-size:.8rem;color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}.ds-field input{display:block;width:100%;padding:9px;border:1px solid var(--line,#d7d9d2);margin-top:4px;font:inherit;border-radius:0}.ds-field input:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Service Disclosure",
+      "kind": "custom",
+      "description": "Native details/summary row, preserving keyboard and open behavior.",
+      "html": "<details class=\"ds-service\"><summary><h2>Service title</h2><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><div><p>Service detail text.</p></div></details>",
+      "css": ".ds-service{border-top:1px solid var(--line,#d7d9d2);color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}.ds-service summary{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:30px 0;cursor:pointer;list-style:none}.ds-service summary::-webkit-details-marker{display:none}.ds-service h2{font-size:clamp(1.5rem,2.6vw,2.2rem);font-weight:650;line-height:1.12;letter-spacing:-.035em;margin:0}.ds-service[open] summary svg{transform:rotate(45deg)}.ds-service summary:hover{color:var(--accent,#0057d9)}.ds-service summary:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}.ds-service>div{max-width:75ch;padding-bottom:35px}.ds-service p{color:var(--muted,#5b6264);margin:0;line-height:1.65}"
+    },
+    {
+      "name": "Gallery Label",
+      "kind": "custom",
+      "refersTo": "gallery-trigger",
+      "description": "The image opener label; its production parent opens the native dialog.",
+      "html": "<span class=\"ds-gallery-label\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3M8 11h6M11 8v6\"/></svg>View image</span>",
+      "css": ".ds-gallery-label{display:inline-flex;align-items:center;gap:8px;background:var(--paper,#f7f7f2);padding:8px 13px;border-radius:6px;font-size:.75rem;color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}"
+    },
+    {
+      "name": "Testimonial Quotation",
+      "kind": "card",
+      "description": "Open quotation on the soft surface, with compact initials beside the attribution. The leading review uses larger type; additional reviews use neutral dividers. Specimen content is illustrative.",
+      "html": "<figure class=\"ds-testimonial\"><blockquote><p>Illustrative quotation for the design specimen.</p></blockquote><figcaption><span class=\"ds-testimonial-initials\" aria-hidden=\"true\">SC</span><div><strong>Sample customer</strong><span>Role / company</span></div></figcaption></figure>",
+      "css": ".ds-testimonial{display:flex;flex-direction:column;box-sizing:border-box;max-width:760px;margin:0;padding:28px 0 32px;border-top:1px solid var(--line,#d7d9d2);background:var(--surface,#eeeee7);color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif}.ds-testimonial blockquote{margin:0 0 32px;font-size:clamp(1.5rem,2.25vw,2rem);font-weight:450;line-height:1.5;letter-spacing:-.025em}.ds-testimonial blockquote p{margin:0}.ds-testimonial figcaption{display:flex;align-items:center;gap:14px}.ds-testimonial-initials{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;border:1px solid var(--line,#d7d9d2);border-radius:50%;font-size:14px;font-weight:650}.ds-testimonial figcaption div{display:flex;flex-direction:column;min-width:0;gap:3px}.ds-testimonial figcaption div span{font-size:.83rem;color:var(--muted,#5b6264);line-height:1.65}"
+    },
+    {
+      "name": "Hero Actions",
+      "kind": "button",
+      "refersTo": "hero-action-primary",
+      "description": "Editable primary work link and secondary contact link; equal minimum height, wrapping labels, no decorative arrows.",
+      "html": "<div class=\"ds-hero-actions\"><a class=\"ds-hero-action\" href=\"/work\">View projects</a><a class=\"ds-hero-action ds-hero-secondary\" href=\"/contact\">Get in touch</a></div>",
+      "css": ".ds-hero-actions{display:flex;flex-wrap:wrap;align-items:stretch;gap:12px;font-family:var(--font-manrope),sans-serif}.ds-hero-action{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:min(140px,100%);max-width:100%;box-sizing:border-box;padding:12px 20px;border:1px solid transparent;border-radius:6px;background:var(--accent,#0057d9);color:#fff;font-size:14px;font-weight:600;line-height:1.5;text-align:center;text-decoration:none;white-space:normal;overflow-wrap:anywhere}.ds-hero-action:hover{background:#003d9c}.ds-hero-secondary{background:transparent;border-color:currentColor;color:#24374c}.ds-hero-secondary:hover{background:rgba(36,55,76,.06)}.ds-hero-action:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px}"
+    },
+    {
+      "name": "About Approach Row",
+      "kind": "custom",
+      "description": "Light, divided heading-and-description row from About. Specimen wording is illustrative; production content remains CMS-owned.",
+      "html": "<section class=\"ds-about-approach\" aria-label=\"Illustrative approach row\"><h3>Approach title</h3><p>Published approach descriptions remain readable in an open column and stack beneath the title on narrow screens.</p></section>",
+      "css": ".ds-about-approach { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(40px, 6vw, 80px); padding: 28px 0; border-top: 1px solid var(--line, #d7d9d2); background: var(--paper, #f7f7f2); color: var(--ink, #20282c); font-family: var(--font-manrope), sans-serif; } .ds-about-approach h3 { margin: 0; max-width: 28ch; font-size: 1.15rem; font-weight: 650; line-height: 1.5; letter-spacing: -0.035em; text-wrap: balance; } .ds-about-approach p { margin: 0; max-width: 65ch; color: var(--muted, #5b6264); font-size: 1rem; line-height: 1.65; overflow-wrap: break-word; } @media (max-width: 700px) { .ds-about-approach { grid-template-columns: minmax(0, 1fr); gap: 20px; } }"
+    },
+    {
+      "name": "Home About Footer",
+      "kind": "custom",
+      "description": "Ruled footer joining Home About navigation with the saved contact location. Specimen location is illustrative.",
+      "html": "<div class=\"ds-home-about-footer\"><a href=\"/about\">More about me</a><span>Location from CMS</span></div>",
+      "css": ".ds-home-about-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px; border-top: 1px solid var(--line, #d7d9d2); padding-top: 16px; background: var(--surface, #eeeee7); color: var(--ink, #20282c); font-family: var(--font-manrope), sans-serif; line-height: 1.65; } .ds-home-about-footer a { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.9rem; font-weight: 650; color: inherit; text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--line, #d7d9d2); transition: color 0.2s; } .ds-home-about-footer a:hover { color: var(--accent, #0057d9); text-decoration-color: currentColor; } .ds-home-about-footer a:focus-visible { outline: 3px solid var(--accent, #0057d9); outline-offset: 5px; } .ds-home-about-footer > span { color: var(--muted, #5b6264); font-size: 0.88rem; max-width: 100%; overflow-wrap: anywhere; } @media (prefers-reduced-motion: reduce) { .ds-home-about-footer a { transition: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Image-led editorial portfolio",
+    "overview": "The public portfolio uses warm off-white, charcoal, restrained cobalt, fine dividers, and self-hosted Manrope. Open editorial columns and varied image-led layouts put actual project work ahead of interface decoration. The existing name, portrait, and introduction composition remains the home hero’s recognizable opening.\n\nThis records the implemented public system, not a new identity proposal. The CMS retains some earlier navy/white, square-field styling; the media editor shares the current neutral tokens. Surface modes and page strategy remain in .impeccable/direction.md. Review screenshots use explicitly labeled synthetic media and feedback; they are layout evidence, not portfolio claims.",
+    "keyCharacteristics": [
+      "Warm neutral surfaces with a restrained cobalt action color.",
+      "Fine dividers and open columns rather than nested panels.",
+      "Contained, uncropped project screenshots and original-resolution inspection.",
+      "A preserved portrait hero that stacks before its columns collide."
+    ],
+    "rules": [
+      {
+        "name": "The Artifact Rule",
+        "body": "Keep project screenshots uncropped and cap their display width at their intrinsic pixel width or the available width, whichever is smaller.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Use tonal surfaces and fine dividers for ordinary grouping; the existing shadows are limited to the portrait and open mobile menu.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do reuse the public palette and self-hosted variable Manrope.",
+      "Do preserve the hero’s name, portrait, and introduction relationship, including its stacked tablet layout.",
+      "Do show real project images in full, preserve captions, and keep original-resolution access.",
+      "Do retain visible keyboard focus, native disclosure/dialog behavior, and reduced-motion support.",
+      "Do represent unavailable images and missing feedback honestly."
+    ],
+    "donts": [
+      "Don't invent screenshots, testimonials, client claims, or decorative replacement media.",
+      "Don't enlarge gallery images beyond their intrinsic width or crop project screenshots to fill a frame.",
+      "Don't spread the hero’s blue-gray surface across every page; ordinary content uses paper and surface neutrals.",
+      "Don't replace open lists and dividers with nested cards or add unrelated gradients and glow.",
+      "Don't treat fixture-based review or the limited finish review as live Supabase or full-site approval."
+    ]
+  }
+}

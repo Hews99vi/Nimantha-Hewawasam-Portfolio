@@ -1,3 +1,6 @@
+import { normalizeProjects } from "@/lib/projects";
+import { normalizeSiteIntroActions } from "@/lib/site-intro";
+import { normalizeSocialLinks } from "@/lib/social-links";
 import { unstable_cache } from "next/cache";
 import { defaultPortfolioContent } from "@/lib/content-defaults";
 import {
@@ -90,13 +93,13 @@ function withPortfolioDefaults(content: Partial<PortfolioContent>): PortfolioCon
   return {
     ...defaultPortfolioContent,
     ...content,
-    siteIntro: content.siteIntro ?? defaultPortfolioContent.siteIntro,
+    siteIntro: normalizeSiteIntroActions(content.siteIntro ?? defaultPortfolioContent.siteIntro),
     aboutSection: content.aboutSection ?? defaultPortfolioContent.aboutSection,
     contactSection: content.contactSection ?? defaultPortfolioContent.contactSection,
-    socialLinks: content.socialLinks ?? defaultPortfolioContent.socialLinks,
+    socialLinks: normalizeSocialLinks(content.socialLinks ?? defaultPortfolioContent.socialLinks),
     aboutStats: content.aboutStats ?? defaultPortfolioContent.aboutStats,
     services: content.services ?? defaultPortfolioContent.services,
-    projects: content.projects ?? defaultPortfolioContent.projects,
+    projects: normalizeProjects(content.projects ?? defaultPortfolioContent.projects),
     techGroups: content.techGroups ?? defaultPortfolioContent.techGroups,
     processSteps: content.processSteps ?? defaultPortfolioContent.processSteps,
     whyWorkItems: content.whyWorkItems ?? defaultPortfolioContent.whyWorkItems,
@@ -204,8 +207,8 @@ async function fetchPortfolioContentFromSupabase(): Promise<PortfolioContent> {
 
 const getCachedPortfolioContent = unstable_cache(
   async () => withPortfolioDefaults(await fetchPortfolioContentFromSupabase()),
-  ["portfolio-content-v3"],
-  { revalidate: 120 },
+  ["portfolio-content-v4"],
+  { revalidate: 120, tags: ["portfolio-content"] },
 );
 
 export async function getPortfolioContent(): Promise<PortfolioContent> {
@@ -309,13 +312,13 @@ export async function getAdminBootstrapData(): Promise<PortfolioContent> {
     );
 
   return {
-    siteIntro: siteIntro.data ?? defaultPortfolioContent.siteIntro,
+    siteIntro: normalizeSiteIntroActions(siteIntro.data ?? defaultPortfolioContent.siteIntro),
     aboutSection: aboutSection.data ?? defaultPortfolioContent.aboutSection,
     contactSection: contactSection.data ?? defaultPortfolioContent.contactSection,
-    socialLinks: socialLinks.data ?? defaultPortfolioContent.socialLinks,
+    socialLinks: normalizeSocialLinks(socialLinks.data ?? defaultPortfolioContent.socialLinks),
     aboutStats: aboutStats.data ?? defaultPortfolioContent.aboutStats,
     services: services.data ?? defaultPortfolioContent.services,
-    projects: projects.data ?? defaultPortfolioContent.projects,
+    projects: normalizeProjects(projects.data ?? defaultPortfolioContent.projects),
     techGroups:
       techGroups.data?.map((group) => ({
         ...group,

@@ -12,16 +12,28 @@ export async function GET(
   const config = getCollectionConfig(collection);
 
   if (!config) {
-    return NextResponse.json({ success: false, message: "Unknown collection." }, { status: 404 });
+    return NextResponse.json(
+      { success: false, message: "Unknown collection." },
+      { status: 404 },
+    );
   }
   if (!admin.configured) {
-    return NextResponse.json({ success: false, message: "Supabase is not configured." }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: "Supabase is not configured." },
+      { status: 500 },
+    );
   }
   if (!admin.user) {
-    return NextResponse.json({ success: false, message: "Authentication required." }, { status: 401 });
+    return NextResponse.json(
+      { success: false, message: "Authentication required." },
+      { status: 401 },
+    );
   }
   if (!admin.isAdmin || !admin.supabase) {
-    return NextResponse.json({ success: false, message: "Admin access required." }, { status: 403 });
+    return NextResponse.json(
+      { success: false, message: "Admin access required." },
+      { status: 403 },
+    );
   }
 
   const { data, error } = await admin.supabase
@@ -30,10 +42,17 @@ export async function GET(
     .order("sort_order");
 
   if (error) {
-    return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 },
+    );
   }
 
-  return NextResponse.json({ success: true, message: "Collection loaded.", data });
+  return NextResponse.json({
+    success: true,
+    message: "Collection loaded.",
+    data,
+  });
 }
 
 export async function POST(
@@ -45,19 +64,48 @@ export async function POST(
   const config = getCollectionConfig(collection);
 
   if (!config) {
-    return NextResponse.json({ success: false, message: "Unknown collection." }, { status: 404 });
+    return NextResponse.json(
+      { success: false, message: "Unknown collection." },
+      { status: 404 },
+    );
   }
   if (!admin.configured) {
-    return NextResponse.json({ success: false, message: "Supabase is not configured." }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: "Supabase is not configured." },
+      { status: 500 },
+    );
   }
   if (!admin.user) {
-    return NextResponse.json({ success: false, message: "Authentication required." }, { status: 401 });
+    return NextResponse.json(
+      { success: false, message: "Authentication required." },
+      { status: 401 },
+    );
   }
   if (!admin.isAdmin || !admin.supabase) {
-    return NextResponse.json({ success: false, message: "Admin access required." }, { status: 403 });
+    return NextResponse.json(
+      { success: false, message: "Admin access required." },
+      { status: 403 },
+    );
   }
 
-  const rawPayload = await request.json();
+  let rawPayload;
+  try {
+    rawPayload = await request.json();
+  } catch {
+    return NextResponse.json(
+      { success: false, message: "Invalid JSON." },
+      { status: 400 },
+    );
+  }
+  if (
+    !rawPayload ||
+    typeof rawPayload !== "object" ||
+    Array.isArray(rawPayload)
+  )
+    return NextResponse.json(
+      { success: false, message: "Expected an object." },
+      { status: 400 },
+    );
   const payload =
     config.table === "projects" && typeof rawPayload.tags === "string"
       ? {
@@ -73,17 +121,25 @@ export async function POST(
 
   if (!parsed.success) {
     return NextResponse.json(
-      { success: false, message: "Validation failed.", fieldErrors: parsed.error.flatten().fieldErrors },
+      {
+        success: false,
+        message: "Validation failed.",
+        fieldErrors: parsed.error.flatten().fieldErrors,
+      },
       { status: 400 },
     );
   }
 
   if (
     config.table === "projects" &&
-    "is_featured" in parsed.data &&
-    parsed.data.is_featured
+    "images" in parsed.data &&
+    Array.isArray(parsed.data.images) &&
+    parsed.data.images.length
   ) {
-    await admin.supabase.from("projects").update({ is_featured: false }).eq("is_featured", true);
+    return NextResponse.json(
+      { success: false, message: "Save the project before adding images." },
+      { status: 400 },
+    );
   }
 
   const { data, error } = await admin.supabase
@@ -93,7 +149,10 @@ export async function POST(
     .single();
 
   if (error) {
-    return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 },
+    );
   }
 
   revalidateAdminPaths();
