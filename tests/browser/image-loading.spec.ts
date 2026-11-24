@@ -1,0 +1,22 @@
+import { test, expect } from "@playwright/test";
+test("portraits load responsive prebuilt images while project previews keep quality 90", async ({ page, request }) => {
+  await page.setViewportSize({ width: 390, height: 900 });
+  await page.goto("/");
+  const hero = page.locator(".hero-portrait");
+  await expect(hero).toHaveAttribute("loading", "eager");
+  await expect(hero).toHaveAttribute("fetchpriority", "high");
+  await expect(hero).toHaveAttribute("srcset", /480w.*2048w/);
+  await expect.poll(() => hero.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  const src = await hero.evaluate((image: HTMLImageElement) => image.currentSrc);
+  expect(src).toMatch(/\/images\/optimized\/hero-\d+-[a-f0-9]+\.webp$/);
+  const response = await request.get(src);
+  expect(response.headers()["cache-control"]).toContain("immutable");
+  expect((await response.body()).length).toBeLessThan(150000);
+  await expect(page.locator(".home-about-portrait img")).toHaveAttribute("loading", "lazy");
+  await expect(page.locator(".home-about-portrait img")).toHaveAttribute("src", /\/images\/optimized\/about-/);
+  await expect(page.locator(".project-featured .project-cover img")).toHaveAttribute("sizes", /681px/);
+  await expect(page.locator(".project-featured .project-cover img")).toHaveAttribute("src", /q=90/);
+  await page.goto("/about");
+  await expect(page.locator(".about-portrait img")).toHaveAttribute("loading", "eager");
+  await expect(page.locator(".about-portrait img")).toHaveAttribute("src", /\/images\/optimized\/about-/);
+});

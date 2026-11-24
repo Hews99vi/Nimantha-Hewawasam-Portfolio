@@ -30,8 +30,8 @@ export function ProjectCard({
             height={cover.height}
             sizes={
               featured
-                ? "(max-width: 768px) 100vw, 70vw"
-                : "(max-width: 768px) 100vw, 50vw"
+                ? "(max-width: 800px) calc(100vw - 40px), (max-width: 1260px) calc(60vw - 75px), 681px"
+                : "(max-width: 560px) calc(100vw - 40px), (max-width: 800px) calc(50vw - 32.5px), (max-width: 1260px) calc(50vw - 57.5px), 572.5px"
             }
           />
         </Link>

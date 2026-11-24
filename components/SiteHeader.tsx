@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
+import { LocalImage } from "@/components/LocalImage";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -47,12 +47,11 @@ export function SiteHeader({ embedded = false }: { embedded?: boolean }) {
         aria-label="Nimantha Hewawasam home"
         className="brand-mark"
       >
-        <Image
-          src="/images/Main logo.png"
+        <LocalImage
+          image="logo"
           alt=""
-          width={62}
-          height={62}
-          loading={embedded ? "eager" : "lazy"}
+          sizes="(max-width: 800px) 40px, 62px"
+          eager
         />
         <span>
           Nimantha

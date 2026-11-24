@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       { source: "/:path*", headers: baselineHeaders },
+      { source: "/images/optimized/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       // Admin gets a fresh nonce policy in proxy.ts. Keep public ISR HTML cacheable.
       { source: "/((?!admin(?:/|$)|api/admin(?:/|$)).*)", headers: [{ key: "Content-Security-Policy", value: contentSecurityPolicy() }] },
     ];
