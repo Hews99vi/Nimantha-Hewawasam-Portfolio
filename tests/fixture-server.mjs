@@ -129,6 +129,7 @@ for (const source of [
   "postcss.config.mjs",
   "proxy.ts",
   "instrumentation.ts",
+  "scripts",
 ]) {
   await cp(join(projectDirectory, source), join(testDirectory, source), {
     recursive: true,
@@ -157,9 +158,9 @@ server.listen(4318, "127.0.0.1", async () => {
     child = build;
     const code = await new Promise(resolve => build.on("exit", resolve));
     if (code !== 0) { server.close(); await rm(testDirectory, { recursive: true, force: true }); process.exit(1); }
-    await cp(join(testDirectory, "public"), join(testDirectory, ".next/standalone/public"), { recursive: true });
-    await cp(join(testDirectory, ".next/static"), join(testDirectory, ".next/standalone/.next/static"), { recursive: true });
-    child = spawn(process.execPath, [join(testDirectory, ".next/standalone/server.js")], { cwd: join(testDirectory, ".next/standalone"), env, stdio: "inherit" });
+    const { prepareDirect } = await import("../scripts/deploy/direct.mjs");
+    const bundle = await prepareDirect(testDirectory, "a".repeat(40), env);
+    child = spawn(process.execPath, [join(bundle.directory, "server.js")], { cwd: bundle.directory, env, stdio: "inherit" });
   } else {
     child = spawn(process.execPath, [join(projectDirectory, "node_modules/next/dist/bin/next"), "dev", testDirectory, "--webpack", "--hostname", "127.0.0.1", "--port", "3100"], { cwd: testDirectory, env, stdio: "inherit" });
   }
