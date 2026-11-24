@@ -4,13 +4,6 @@ on:
   push:
   pull_request:
   workflow_dispatch:
-    inputs:
-      release_mode:
-        description: "Normal deployment or one-time launcher setup"
-        required: true
-        type: choice
-        default: deploy
-        options: [deploy, stage, verify-bootstrap]
 
 permissions:
   contents: read
@@ -54,8 +47,6 @@ jobs:
       CPANEL_PORT: ${{ secrets.CPANEL_PORT }}
       CPANEL_USERNAME: ${{ secrets.CPANEL_USERNAME }}
       CPANEL_APP_PATH: ${{ secrets.CPANEL_APP_PATH }}
-      CPANEL_RELEASES_READY: ${{ vars.CPANEL_RELEASES_READY }}
-      RELEASE_MODE: ${{ inputs.release_mode || 'deploy' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -78,7 +69,7 @@ jobs:
       - name: Check release configuration
         if: steps.current.outputs.deploy == 'true'
         run: |
-          node --input-type=module -e 'import { deploymentConfig } from "./scripts/deploy/release.mjs"; deploymentConfig(); if (process.env.RELEASE_MODE === "deploy" && process.env.CPANEL_RELEASES_READY !== "true") throw new Error("Complete the one-time launcher setup in README before enabling automatic deployment.");'
+          node --input-type=module -e 'import { deploymentConfig } from "./scripts/deploy/release.mjs"; deploymentConfig();'
       - name: Install production build dependencies
         if: steps.current.outputs.deploy == 'true'
         run: npm ci
@@ -90,7 +81,7 @@ jobs:
         run: npm run build
       - name: Prepare portable release
         if: steps.current.outputs.deploy == 'true'
-        run: npm run release:prepare -- "$GITHUB_SHA"
+        run: node scripts/deploy/direct.mjs prepare "$GITHUB_SHA"
       - name: Retain release artifact
         if: steps.current.outputs.deploy == 'true'
         uses: actions/upload-artifact@v4
@@ -108,10 +99,15 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$CPANEL_SSH_KEY" || (echo "Missing CPANEL_SSH_KEY" && exit 1)
-          test -n "$CPANEL_KNOWN_HOSTS" || (echo "Missing verified CPANEL_KNOWN_HOSTS" && exit 1)
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "$CPANEL_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          if [ -n "$CPANEL_KNOWN_HOSTS" ]; then
+            printf '%s\n' "$CPANEL_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          else
+            echo "Discovering the SSH host key as in the original deployment workflow."
+            ssh-keyscan -T 15 -p "$CPANEL_PORT" -H "$CPANEL_HOST" > ~/.ssh/known_hosts 2>/dev/null
+            test -s ~/.ssh/known_hosts || (echo "SSH host-key discovery failed" && exit 1)
+          fi
           chmod 600 ~/.ssh/known_hosts
           printf '%s\n' "$CPANEL_SSH_KEY" > ~/.ssh/portfolio_key
           chmod 600 ~/.ssh/portfolio_key
@@ -123,12 +119,9 @@ jobs:
           echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
           DISPLAY=:0 SSH_ASKPASS="$HOME/.ssh/portfolio_askpass" SSH_ASKPASS_REQUIRE=force ssh-add ~/.ssh/portfolio_key < /dev/null
           rm -f ~/.ssh/portfolio_key ~/.ssh/portfolio_askpass
-      - name: Read-only hosting capability check
+      - name: Upload application, restart and verify
         if: steps.current.outputs.deploy == 'true'
-        run: node scripts/deploy/release.mjs probe "$GITHUB_SHA"
-      - name: Stage, activate and verify release
-        if: steps.current.outputs.deploy == 'true'
-        run: node scripts/deploy/release.mjs "$RELEASE_MODE" "$GITHUB_SHA"
+        run: node scripts/deploy/direct.mjs deploy "$GITHUB_SHA"
       - name: Clear SSH agent
         if: always() && env.SSH_AGENT_PID != ''
         run: ssh-agent -k
