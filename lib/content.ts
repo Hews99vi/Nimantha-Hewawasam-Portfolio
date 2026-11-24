@@ -1,3 +1,6 @@
+import { normalizeProjects } from "@/lib/projects";
+import { normalizeSiteIntroActions } from "@/lib/site-intro";
+import { normalizeSocialLinks } from "@/lib/social-links";
 import { unstable_cache } from "next/cache";
 import { defaultPortfolioContent } from "@/lib/content-defaults";
 import {
@@ -86,142 +89,57 @@ function stripBlogPostCategories(posts: BlogPostWithCategories[]): BlogPost[] {
   }));
 }
 
-function withPortfolioDefaults(content: Partial<PortfolioContent>): PortfolioContent {
-  return {
-    ...defaultPortfolioContent,
-    ...content,
-    siteIntro: content.siteIntro ?? defaultPortfolioContent.siteIntro,
-    aboutSection: content.aboutSection ?? defaultPortfolioContent.aboutSection,
-    contactSection: content.contactSection ?? defaultPortfolioContent.contactSection,
-    socialLinks: content.socialLinks ?? defaultPortfolioContent.socialLinks,
-    aboutStats: content.aboutStats ?? defaultPortfolioContent.aboutStats,
-    services: content.services ?? defaultPortfolioContent.services,
-    projects: content.projects ?? defaultPortfolioContent.projects,
-    techGroups: content.techGroups ?? defaultPortfolioContent.techGroups,
-    processSteps: content.processSteps ?? defaultPortfolioContent.processSteps,
-    whyWorkItems: content.whyWorkItems ?? defaultPortfolioContent.whyWorkItems,
-    testimonials: content.testimonials ?? defaultPortfolioContent.testimonials,
-    trustedBrands: content.trustedBrands ?? defaultPortfolioContent.trustedBrands,
-    blogSettings: content.blogSettings ?? defaultPortfolioContent.blogSettings,
-    blogCategories: content.blogCategories ?? defaultPortfolioContent.blogCategories,
-    blogPosts: content.blogPosts ?? defaultPortfolioContent.blogPosts,
-  };
+function normalizeContent(content: PortfolioContent): PortfolioContent {
+  return { ...content, siteIntro: normalizeSiteIntroActions(content.siteIntro), socialLinks: normalizeSocialLinks(content.socialLinks), projects: normalizeProjects(content.projects), contactSection: { ...content.contactSection, whatsapp_number: content.contactSection.whatsapp_number ?? null } };
 }
 
-async function fetchPortfolioContentFromSupabase(): Promise<PortfolioContent> {
-  const supabase = createSupabasePublicClient();
+type QueryResult = { data: unknown; error: { code?: string } | null };
+function checked<T>(table: string, result: QueryResult, singleton = false): T {
+  if (result.error || result.data === null || (!singleton && !Array.isArray(result.data))) {
+    console.error("Portfolio content query failed", { table, code: result.error?.code ?? "missing-data" });
+    throw new Error("Portfolio content is temporarily unavailable.");
+  }
+  return result.data as T;
+}
 
-  const [
-    siteIntroResult,
-    aboutResult,
-    contactResult,
-    socialLinksResult,
-    aboutStatsResult,
-    servicesResult,
-    projectsResult,
-    techGroupsResult,
-    techItemsResult,
-    processResult,
-    whyWorkResult,
-    testimonialsResult,
-    trustedBrandsResult,
-    blogSettingsResult,
-    blogCategoriesResult,
-    blogPostsResult,
-    blogPostCategoriesResult,
-  ] = await Promise.all([
-    supabase.from("site_intro").select("*").limit(1).maybeSingle(),
-    supabase.from("about_section").select("*").limit(1).maybeSingle(),
-    supabase.from("contact_section").select("*").limit(1).maybeSingle(),
-    supabase.from("social_links").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("about_stats").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("services").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("projects").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("tech_groups").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("tech_group_items").select("*").order("sort_order"),
-    supabase.from("process_steps").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("why_work_items").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("testimonials").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("trusted_brands").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("blog_settings").select("*").limit(1).maybeSingle(),
-    supabase.from("blog_categories").select("*").eq("is_active", true).order("sort_order"),
-    supabase.from("blog_posts").select("*").eq("is_published", true).order("sort_order"),
-    supabase.from("blog_post_categories").select("*"),
+async function fetchContent(admin = false): Promise<PortfolioContent> {
+  const supabase = admin ? await createSupabaseServerClient() : createSupabasePublicClient();
+  const list = (table: string, visibility?: string) => {
+    let query = supabase.from(table).select("*");
+    if (!admin && visibility) query = query.eq(visibility, true);
+    return query.order("sort_order");
+  };
+  const [intro, about, contact, social, stats, services, projects, groups, items, process, principles, feedback, brands, settings, categories, posts, mappings] = await Promise.all([
+    supabase.from("site_intro").select("*").eq("id", "site-intro").maybeSingle(),
+    supabase.from("about_section").select("*").eq("id", "about-section").maybeSingle(),
+    supabase.from("contact_section").select("*").eq("id", "contact-section").maybeSingle(),
+    list("social_links", "is_active"), list("about_stats", "is_active"), list("services", "is_active"), list("projects", "is_active"), list("tech_groups", "is_active"), list("tech_group_items"), list("process_steps", "is_active"), list("why_work_items", "is_active"), list("testimonials", "is_active"), list("trusted_brands", "is_active"),
+    supabase.from("blog_settings").select("*").eq("id", "blog-settings").maybeSingle(),
+    list("blog_categories", "is_active"), list("blog_posts", "is_published"), supabase.from("blog_post_categories").select("*"),
   ]);
-
-  const techItems = (techItemsResult.data ?? []) as TechGroupItem[];
-  const techGroups = ((techGroupsResult.data ?? []) as Omit<TechGroup, "items">[]).map(
-    (group) => ({
-      ...group,
-      items: techItems.filter((item) => item.tech_group_id === group.id),
-    }),
-  );
-
-  const blogCategories =
-    (blogCategoriesResult.data as BlogCategory[] | null) ??
-    defaultPortfolioContent.blogCategories;
-  const blogPosts = normalizeFeaturedBlogPost(
-    (blogPostsResult.data as BlogPost[] | null) ?? defaultPortfolioContent.blogPosts,
-  );
-  const blogPostCategories =
-    (blogPostCategoriesResult.data as BlogPostCategory[] | null) ??
-    defaultPortfolioContent.blogPosts.flatMap((post) =>
-      post.category_ids.map((category_id) => ({ post_id: post.id, category_id })),
-    );
-  const blogPostsWithCategories = attachBlogCategories(
-    blogPosts,
-    blogCategories,
-    blogPostCategories,
-  );
-
-  return {
-    siteIntro: ((siteIntroResult.data as SiteIntro | null) ?? defaultPortfolioContent.siteIntro),
-    aboutSection:
-      ((aboutResult.data as AboutSection | null) ?? defaultPortfolioContent.aboutSection),
-    contactSection:
-      ((contactResult.data as ContactSection | null) ??
-        defaultPortfolioContent.contactSection),
-    socialLinks: socialLinksResult.data ?? defaultPortfolioContent.socialLinks,
-    aboutStats: aboutStatsResult.data ?? defaultPortfolioContent.aboutStats,
-    services: servicesResult.data ?? defaultPortfolioContent.services,
-    projects: normalizeFeaturedProject(
-      (projectsResult.data as ProjectItem[] | null) ?? defaultPortfolioContent.projects,
-    ),
-    techGroups: techGroups.length > 0 ? techGroups : defaultPortfolioContent.techGroups,
-    processSteps: processResult.data ?? defaultPortfolioContent.processSteps,
-    whyWorkItems: whyWorkResult.data ?? defaultPortfolioContent.whyWorkItems,
-    testimonials: testimonialsResult.data ?? defaultPortfolioContent.testimonials,
-    trustedBrands:
-      ((trustedBrandsResult.data as TrustedBrand[] | null) ??
-        defaultPortfolioContent.trustedBrands),
-    blogSettings:
-      ((blogSettingsResult.data as BlogSettings | null) ??
-        defaultPortfolioContent.blogSettings),
-    blogCategories,
-    blogPosts: stripBlogPostCategories(blogPostsWithCategories),
-  };
+  const techItems = checked<TechGroupItem[]>("tech_group_items", items);
+  const blogCategories = checked<BlogCategory[]>("blog_categories", categories);
+  const blogPosts = attachBlogCategories(normalizeFeaturedBlogPost(checked<BlogPost[]>("blog_posts", posts)), blogCategories, checked<BlogPostCategory[]>("blog_post_categories", mappings));
+  return normalizeContent({
+    siteIntro: checked<SiteIntro>("site_intro", intro, true), aboutSection: checked<AboutSection>("about_section", about, true), contactSection: checked<ContactSection>("contact_section", contact, true),
+    socialLinks: checked<PortfolioContent["socialLinks"]>("social_links", social), aboutStats: checked<PortfolioContent["aboutStats"]>("about_stats", stats), services: checked<PortfolioContent["services"]>("services", services), projects: normalizeFeaturedProject(checked<ProjectItem[]>("projects", projects)),
+    techGroups: checked<Omit<TechGroup, "items">[]>("tech_groups", groups).map(group => ({ ...group, items: techItems.filter(item => item.tech_group_id === group.id) })),
+    processSteps: checked<PortfolioContent["processSteps"]>("process_steps", process), whyWorkItems: checked<PortfolioContent["whyWorkItems"]>("why_work_items", principles), testimonials: checked<PortfolioContent["testimonials"]>("testimonials", feedback), trustedBrands: checked<TrustedBrand[]>("trusted_brands", brands), blogSettings: checked<BlogSettings>("blog_settings", settings, true), blogCategories, blogPosts: stripBlogPostCategories(blogPosts),
+  });
 }
 
-const getCachedPortfolioContent = unstable_cache(
-  async () => withPortfolioDefaults(await fetchPortfolioContentFromSupabase()),
-  ["portfolio-content-v3"],
-  { revalidate: 120 },
-);
-
+// Throwing preserves Next's last successful ISR entry instead of caching sample content.
+const getCachedPortfolioContent = unstable_cache(() => fetchContent(), ["portfolio-content-v5"], { revalidate: 120, tags: ["portfolio-content"] });
 export async function getPortfolioContent(): Promise<PortfolioContent> {
   if (!isSupabaseConfigured()) {
-    return defaultPortfolioContent;
+    if (process.env.NODE_ENV === "development") return defaultPortfolioContent;
+    throw new Error("Supabase environment variables are missing.");
   }
-
-  try {
-    return withPortfolioDefaults(await getCachedPortfolioContent());
-  } catch {
-    return defaultPortfolioContent;
-  }
+  return getCachedPortfolioContent();
 }
 
 export async function getBlogLandingContent(): Promise<BlogLandingContent> {
-  const content = withPortfolioDefaults(await getPortfolioContent());
+  const content = await getPortfolioContent();
   const activeCategories = (content.blogCategories ?? defaultPortfolioContent.blogCategories)
     .filter((category) => category.is_active)
     .sort((a, b) => a.sort_order - b.sort_order);
@@ -253,83 +171,6 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPostWithCateg
 }
 
 export async function getAdminBootstrapData(): Promise<PortfolioContent> {
-  if (!isSupabaseConfigured()) {
-    return defaultPortfolioContent;
-  }
-
-  const supabase = await createSupabaseServerClient();
-
-  const [
-    siteIntro,
-    aboutSection,
-    contactSection,
-    socialLinks,
-    aboutStats,
-    services,
-    projects,
-    techGroups,
-    techGroupItems,
-    processSteps,
-    whyWorkItems,
-    testimonials,
-    trustedBrands,
-    blogSettings,
-    blogCategories,
-    blogPosts,
-    blogPostCategories,
-  ] = await Promise.all([
-    supabase.from("site_intro").select("*").limit(1).maybeSingle(),
-    supabase.from("about_section").select("*").limit(1).maybeSingle(),
-    supabase.from("contact_section").select("*").limit(1).maybeSingle(),
-    supabase.from("social_links").select("*").order("sort_order"),
-    supabase.from("about_stats").select("*").order("sort_order"),
-    supabase.from("services").select("*").order("sort_order"),
-    supabase.from("projects").select("*").order("sort_order"),
-    supabase.from("tech_groups").select("*").order("sort_order"),
-    supabase.from("tech_group_items").select("*").order("sort_order"),
-    supabase.from("process_steps").select("*").order("sort_order"),
-    supabase.from("why_work_items").select("*").order("sort_order"),
-    supabase.from("testimonials").select("*").order("sort_order"),
-    supabase.from("trusted_brands").select("*").order("sort_order"),
-    supabase.from("blog_settings").select("*").limit(1).maybeSingle(),
-    supabase.from("blog_categories").select("*").order("sort_order"),
-    supabase.from("blog_posts").select("*").order("sort_order"),
-    supabase.from("blog_post_categories").select("*"),
-  ]);
-
-  const adminBlogCategories =
-    (blogCategories.data as BlogCategory[] | null) ?? defaultPortfolioContent.blogCategories;
-  const adminBlogPosts = normalizeFeaturedBlogPost(
-    (blogPosts.data as BlogPost[] | null) ?? defaultPortfolioContent.blogPosts,
-  );
-  const adminMappings =
-    (blogPostCategories.data as BlogPostCategory[] | null) ??
-    defaultPortfolioContent.blogPosts.flatMap((post) =>
-      post.category_ids.map((category_id) => ({ post_id: post.id, category_id })),
-    );
-
-  return {
-    siteIntro: siteIntro.data ?? defaultPortfolioContent.siteIntro,
-    aboutSection: aboutSection.data ?? defaultPortfolioContent.aboutSection,
-    contactSection: contactSection.data ?? defaultPortfolioContent.contactSection,
-    socialLinks: socialLinks.data ?? defaultPortfolioContent.socialLinks,
-    aboutStats: aboutStats.data ?? defaultPortfolioContent.aboutStats,
-    services: services.data ?? defaultPortfolioContent.services,
-    projects: projects.data ?? defaultPortfolioContent.projects,
-    techGroups:
-      techGroups.data?.map((group) => ({
-        ...group,
-        items:
-          techGroupItems.data?.filter((item) => item.tech_group_id === group.id) ?? [],
-      })) ?? defaultPortfolioContent.techGroups,
-    processSteps: processSteps.data ?? defaultPortfolioContent.processSteps,
-    whyWorkItems: whyWorkItems.data ?? defaultPortfolioContent.whyWorkItems,
-    testimonials: testimonials.data ?? defaultPortfolioContent.testimonials,
-    trustedBrands: trustedBrands.data ?? defaultPortfolioContent.trustedBrands,
-    blogSettings: blogSettings.data ?? defaultPortfolioContent.blogSettings,
-    blogCategories: adminBlogCategories,
-    blogPosts: stripBlogPostCategories(
-      attachBlogCategories(adminBlogPosts, adminBlogCategories, adminMappings),
-    ),
-  };
+  if (!isSupabaseConfigured()) throw new Error("Supabase environment variables are missing.");
+  return fetchContent(true);
 }

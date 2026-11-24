@@ -1,6 +1,6 @@
 "use client";
 
-import { allowedIconKeys, iconMap } from "@/lib/icons";
+import { allowedIconKeys, iconLabels, iconMap } from "@/lib/icons";
 import type { IconKey } from "@/types/content";
 
 export function IconSelect({
@@ -29,11 +29,13 @@ export function IconSelect({
           >
             {allowedIconKeys.map((iconKey) => (
               <option key={iconKey} value={iconKey}>
-                {iconKey}
+                {iconLabels[iconKey] ?? iconKey}
               </option>
             ))}
           </select>
-          <p className="mt-1 text-xs font-medium text-[#6E7F95]">Preview updates instantly.</p>
+          <p className="mt-1 text-xs font-medium text-[#6E7F95]">
+            Preview updates instantly.
+          </p>
         </div>
       </div>
     </label>

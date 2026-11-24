@@ -32,3 +32,11 @@ dist
 .vercel
 .DS_Store
 *.log
+!/.env.example
+*.tsbuildinfo
+/playwright-report/
+/test-results/
+/.impeccable/*
+!/.impeccable/design.json
+
+/.release/

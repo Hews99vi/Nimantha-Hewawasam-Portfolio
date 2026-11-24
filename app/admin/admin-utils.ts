@@ -7,6 +7,7 @@ export type ApiResult<T> = {
   message?: string;
   data?: T;
   fieldErrors?: Record<string, string[]>;
+  cleanupPaths?: string[];
 };
 
 export function createTempId() {
@@ -26,7 +27,8 @@ export async function requestJson<T>(
   options: RequestInit,
 ): Promise<ApiResult<T>> {
   const response = await fetch(endpoint, options);
-  const result = (await response.json()) as ApiResult<T>;
+  const result = await response.json().catch(() => null) as ApiResult<T> | null;
+  if (!result) throw new Error("The server could not complete the request. Your edits have been kept; please retry.");
 
   if (!response.ok || !result.success) {
     const fieldMessage = result.fieldErrors

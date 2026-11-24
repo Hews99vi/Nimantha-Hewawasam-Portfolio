@@ -16,8 +16,19 @@ import {
   Workflow,
 } from "lucide-react";
 import type { IconKey } from "@/types/content";
+import { GitHubIcon, LinkedInIcon, WhatsAppIcon } from "@/components/BrandIcons";
 
-export const iconMap: Record<IconKey, React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>> = {
+export const iconMap: Record<
+  IconKey,
+  React.ComponentType<{
+    size?: number;
+    className?: string;
+    strokeWidth?: number;
+  }>
+> = {
+  linkedin: LinkedInIcon,
+  github: GitHubIcon,
+  whatsapp: WhatsAppIcon,
   code2: Code2,
   briefcaseBusiness: BriefcaseBusiness,
   camera: Camera,
@@ -37,3 +48,8 @@ export const iconMap: Record<IconKey, React.ComponentType<{ size?: number; class
 
 export const allowedIconKeys = Object.keys(iconMap) as IconKey[];
 
+export const iconLabels: Partial<Record<IconKey, string>> = {
+  linkedin: "LinkedIn",
+  github: "GitHub",
+  whatsapp: "WhatsApp",
+};

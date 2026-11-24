@@ -10,10 +10,10 @@ export const defaultPortfolioContent: PortfolioContent = {
     intro_heading: "Software Developer, building digital products for modern businesses.",
     intro_body:
       "I design and develop professional web applications, mobile apps, dashboards, automation systems, and AI-powered solutions that help businesses grow with confidence.",
-    cta_label: "View Projects",
-    cta_href: "#projects",
-    work_link_label: "My work",
-    work_link_href: "#projects",
+    cta_label: "View projects",
+    cta_href: "/work",
+    work_link_label: "Get in touch",
+    work_link_href: "/contact",
   },
   aboutSection: {
     id: "about-section",
@@ -31,6 +31,7 @@ export const defaultPortfolioContent: PortfolioContent = {
     body:
       "I'm available for web applications, mobile apps, dashboards, CMS platforms, automation systems, and AI-powered solutions.",
     email: "vidunethnim@gmail.com",
+    whatsapp_number: null,
     location: "Sri Lanka",
     availability: "Open for international freelance projects",
   },
@@ -40,7 +41,7 @@ export const defaultPortfolioContent: PortfolioContent = {
       sort_order: 1,
       label: "GitHub",
       href: "#",
-      icon_key: "code2",
+      icon_key: "github",
       is_active: true,
     },
     {
@@ -48,7 +49,7 @@ export const defaultPortfolioContent: PortfolioContent = {
       sort_order: 2,
       label: "LinkedIn",
       href: "#",
-      icon_key: "briefcaseBusiness",
+      icon_key: "linkedin",
       is_active: true,
     },
     {
@@ -134,6 +135,8 @@ export const defaultPortfolioContent: PortfolioContent = {
   projects: [
     {
       id: "project-1",
+      slug: "studentstay",
+      images: [],
       sort_order: 1,
       category: "Web Application",
       title: "StudentStay - Hostel & Boarding Management System",
@@ -147,6 +150,8 @@ export const defaultPortfolioContent: PortfolioContent = {
     },
     {
       id: "project-2",
+      slug: "serenity-wedding-films-cms",
+      images: [],
       sort_order: 2,
       category: "Website + CMS",
       title: "Serenity Wedding Films CMS",
@@ -160,6 +165,8 @@ export const defaultPortfolioContent: PortfolioContent = {
     },
     {
       id: "project-3",
+      slug: "mental-health-support-platform",
+      images: [],
       sort_order: 3,
       category: "Full-Stack Platform",
       title: "Mental Health Support Platform",
@@ -173,6 +180,8 @@ export const defaultPortfolioContent: PortfolioContent = {
     },
     {
       id: "project-4",
+      slug: "wedding-speech-analyzer",
+      images: [],
       sort_order: 4,
       category: "AI Project",
       title: "Wedding Speech Analyzer",
@@ -186,6 +195,8 @@ export const defaultPortfolioContent: PortfolioContent = {
     },
     {
       id: "project-5",
+      slug: "e-commerce-inventory-systems",
+      images: [],
       sort_order: 5,
       category: "Business System",
       title: "E-Commerce & Inventory Systems",
@@ -397,35 +408,7 @@ export const defaultPortfolioContent: PortfolioContent = {
       is_active: true,
     },
   ],
-  testimonials: [
-    {
-      id: "testimonial-1",
-      sort_order: 1,
-      quote:
-        "Nimantha understood the project clearly and delivered a clean, working system with the features we needed.",
-      name: "Client Name",
-      role: "Business Owner",
-      is_active: true,
-    },
-    {
-      id: "testimonial-2",
-      sort_order: 2,
-      quote:
-        "The communication was smooth, and the final result looked professional and easy to manage.",
-      name: "Client Name",
-      role: "Startup Founder",
-      is_active: true,
-    },
-    {
-      id: "testimonial-3",
-      sort_order: 3,
-      quote:
-        "He was able to turn the idea into a real digital product with proper structure and practical features.",
-      name: "Project Supervisor",
-      role: "Academic Platform",
-      is_active: true,
-    },
-  ],
+  testimonials: [],
   trustedBrands: [
     {
       id: "trusted-brand-1",

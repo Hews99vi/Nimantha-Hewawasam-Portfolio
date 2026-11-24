@@ -1,9 +1,13 @@
 import { z } from "zod";
+import { projectImagesSchema } from "@/lib/project-media";
 import { normalizePublicAssetPath } from "@/lib/asset-path";
 import { allowedIconKeys } from "@/lib/icons";
 import { normalizeDateTimeInput, slugify } from "@/lib/slug";
+import { internationalPhonePattern, normalizeWhatsAppNumber } from "@/lib/whatsapp";
+import { isActionHref, isWebUrl } from "@/lib/links";
 
-const nonEmpty = z.string().trim().min(1);
+const nonEmpty = z.string().trim().min(1).max(100000);
+const actionHref = z.string().trim().max(2048).refine(isActionHref, "Use a complete http(s) URL, an internal /path or #section, or a mailto: address.");
 const optionalNullableString = z.string().trim().nullish().transform((value) => {
   if (!value) return null;
   return value;
@@ -23,7 +27,7 @@ const isoInputSchema = z
   .string()
   .trim()
   .nullish()
-  .refine((value) => !value || Boolean(normalizeDateTimeInput(value)), "Invalid date.")
+  .refine((value) => !value || /T.*(?:Z|[+-]\d{2}:\d{2})$/i.test(value) && Boolean(normalizeDateTimeInput(value)), "Use an ISO date with an explicit timezone.")
   .transform((value) => normalizeDateTimeInput(value));
 
 export const siteIntroSchema = z.object({
@@ -34,9 +38,9 @@ export const siteIntroSchema = z.object({
   intro_heading: nonEmpty,
   intro_body: nonEmpty,
   cta_label: nonEmpty,
-  cta_href: nonEmpty,
+  cta_href: actionHref,
   work_link_label: nonEmpty,
-  work_link_href: nonEmpty,
+  work_link_href: actionHref,
 });
 
 export const aboutSectionSchema = z.object({
@@ -50,7 +54,11 @@ export const contactSectionSchema = z.object({
   eyebrow: nonEmpty,
   title: nonEmpty,
   body: nonEmpty,
-  email: nonEmpty,
+  email: z.string().trim().email(),
+  whatsapp_number: z.string().max(80).transform(normalizeWhatsAppNumber)
+    .refine((value) => !value || internationalPhonePattern.test(value),
+      "Enter a WhatsApp number with + and country code, for example +94 77 123 4567. Use 7–15 digits; omit the local leading zero.")
+    .nullable().optional(),
   location: nonEmpty,
   availability: nonEmpty,
 });
@@ -66,7 +74,7 @@ export const blogSettingsSchema = z.object({
 export const socialLinkSchema = z.object({
   sort_order: z.number().int().nonnegative(),
   label: nonEmpty,
-  href: nonEmpty,
+  href: z.string().trim().max(2048).refine((value) => isWebUrl(value) || /^mailto:/i.test(value) && isActionHref(value), "Use a complete http(s) profile URL without a leading #, or a valid mailto: address."),
   icon_key: z.enum(allowedIconKeys),
   is_active: z.boolean(),
 });
@@ -87,6 +95,7 @@ export const serviceSchema = z.object({
 });
 
 export const projectSchema = z.object({
+  images: projectImagesSchema.optional(),
   sort_order: z.number().int().nonnegative(),
   category: nonEmpty,
   title: nonEmpty,
@@ -137,7 +146,7 @@ export const testimonialSchema = z.object({
 export const trustedBrandSchema = z.object({
   sort_order: z.number().int().nonnegative(),
   name: nonEmpty,
-  url: optionalNullableString,
+  url: optionalNullableString.refine((value) => !value || value === "#" || isWebUrl(value), "Use a complete http(s) URL or leave this empty."),
   logo_src: optionalAssetPath,
   industry: optionalNullableString,
   is_active: z.boolean(),
@@ -165,7 +174,7 @@ export const blogPostSchema = z
     seo_description: optionalNullableString,
     is_featured: z.boolean(),
     is_published: z.boolean(),
-    category_ids: z.array(nonEmpty).default([]),
+    category_ids: z.array(z.uuid()).max(100).refine((ids) => new Set(ids).size === ids.length, "Choose each category only once.").default([]),
   })
   .superRefine((data, ctx) => {
     if (data.is_published && !data.published_at) {
@@ -180,10 +189,10 @@ export const blogPostSchema = z
 export const reorderSchema = z.object({
   items: z.array(
     z.object({
-      id: nonEmpty,
+      id: z.uuid(),
       sort_order: z.number().int().nonnegative(),
     }),
-  ),
+  ).max(1000).refine((items) => new Set(items.map((item) => item.id)).size === items.length, "Each item must appear only once."),
 });
 
 export const idSchema = z.object({

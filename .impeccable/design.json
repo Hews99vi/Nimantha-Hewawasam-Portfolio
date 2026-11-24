@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-27T14:59:43.859323+00:00",
+  "title": "Design System: Nimantha Hewawasam Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "tonalRamp": [
+          "oklch(15% 0.0066 106.52)",
+          "oklch(26% 0.0066 106.52)",
+          "oklch(38% 0.0066 106.52)",
+          "oklch(49% 0.0066 106.52)",
+          "oklch(61% 0.0066 106.52)",
+          "oklch(72% 0.0066 106.52)",
+          "oklch(84% 0.0066 106.52)",
+          "oklch(95% 0.0066 106.52)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Soft Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0093 106.58)",
+          "oklch(26% 0.0093 106.58)",
+          "oklch(38% 0.0093 106.58)",
+          "oklch(49% 0.0093 106.58)",
+          "oklch(61% 0.0093 106.58)",
+          "oklch(72% 0.0093 106.58)",
+          "oklch(84% 0.0093 106.58)",
+          "oklch(95% 0.0093 106.58)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0135 229.52)",
+          "oklch(26% 0.0135 229.52)",
+          "oklch(38% 0.0135 229.52)",
+          "oklch(49% 0.0135 229.52)",
+          "oklch(61% 0.0135 229.52)",
+          "oklch(72% 0.0135 229.52)",
+          "oklch(84% 0.0135 229.52)",
+          "oklch(95% 0.0135 229.52)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0093 216.69)",
+          "oklch(26% 0.0093 216.69)",
+          "oklch(38% 0.0093 216.69)",
+          "oklch(49% 0.0093 216.69)",
+          "oklch(61% 0.0093 216.69)",
+          "oklch(72% 0.0093 216.69)",
+          "oklch(84% 0.0093 216.69)",
+          "oklch(95% 0.0093 216.69)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Fine Divider",
+        "tonalRamp": [
+          "oklch(15% 0.0097 119.60)",
+          "oklch(26% 0.0097 119.60)",
+          "oklch(38% 0.0097 119.60)",
+          "oklch(49% 0.0097 119.60)",
+          "oklch(61% 0.0097 119.60)",
+          "oklch(72% 0.0097 119.60)",
+          "oklch(84% 0.0097 119.60)",
+          "oklch(95% 0.0097 119.60)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Cobalt",
+        "tonalRamp": [
+          "oklch(15% 0.2115 260.60)",
+          "oklch(26% 0.2115 260.60)",
+          "oklch(38% 0.2115 260.60)",
+          "oklch(49% 0.2115 260.60)",
+          "oklch(61% 0.2115 260.60)",
+          "oklch(72% 0.2115 260.60)",
+          "oklch(84% 0.2115 260.60)",
+          "oklch(95% 0.2115 260.60)"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Cobalt Hover",
+        "tonalRamp": [
+          "oklch(15% 0.1647 260.45)",
+          "oklch(26% 0.1647 260.45)",
+          "oklch(38% 0.1647 260.45)",
+          "oklch(49% 0.1647 260.45)",
+          "oklch(61% 0.1647 260.45)",
+          "oklch(72% 0.1647 260.45)",
+          "oklch(84% 0.1647 260.45)",
+          "oklch(95% 0.1647 260.45)"
+        ]
+      },
+      "dark": {
+        "role": "neutral",
+        "displayName": "Deep Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0265 235.53)",
+          "oklch(26% 0.0265 235.53)",
+          "oklch(38% 0.0265 235.53)",
+          "oklch(49% 0.0265 235.53)",
+          "oklch(61% 0.0265 235.53)",
+          "oklch(72% 0.0265 235.53)",
+          "oklch(84% 0.0265 235.53)",
+          "oklch(95% 0.0265 235.53)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(26% 0.0000 0.00)",
+          "oklch(38% 0.0000 0.00)",
+          "oklch(49% 0.0000 0.00)",
+          "oklch(61% 0.0000 0.00)",
+          "oklch(72% 0.0000 0.00)",
+          "oklch(84% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      },
+      "hero-surround": {
+        "role": "neutral",
+        "displayName": "Hero Surround",
+        "tonalRamp": [
+          "oklch(15% 0.0084 157.07)",
+          "oklch(26% 0.0084 157.07)",
+          "oklch(38% 0.0084 157.07)",
+          "oklch(49% 0.0084 157.07)",
+          "oklch(61% 0.0084 157.07)",
+          "oklch(72% 0.0084 157.07)",
+          "oklch(84% 0.0084 157.07)",
+          "oklch(95% 0.0084 157.07)"
+        ]
+      },
+      "hero-surface": {
+        "role": "neutral",
+        "displayName": "Hero Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0244 250.12)",
+          "oklch(26% 0.0244 250.12)",
+          "oklch(38% 0.0244 250.12)",
+          "oklch(49% 0.0244 250.12)",
+          "oklch(61% 0.0244 250.12)",
+          "oklch(72% 0.0244 250.12)",
+          "oklch(84% 0.0244 250.12)",
+          "oklch(95% 0.0244 250.12)"
+        ]
+      },
+      "hero-ink": {
+        "role": "neutral",
+        "displayName": "Hero Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0448 251.67)",
+          "oklch(26% 0.0448 251.67)",
+          "oklch(38% 0.0448 251.67)",
+          "oklch(49% 0.0448 251.67)",
+          "oklch(61% 0.0448 251.67)",
+          "oklch(72% 0.0448 251.67)",
+          "oklch(84% 0.0448 251.67)",
+          "oklch(95% 0.0448 251.67)"
+        ]
+      },
+      "hero-muted": {
+        "role": "neutral",
+        "displayName": "Hero Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0429 247.72)",
+          "oklch(26% 0.0429 247.72)",
+          "oklch(38% 0.0429 247.72)",
+          "oklch(49% 0.0429 247.72)",
+          "oklch(61% 0.0429 247.72)",
+          "oklch(72% 0.0429 247.72)",
+          "oklch(84% 0.0429 247.72)",
+          "oklch(95% 0.0429 247.72)"
+        ]
+      },
+      "hero-line": {
+        "role": "neutral",
+        "displayName": "Hero Line",
+        "tonalRamp": [
+          "oklch(15% 0.0344 249.74)",
+          "oklch(26% 0.0344 249.74)",
+          "oklch(38% 0.0344 249.74)",
+          "oklch(49% 0.0344 249.74)",
+          "oklch(61% 0.0344 249.74)",
+          "oklch(72% 0.0344 249.74)",
+          "oklch(84% 0.0344 249.74)",
+          "oklch(95% 0.0344 249.74)"
+        ]
+      },
+      "lightbox": {
+        "role": "neutral",
+        "displayName": "Viewer Charcoal",
+        "tonalRamp": [
+          "oklch(15% 0.0206 236.71)",
+          "oklch(26% 0.0206 236.71)",
+          "oklch(38% 0.0206 236.71)",
+          "oklch(49% 0.0206 236.71)",
+          "oklch(61% 0.0206 236.71)",
+          "oklch(72% 0.0206 236.71)",
+          "oklch(84% 0.0206 236.71)",
+          "oklch(95% 0.0206 236.71)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "General page headings."
+      },
+      "hero-display": {
+        "displayName": "Hero Display",
+        "purpose": "Desktop hero name; responsive overrides documented in Layout."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Third-level headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Inherited public body copy."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Introductory paragraphs."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Main navigation."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Primary action labels."
+      },
+      "article-body": {
+        "displayName": "Article Body",
+        "purpose": "Long-form article text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "portrait",
+        "value": "drop-shadow(0 20px 25px #20304016)",
+        "purpose": "CSS filter on the transparent hero portrait."
+      },
+      {
+        "name": "mobile-menu",
+        "value": "0 15px 30px #17262f16",
+        "purpose": "Box shadow on the open mobile navigation."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Project cover hover easing."
+      },
+      {
+        "name": "cover-hover",
+        "value": "transform 0.6s var(--ease)",
+        "purpose": "Cover scale to 1.025 on hover."
+      },
+      {
+        "name": "action-color",
+        "value": "0.2s",
+        "purpose": "Primary background and text action color transitions."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "Effectively disables animations/transitions; scrolling becomes auto."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "hero-stack",
+        "value": "1100px"
+      },
+      {
+        "name": "mobile-navigation-and-layout",
+        "value": "800px"
+      },
+      {
+        "name": "single-column",
+        "value": "560px"
+      },
+      {
+        "name": "wide-hero",
+        "value": "1500px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary link or action; cobalt at rest and darker on hover.",
+      "html": "<a class=\"ds-button\" href=\"#work\">View projects</a>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--accent,#0057d9);color:#fff;min-height:50px;padding:13px 22px;border:0;border-radius:6px;font-size:.88rem;font-weight:700;text-decoration:none;transition:background .2s;font-family:var(--font-manrope),sans-serif;}.ds-button:hover{background:#003d9c}.ds-button:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Text Action",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Quiet underlined link used under copy and beside section headings.",
+      "html": "<a class=\"ds-text-action\" href=\"#project\">Explore project</a>",
+      "css": ".ds-text-action{display:inline-flex;align-items:center;gap:10px;color:var(--ink,#20282c);font-size:.9rem;font-weight:650;min-height:44px;text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--line,#d7d9d2);transition:color .2s;font-family:var(--font-manrope),sans-serif;}.ds-text-action:hover{color:var(--accent,#0057d9);text-decoration-color:currentColor}.ds-text-action:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Current item is cobalt with a two-pixel underline.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Preview navigation\"><a href=\"#work\" aria-current=\"page\">Work</a><a href=\"#about\">About</a><a href=\"#contact\">Contact</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:32px;font-size:.88rem;font-weight:650;color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}.ds-nav a{position:relative;padding:10px 0;text-decoration:none;color:inherit}.ds-nav a:hover,.ds-nav a[aria-current=\"page\"]{color:var(--accent,#0057d9)}.ds-nav a[aria-current=\"page\"]:after{content:\"\";position:absolute;bottom:2px;left:0;right:0;height:2px;background:var(--accent,#0057d9)}.ds-nav a:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Project Text Preview",
+      "kind": "card",
+      "refersTo": "project-cover",
+      "description": "Actual no-image variant; specimen wording is explicitly illustrative.",
+      "html": "<article class=\"ds-project\"><div class=\"ds-project-preview\"><span>Project category</span><p>Project problem statement</p><span>Project technology / tools</span></div><h3><a href=\"#project\">Project title</a></h3></article>",
+      "css": ".ds-project{max-width:500px;color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}.ds-project-preview{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:240px;padding:35px;background:var(--surface,#eeeee7);border-radius:var(--radius,12px)}.ds-project-preview span{font-size:.75rem;color:var(--muted,#5b6264)}.ds-project-preview p{font-size:1.7rem;line-height:1.3;letter-spacing:-.03em;max-width:25ch;margin:0}.ds-project h3{font-size:1.4rem;line-height:1.25;letter-spacing:-.035em;margin:23px 0 0}.ds-project h3 a{display:flex;justify-content:space-between;gap:18px;color:inherit;text-decoration:none}.ds-project h3 a:hover{color:var(--accent,#0057d9)}.ds-project a:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Media Editor Field",
+      "kind": "input",
+      "refersTo": "media-input",
+      "description": "Existing CMS media field; public contact has no form.",
+      "html": "<label class=\"ds-field\">Alternative text<input type=\"text\" placeholder=\"Describe the screenshot\" /></label>",
+      "css": ".ds-field{display:block;font-size:.8rem;color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}.ds-field input{display:block;width:100%;padding:9px;border:1px solid var(--line,#d7d9d2);margin-top:4px;font:inherit;border-radius:0}.ds-field input:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}"
+    },
+    {
+      "name": "Service Disclosure",
+      "kind": "custom",
+      "description": "Native details/summary row, preserving keyboard and open behavior.",
+      "html": "<details class=\"ds-service\"><summary><h2>Service title</h2><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><div><p>Service detail text.</p></div></details>",
+      "css": ".ds-service{border-top:1px solid var(--line,#d7d9d2);color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}.ds-service summary{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:30px 0;cursor:pointer;list-style:none}.ds-service summary::-webkit-details-marker{display:none}.ds-service h2{font-size:clamp(1.5rem,2.6vw,2.2rem);font-weight:650;line-height:1.12;letter-spacing:-.035em;margin:0}.ds-service[open] summary svg{transform:rotate(45deg)}.ds-service summary:hover{color:var(--accent,#0057d9)}.ds-service summary:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px;}.ds-service>div{max-width:75ch;padding-bottom:35px}.ds-service p{color:var(--muted,#5b6264);margin:0;line-height:1.65}"
+    },
+    {
+      "name": "Gallery Label",
+      "kind": "custom",
+      "refersTo": "gallery-trigger",
+      "description": "The image opener label; its production parent opens the native dialog.",
+      "html": "<span class=\"ds-gallery-label\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3M8 11h6M11 8v6\"/></svg>View image</span>",
+      "css": ".ds-gallery-label{display:inline-flex;align-items:center;gap:8px;background:var(--paper,#f7f7f2);padding:8px 13px;border-radius:6px;font-size:.75rem;color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif;}"
+    },
+    {
+      "name": "Home Feedback Rail",
+      "kind": "custom",
+      "description": "Home automatic feedback rail with complete quotations and initials-only attribution. This self-contained specimen shows the native scroll-snap fallback with its scroll hint; production adds previous/next buttons and a position counter, with no pause/play button and a visually hidden scrollbar. Rotation advances every 6 seconds while visible and idle, pauses during reading or hidden tabs, and resumes afterward. Reduced motion disables automatic rotation. Specimen wording is illustrative.",
+      "html": "<div class=\"ds-feedback-browser\"><p class=\"ds-feedback-hint\">Swipe or scroll to browse feedback.</p><div class=\"ds-feedback-rail\" role=\"region\" aria-label=\"Illustrative customer feedback\" tabindex=\"0\"><figure class=\"ds-feedback-quote\" tabindex=\"0\" aria-label=\"Review 1 of 2\"><svg class=\"ds-feedback-mark\" width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"M3 21c3 0 7-1 7-8V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1c0 2-1 4-3 4m13 4c3 0 7-1 7-8V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1c0 2-1 4-3 4\"/></svg><blockquote><p>Illustrative complete quotation for the design specimen. Published feedback keeps its full wording while the reader browses one review at a time.</p></blockquote><figcaption><span class=\"ds-feedback-initials\" aria-hidden=\"true\">SC</span><div><strong>Sample customer</strong><span>Illustrative role / company</span></div></figcaption></figure><figure class=\"ds-feedback-quote\" tabindex=\"0\" aria-label=\"Review 2 of 2\"><svg class=\"ds-feedback-mark\" width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"M3 21c3 0 7-1 7-8V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1c0 2-1 4-3 4m13 4c3 0 7-1 7-8V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1c0 2-1 4-3 4\"/></svg><blockquote><p>A second illustrative quotation demonstrates native scrolling. This is specimen content, not a customer claim.</p></blockquote><figcaption><span class=\"ds-feedback-initials\" aria-hidden=\"true\">ER</span><div><strong>Example reviewer</strong><span>Illustrative role / company</span></div></figcaption></figure></div></div>",
+      "css": ".ds-feedback-browser{max-width:760px;min-width:0;background:var(--surface,#eeeee7);color:var(--ink,#20282c);font-family:var(--font-manrope),sans-serif}.ds-feedback-hint{margin:0 0 20px;color:var(--muted,#5b6264);font-size:.83rem;line-height:1.65}.ds-feedback-rail{display:flex;align-items:stretch;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--muted,#5b6264) var(--line,#d7d9d2);overscroll-behavior-x:contain;padding-bottom:24px}.ds-feedback-quote{display:flex;flex-direction:column;box-sizing:border-box;min-width:0;flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;margin:0;padding:0 24px 8px 0}.ds-feedback-mark{flex-shrink:0;color:var(--accent,#0057d9);margin-bottom:20px}.ds-feedback-quote blockquote{max-width:42ch;margin:0 0 32px;font-size:clamp(1.35rem,2.1vw,1.85rem);line-height:1.6;letter-spacing:-.015em}.ds-feedback-quote blockquote p{margin:0;white-space:pre-line}.ds-feedback-quote figcaption{display:flex;align-items:center;gap:14px;margin-top:auto}.ds-feedback-initials{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;border:1px solid var(--line,#d7d9d2);border-radius:50%;font-size:14px;font-weight:650;line-height:1}.ds-feedback-quote figcaption div{display:flex;flex-direction:column;min-width:0;gap:3px}.ds-feedback-quote figcaption strong{font-size:1rem;font-weight:700;line-height:1.4;letter-spacing:-.02em}.ds-feedback-quote figcaption div span{font-size:.83rem;color:var(--muted,#5b6264);line-height:1.65}.ds-feedback-rail:focus-visible,.ds-feedback-quote:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:-3px}@media(max-width:768px){.ds-feedback-quote{padding-right:8px}}@media(prefers-reduced-motion:reduce){.ds-feedback-rail{scroll-behavior:auto}}"
+    },
+    {
+      "name": "Hero Actions",
+      "kind": "button",
+      "refersTo": "hero-action-primary",
+      "description": "Editable primary work link and secondary contact link; equal minimum height, wrapping labels, no decorative arrows.",
+      "html": "<div class=\"ds-hero-actions\"><a class=\"ds-hero-action\" href=\"/work\">View projects</a><a class=\"ds-hero-action ds-hero-secondary\" href=\"/contact\">Get in touch</a></div>",
+      "css": ".ds-hero-actions{display:flex;flex-wrap:wrap;align-items:stretch;gap:12px;font-family:var(--font-manrope),sans-serif}.ds-hero-action{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:min(140px,100%);max-width:100%;box-sizing:border-box;padding:12px 20px;border:1px solid transparent;border-radius:6px;background:var(--accent,#0057d9);color:#fff;font-size:14px;font-weight:600;line-height:1.5;text-align:center;text-decoration:none;white-space:normal;overflow-wrap:anywhere}.ds-hero-action:hover{background:#003d9c}.ds-hero-secondary{background:transparent;border-color:currentColor;color:#24374c}.ds-hero-secondary:hover{background:rgba(36,55,76,.06)}.ds-hero-action:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px}"
+    },
+    {
+      "name": "About Approach Row",
+      "kind": "custom",
+      "description": "Light, divided heading-and-description row from About. Specimen wording is illustrative; production content remains CMS-owned.",
+      "html": "<section class=\"ds-about-approach\" aria-label=\"Illustrative approach row\"><h3>Approach title</h3><p>Published approach descriptions remain readable in an open column and stack beneath the title on narrow screens.</p></section>",
+      "css": ".ds-about-approach { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(40px, 6vw, 80px); padding: 28px 0; border-top: 1px solid var(--line, #d7d9d2); background: var(--paper, #f7f7f2); color: var(--ink, #20282c); font-family: var(--font-manrope), sans-serif; } .ds-about-approach h3 { margin: 0; max-width: 28ch; font-size: 1.15rem; font-weight: 650; line-height: 1.5; letter-spacing: -0.035em; text-wrap: balance; } .ds-about-approach p { margin: 0; max-width: 65ch; color: var(--muted, #5b6264); font-size: 1rem; line-height: 1.65; overflow-wrap: break-word; } @media (max-width: 700px) { .ds-about-approach { grid-template-columns: minmax(0, 1fr); gap: 20px; } }"
+    },
+    {
+      "name": "Home About Footer",
+      "kind": "custom",
+      "description": "Ruled Home About navigation footer with the More about me link. Location is omitted on Home.",
+      "html": "<div class=\"ds-home-about-footer\"><a href=\"/about\">More about me</a></div>",
+      "css": ".ds-home-about-footer { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px; border-top: 1px solid var(--line, #d7d9d2); padding-top: 16px; background: var(--surface, #eeeee7); color: var(--ink, #20282c); font-family: var(--font-manrope), sans-serif; line-height: 1.65; } .ds-home-about-footer a { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.9rem; font-weight: 650; color: inherit; text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--line, #d7d9d2); transition: color 0.2s; } .ds-home-about-footer a:hover { color: var(--accent, #0057d9); text-decoration-color: currentColor; } .ds-home-about-footer a:focus-visible { outline: 3px solid var(--accent, #0057d9); outline-offset: 5px; } .ds-home-about-footer > span { color: var(--muted, #5b6264); font-size: 0.88rem; max-width: 100%; overflow-wrap: anywhere; } @media (prefers-reduced-motion: reduce) { .ds-home-about-footer a { transition: none; } }"
+    },
+    {
+      "name": "Service Schematic Disclosure",
+      "kind": "custom",
+      "description": "Interactive native disclosure with the interior service schematic. Specimen wording is illustrative; production selection follows the active CMS service and its category. The graphic is explicitly conceptual.",
+      "html": "<details class=\"ds-schematic-service\" open><summary><svg class=\"ds-schematic-category\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8m-4-4v4\"/></svg><h2>Illustrative service</h2><svg class=\"ds-schematic-toggle\" width=\"23\" height=\"23\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><div class=\"ds-schematic-body\"><p>Published service description appears above its conceptual view.</p><figure class=\"ds-service-schematic\"><svg viewBox=\"0 0 480 340\" role=\"img\" aria-label=\"Conceptual view: interface connected to logic and data\"><rect class=\"ds-schematic-node\" x=\"30\" y=\"30\" width=\"335\" height=\"223\" rx=\"10\"/><path class=\"ds-schematic-connection\" d=\"M30 65H365\"/><circle class=\"ds-schematic-port\" cx=\"48\" cy=\"48\" r=\"3\"/><circle class=\"ds-schematic-port\" cx=\"61\" cy=\"48\" r=\"3\"/><circle class=\"ds-schematic-port\" cx=\"74\" cy=\"48\" r=\"3\"/><rect class=\"ds-schematic-pane\" x=\"50\" y=\"85\" width=\"118\" height=\"148\" rx=\"5\"/><text class=\"ds-schematic-note\" x=\"109\" y=\"164\" text-anchor=\"middle\">Interface</text><rect class=\"ds-schematic-pane\" x=\"187\" y=\"86\" width=\"157\" height=\"64\" rx=\"5\"/><path class=\"ds-schematic-connection\" d=\"M190 173H340M190 195H319M190 217H330\"/><path class=\"ds-schematic-trace\" d=\"M196 253V286H320V240H407V198\"/><rect class=\"ds-schematic-node\" x=\"280\" y=\"267\" width=\"78\" height=\"43\" rx=\"6\"/><text x=\"319\" y=\"294\" text-anchor=\"middle\">Logic</text><path class=\"ds-schematic-node\" d=\"M380 175V222C380 237 438 237 438 222V175\"/><ellipse class=\"ds-schematic-node\" cx=\"409\" cy=\"175\" rx=\"29\" ry=\"10\"/><path class=\"ds-schematic-connection\" d=\"M380 197C380 212 438 212 438 197\"/><text class=\"ds-schematic-note\" x=\"409\" y=\"261\" text-anchor=\"middle\">Data</text></svg><figcaption><strong>Illustrative service</strong><span>Conceptual view</span></figcaption></figure></div></details>",
+      "css": ".ds-schematic-service{max-width:620px;border-top:1px solid var(--line,#d7d9d2);color:var(--ink,#20282c);font-family:var(--font-manrope,sans-serif)}.ds-schematic-service summary{display:flex;align-items:center;gap:16px;padding:24px 0;cursor:pointer;list-style:none}.ds-schematic-service summary::-webkit-details-marker{display:none}.ds-schematic-service h2{flex:1;min-width:0;margin:0;font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:650;line-height:1.4;letter-spacing:-.035em}.ds-schematic-category{color:var(--accent,#0057d9);flex-shrink:0}.ds-schematic-toggle{flex-shrink:0;transition:transform 180ms}.ds-schematic-service[open] .ds-schematic-toggle{transform:rotate(45deg)}.ds-schematic-service summary:hover{color:var(--accent,#0057d9)}.ds-schematic-service summary:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px}.ds-schematic-body{padding:0 0 28px 40px}.ds-schematic-body>p{margin:0 0 24px;color:var(--muted,#5b6264);font-size:1.05rem;line-height:1.8}.ds-service-schematic{max-width:480px;margin:0;background:var(--surface,#eeeee7);border:1px solid var(--line,#d7d9d2);border-radius:var(--radius,12px)}.ds-service-schematic>svg{display:block;width:100%;height:auto}.ds-service-schematic text{font-family:var(--font-manrope,sans-serif);font-size:15px;font-weight:550;fill:var(--ink,#20282c)}.ds-service-schematic .ds-schematic-note{font-size:13px;font-weight:400;fill:var(--muted,#5b6264)}.ds-schematic-node{fill:var(--paper,#f7f7f2);stroke:var(--ink,#20282c);stroke-width:1.3}.ds-schematic-pane{fill:var(--surface,#eeeee7);stroke:var(--line,#d7d9d2);stroke-width:1}.ds-schematic-connection{fill:none;stroke:var(--ink,#20282c);stroke-width:1.2;opacity:.3}.ds-schematic-port{fill:var(--accent,#0057d9)}.ds-schematic-trace{fill:none;stroke:var(--accent,#0057d9);stroke-width:2;stroke-linecap:round;stroke-dasharray:700;stroke-dashoffset:0}.ds-schematic-service[open] .ds-schematic-trace{animation:ds-interior-trace 900ms var(--ease,cubic-bezier(.16,1,.3,1)) both}.ds-service-schematic figcaption{display:flex;flex-direction:column;gap:5px;padding:20px 24px;border-top:1px solid var(--line,#d7d9d2)}.ds-service-schematic figcaption strong{font-size:.95rem;line-height:1.5}.ds-service-schematic figcaption span{color:var(--muted,#5b6264);font-size:.8rem}@keyframes ds-interior-trace{from{stroke-dashoffset:700}to{stroke-dashoffset:0}}@media(max-width:800px){.ds-schematic-body{padding-left:0}}@media(prefers-reduced-motion:reduce){.ds-schematic-service[open] .ds-schematic-trace{animation:none;stroke-dashoffset:0}.ds-schematic-toggle{transition:none}}"
+    },
+    {
+      "name": "Journal Feature",
+      "kind": "custom",
+      "description": "Separate featured journal card with conceptual topic geometry, open copy, saved metadata, topic links, and an underlined reading action. This self-contained specimen uses illustrative wording; its links return to the journal. Production links use saved article slugs. The split stacks at 600px; its finite 900ms trace is disabled for reduced motion.",
+      "html": "<article class=\"ds-journal-feature\" aria-label=\"Illustrative journal feature\"><a class=\"ds-journal-image\" href=\"/blog\" tabindex=\"-1\" aria-hidden=\"true\"><svg viewBox=\"0 0 600 380\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path class=\"ds-journal-trace\" d=\"M300 190H116V85M300 190V295H484M300 190H484V85\"/><g><rect x=\"70\" y=\"50\" width=\"92\" height=\"70\" rx=\"5\"/><path d=\"M88 74h55M88 93h35\"/></g><g><rect x=\"254\" y=\"155\" width=\"92\" height=\"70\" rx=\"5\"/><path d=\"M272 179h55M272 198h35\"/></g><g><rect x=\"438\" y=\"50\" width=\"92\" height=\"70\" rx=\"5\"/><path d=\"M456 74h55M456 93h35\"/></g><g><rect x=\"438\" y=\"260\" width=\"92\" height=\"70\" rx=\"5\"/><path d=\"M456 284h55M456 303h35\"/></g><circle class=\"ds-journal-dot\" cx=\"300\" cy=\"190\" r=\"9\"/></svg></a><div class=\"ds-journal-copy\"><h2><a href=\"/blog\">Illustrative article title</a></h2><div class=\"ds-journal-meta\"><span>Saved publication date</span><span>Saved reading time</span><span class=\"ds-journal-feature-label\">Featured</span></div><p>Illustrative excerpt showing how published article copy remains open beside conceptual editorial geometry.</p><div class=\"ds-journal-card-topics\" aria-label=\"Illustrative article topics\"><a href=\"/blog?topic=cms-systems#articles\">CMS &amp; Systems</a></div><a class=\"ds-journal-action\" href=\"/blog\">Read article<span class=\"ds-journal-sr-only\">: illustrative article title</span></a></div></article>",
+      "css": ".ds-journal-feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,4vw,56px);align-items:center;padding-bottom:32px;color:var(--ink,#20282c);font-family:var(--font-manrope,sans-serif)}.ds-journal-image{display:block;aspect-ratio:600/380;overflow:hidden;border-radius:var(--radius,12px);background:var(--accent,#0057d9)}.ds-journal-image svg{display:block;width:100%;height:100%;stroke:var(--paper,#f7f7f2);stroke-width:1.5}.ds-journal-image svg rect,.ds-journal-image svg circle{fill:var(--accent,#0057d9)}.ds-journal-image svg .ds-journal-dot{fill:var(--paper,#f7f7f2);stroke:none}.ds-journal-trace{stroke-dasharray:1200;animation:ds-journal-trace 900ms var(--ease,cubic-bezier(.16,1,.3,1)) both}.ds-journal-copy{min-width:0}.ds-journal-copy h2{margin:0;font-size:clamp(1.7rem,2.7vw,2.5rem);font-weight:650;line-height:1.3;letter-spacing:-.025em;text-wrap:balance}.ds-journal-copy a{color:inherit;text-decoration:none}.ds-journal-copy h2 a:hover{color:var(--accent,#0057d9);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}.ds-journal-meta{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:16px;color:var(--muted,#5b6264);font-size:.78rem;line-height:1.65}.ds-journal-meta .ds-journal-feature-label{color:var(--accent,#0057d9);font-weight:650}.ds-journal-copy>p{margin:18px 0 0;color:var(--muted,#5b6264);font-size:.95rem;line-height:1.8}.ds-journal-card-topics{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:20px}.ds-journal-card-topics a{color:var(--muted,#5b6264);font-size:.78rem;line-height:1.65;border-bottom:1px solid var(--line,#d7d9d2);padding-bottom:3px}.ds-journal-card-topics a:hover{color:var(--accent,#0057d9);border-color:currentColor}.ds-journal-copy>.ds-journal-action{display:inline-flex;align-items:center;min-height:44px;margin-top:22px;font-size:.9rem;font-weight:650;line-height:1.65;text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--line,#d7d9d2);transition:color .2s}.ds-journal-copy>.ds-journal-action:hover{color:var(--accent,#0057d9);text-decoration-color:currentColor}.ds-journal-copy a:focus-visible{outline:3px solid var(--accent,#0057d9);outline-offset:5px}.ds-journal-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@keyframes ds-journal-trace{from{stroke-dashoffset:1200}to{stroke-dashoffset:0}}@media(max-width:800px){.ds-journal-feature{gap:24px}.ds-journal-copy h2{font-size:1.7rem}}@media(max-width:600px){.ds-journal-feature{grid-template-columns:minmax(0,1fr)}}@media(prefers-reduced-motion:reduce){.ds-journal-trace{animation:none}.ds-journal-copy>.ds-journal-action{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Image-led editorial portfolio",
+    "overview": "The public portfolio uses warm off-white, charcoal, restrained cobalt, fine dividers, and self-hosted Manrope. Open editorial columns and varied image-led layouts put actual project work ahead of interface decoration. The existing name, portrait, and introduction composition remains the home hero’s recognizable opening.\n\nThis records the implemented public system, not a new identity proposal. The CMS retains some earlier navy/white, square-field styling; the media editor shares the current neutral tokens. Surface modes and page strategy remain in .impeccable/direction.md. Review screenshots use explicitly labeled synthetic media and feedback; they are layout evidence, not portfolio claims.",
+    "keyCharacteristics": [
+      "Warm neutral surfaces with a restrained cobalt action color.",
+      "Fine dividers and open columns rather than nested panels.",
+      "Contained, uncropped project screenshots and original-resolution inspection.",
+      "A preserved portrait hero that stacks before its columns collide."
+    ],
+    "rules": [
+      {
+        "name": "The Artifact Rule",
+        "body": "Keep project screenshots uncropped and cap their display width at their intrinsic pixel width or the available width, whichever is smaller.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Use tonal surfaces and fine dividers for ordinary grouping; the existing shadows are limited to the portrait and open mobile menu.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do reuse the public palette and self-hosted variable Manrope.",
+      "Do preserve the hero’s name, portrait, and introduction relationship, including its stacked tablet layout.",
+      "Do show real project images in full, preserve captions, and keep original-resolution access.",
+      "Do retain visible keyboard focus, native disclosure/dialog behavior, and reduced-motion support.",
+      "Do represent unavailable images and missing feedback honestly."
+    ],
+    "donts": [
+      "Don't invent screenshots, testimonials, client claims, or decorative replacement media.",
+      "Don't enlarge gallery images beyond their intrinsic width or crop project screenshots to fill a frame.",
+      "Don't spread the hero’s blue-gray surface across every page; ordinary content uses paper and surface neutrals.",
+      "Don't replace open lists and dividers with nested cards or add unrelated gradients and glow.",
+      "Don't treat fixture-based review or the limited finish review as live Supabase or full-site approval."
+    ]
+  }
+}
