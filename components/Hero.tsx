@@ -1,3 +1,4 @@
+import { LocalImage } from "@/components/LocalImage";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import type { SiteIntro, SocialLink } from "@/types/content";
@@ -33,13 +34,12 @@ export function Hero({
               })}
           </div>
         </div>
-        {/* The existing transparent portrait and three-part composition remain the hero's identity. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <LocalImage
+          image="hero"
           className="hero-portrait"
-          src="/images/nimantha-hero.png"
           alt="Nimantha Hewawasam"
-          fetchPriority="high"
+          sizes="(max-width: 560px) 441px, (max-width: 800px) 521px, (max-width: 1100px) 641px, 1100px"
+          priority
         />
         <div className="hero-intro">
           <h2>{intro.intro_heading}</h2>

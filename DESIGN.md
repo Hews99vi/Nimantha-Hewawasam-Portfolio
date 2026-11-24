@@ -300,7 +300,7 @@ The About opening uses the shared paper canvas, ink, Manrope, image radius, and 
 
 Tools use the soft surface with a connected discipline map and a selected-tools inspector. Each discipline is a native button with an icon, label, and `aria-pressed` state; the first active discipline is initially selected. Selected buttons receive cobalt borders and icons. The inspector updates its heading and saved tool labels, announces the update politely, and separates tool labels with fine bottom rules. CMS active state and ordering remain authoritative; no illustrative tools enter runtime content.
 
-The user supplied `public/images/nimantha-about.png` at (3506 × 4381px); the original PNG is used unchanged. Responsive image delivery uses quality (95) and preload without cropping the portrait. Existing CMS biography, facts, tool groups, principles, ordering, and visibility remain authoritative. This refinement adds no photo-upload schema or new content ownership rule.
+The user supplied `public/images/nimantha-about.png` at (3506 × 4381px); the source PNG remains unchanged. Prebuilt responsive WebP delivery copies use quality (95) and responsive preload without cropping the portrait. Existing CMS biography, facts, tool groups, principles, ordering, and visibility remain authoritative. This refinement adds no photo-upload schema or new content ownership rule.
 
 ### Home service explorer
 
@@ -365,3 +365,6 @@ Only the journal's featured conceptual visual draws its connection trace, once o
 - **Don't** treat fixture-based review or the limited finish review as live Supabase or full-site approval.
 
 Public element defaults belong to Tailwind's base layer so admin utility typography and control sizing take precedence. Testimonial focus explicitly aligns the focused review with the visible rail; reduced-motion settings keep that alignment immediate. These fixes preserve the existing public palette and compositions.
+
+
+Image delivery preserves the existing compositions. Local portraits and the navigation logo use alpha-preserving, content-hashed WebP variants with intrinsic dimensions and responsive sizes; the hero keeps quality (90), About quality (95), and original PNGs remain untouched. Hero and About opening images preload with matching source sets; the Home About teaser stays lazy. Cards retain quality (90), with size hints capped at their actual (681px) featured and (572.5px) ordinary desktop columns. These are delivery changes, not a new visual treatment.

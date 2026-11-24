@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import aboutPortrait from "@/public/images/nimantha-about.png";
+import { LocalImage } from "@/components/LocalImage";
 import { Hero } from "@/components/Hero";
 import { ProjectCard } from "@/components/ProjectCard";
 import { ContactInvitation } from "@/components/ContactInvitation";
@@ -51,11 +51,10 @@ export default async function Home() {
             the pixels.
           </h2>
           <figure className="home-about-portrait">
-            <Image
-              src={aboutPortrait}
+            <LocalImage
+              image="about"
               alt="Nimantha Hewawasam, seated in a monochrome portrait"
               sizes="(max-width: 640px) 128px, (max-width: 960px) 35vw, 360px"
-              quality={95}
             />
           </figure>
           <div className="home-about-copy">

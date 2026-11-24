@@ -83,6 +83,14 @@ Publication inputs are converted from the editor's local time to ISO with an off
 
 Article Markdown is retained unchanged in the database and sanitized on every render. Scripts, handlers, unsafe URL schemes, embedded forms/frames/SVG and inline styles are removed while headings, contents anchors, code, lists, tables and ordinary images remain. Admin pages use per-request script/style nonces with verified Supabase cookie refresh; API authorization remains independent of the proxy. Public CSP retains cache compatibility (its script policy allows Next's inline bootstrap), and blocks inline event handlers, framing, unsafe base URLs and object embeds. It is not a strict nonce CSP for public pages. All responses receive nosniff, DENY framing and a restrictive referrer policy.
 
+## Image delivery
+
+Home's hero, both About portraits, and the navigation logo use prebuilt responsive WebP variants served directly from `public/images/optimized/`. Content-hashed filenames receive immutable one-year caching and avoid cold Next.js transformations on shared hosting. Hero/About opening images preload responsively; the Home About teaser stays lazy. Source PNG files are preserved byte for byte.
+
+After replacing one of those source files, run `npm run images:prepare` and commit the generated variants plus `lib/local-image-assets.json`. The script uses Sharp, preserves alpha and aspect ratio, never upscales, and produces quality-90 hero/logo and quality-95 About variants. Existing variants may remain for old browser caches.
+
+Project images still use the single Next.js quality-90/95 pipeline, with card sizes matching the real capped layout. Supabase originals and original-resolution inspection remain unchanged. Performance must be rechecked on production after deployment; local payload reductions do not establish a production LCP score.
+
 ## Automatic Namecheap deployment
 
 Push or merge to `main` to validate, build, upload and restart the existing cPanel application automatically. Pull requests and other branches validate without touching hosting. `workflow_dispatch` repeats the same deployment; no staging mode, launcher setup, release pointer, or `CPANEL_RELEASES_READY` variable is required. The startup filename remains **server.js**.

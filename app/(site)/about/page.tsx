@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import portrait from "@/public/images/nimantha-about.png";
+import { LocalImage } from "@/components/LocalImage";
 import { getPortfolioContent } from "@/lib/content";
 import { ContactInvitation } from "@/components/ContactInvitation";
 import { InteriorMotion } from "@/components/interior/InteriorMotion";
@@ -44,12 +43,11 @@ export default async function AboutPage() {
             A little about me<span className="accent">.</span>
           </h1>
           <figure className="about-portrait">
-            <Image
-              src={portrait}
+            <LocalImage
+              image="about"
               alt="Portrait of Nimantha Hewawasam"
               sizes="(max-width: 480px) calc(100vw - 40px), (max-width: 700px) 420px, (max-width: 1260px) 40vw, 468px"
-              quality={95}
-              preload
+              priority
             />
             <figcaption>
               <span>Nimantha Hewawasam</span>

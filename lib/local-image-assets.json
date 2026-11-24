@@ -1,0 +1,110 @@
+{
+  "hero": {
+    "source": "/images/nimantha-hero.png",
+    "quality": 90,
+    "width": 2048,
+    "height": 1535,
+    "sourceBytes": 1865950,
+    "sourceHash": "3943f171208ef9219500677308f2a4ab5d7c71a4da6a083feb751596da0cea25",
+    "variants": [
+      {
+        "src": "/images/optimized/hero-480-04f15c7d487f.webp",
+        "width": 480,
+        "height": 360,
+        "bytes": 16124
+      },
+      {
+        "src": "/images/optimized/hero-768-bd379d5a1d05.webp",
+        "width": 768,
+        "height": 576,
+        "bytes": 29492
+      },
+      {
+        "src": "/images/optimized/hero-1080-60b25e8c17da.webp",
+        "width": 1080,
+        "height": 809,
+        "bytes": 47276
+      },
+      {
+        "src": "/images/optimized/hero-1440-f0fdb06a91d5.webp",
+        "width": 1440,
+        "height": 1079,
+        "bytes": 72428
+      },
+      {
+        "src": "/images/optimized/hero-2048-aa860adb9cfb.webp",
+        "width": 2048,
+        "height": 1535,
+        "bytes": 125554
+      }
+    ]
+  },
+  "about": {
+    "source": "/images/nimantha-about.png",
+    "quality": 95,
+    "width": 3506,
+    "height": 4381,
+    "sourceBytes": 4701801,
+    "sourceHash": "7df5d3be51d44348040f18a0e22018ca9067bc3957c90dc379afe0c4d926430e",
+    "variants": [
+      {
+        "src": "/images/optimized/about-256-cf2a4ab93f64.webp",
+        "width": 256,
+        "height": 320,
+        "bytes": 8990
+      },
+      {
+        "src": "/images/optimized/about-480-93788fc4b03e.webp",
+        "width": 480,
+        "height": 600,
+        "bytes": 23076
+      },
+      {
+        "src": "/images/optimized/about-768-4d661d348518.webp",
+        "width": 768,
+        "height": 960,
+        "bytes": 47152
+      },
+      {
+        "src": "/images/optimized/about-1080-69c9e74ee37f.webp",
+        "width": 1080,
+        "height": 1350,
+        "bytes": 78658
+      },
+      {
+        "src": "/images/optimized/about-1440-85d73ab8a7b4.webp",
+        "width": 1440,
+        "height": 1799,
+        "bytes": 117348
+      }
+    ]
+  },
+  "logo": {
+    "source": "/images/Main logo.png",
+    "quality": 90,
+    "width": 2000,
+    "height": 2000,
+    "sourceBytes": 44845,
+    "sourceHash": "493efc3fd7c6f3538f056661162d137b69f1bbbdab4f4bdfede6fef83b134849",
+    "variants": [
+      {
+        "src": "/images/optimized/logo-64-08b9291f3012.webp",
+        "width": 64,
+        "height": 64,
+        "bytes": 1046
+      },
+      {
+        "src": "/images/optimized/logo-128-28148a11ac6e.webp",
+        "width": 128,
+        "height": 128,
+        "bytes": 2246
+      },
+      {
+        "src": "/images/optimized/logo-192-7d229f812908.webp",
+        "width": 192,
+        "height": 192,
+        "bytes": 3556
+      }
+    ]
+  }
+}
