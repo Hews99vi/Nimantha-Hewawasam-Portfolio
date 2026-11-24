@@ -38,3 +38,5 @@ dist
 /test-results/
 /.impeccable/*
 !/.impeccable/design.json
+
+/.release/

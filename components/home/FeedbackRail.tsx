@@ -4,6 +4,19 @@ import { useEffect, useId, useRef, useState, useSyncExternalStore, type ReactNod
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const motionQuery = "(prefers-reduced-motion: reduce)";
+function visibleReview(element: HTMLElement) {
+  const left = element.getBoundingClientRect().left;
+  let closest = 0, distance = Infinity;
+  Array.from(element.children).forEach((child, index) => {
+    const delta = Math.abs(child.getBoundingClientRect().left - left);
+    if (delta < distance) { closest = index; distance = delta; }
+  });
+  return closest;
+}
+function alignReview(element: HTMLElement, index: number, behavior: ScrollBehavior) {
+  const child = element.children[index];
+  if (child) element.scrollTo({ left: element.scrollLeft + child.getBoundingClientRect().left - element.getBoundingClientRect().left, behavior });
+}
 function subscribeToMotion(onChange: () => void) {
   const query = window.matchMedia(motionQuery);
   query.addEventListener("change", onChange);
@@ -24,7 +37,7 @@ export function FeedbackRail({ children, count }: { children: ReactNode; count: 
     const element = rail.current;
     if (!element) return;
     element.parentElement?.classList.add("feedback-ready");
-    const update = () => setPosition(Math.round(element.scrollLeft / element.clientWidth));
+    const update = () => setPosition(visibleReview(element));
     element.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     return () => {
@@ -46,13 +59,9 @@ export function FeedbackRail({ children, count }: { children: ReactNode; count: 
       clearTimeout(timer);
       if (!visible || hovered || focused || document.hidden) return;
       timer = setTimeout(() => {
-        const current = Math.round(element.scrollLeft / element.clientWidth);
+        const current = visibleReview(element);
         const next = (current + 1) % count;
-        element.scrollTo({
-          left: next * element.clientWidth,
-          // Avoid panning across every intervening quote when returning to the start.
-          behavior: next === 0 ? "instant" : "smooth",
-        });
+        alignReview(element, next, next === 0 ? "instant" : "smooth");
       }, 6_000);
     };
     const observer = new IntersectionObserver(([entry]) => {
@@ -93,10 +102,7 @@ export function FeedbackRail({ children, count }: { children: ReactNode; count: 
   function move(direction: number) {
     const element = rail.current;
     if (!element) return;
-    element.scrollTo({
-      left: Math.max(0, Math.min(count - 1, position + direction)) * element.clientWidth,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
-    });
+    alignReview(element, Math.max(0, Math.min(count - 1, position + direction)), window.matchMedia(motionQuery).matches ? "instant" : "smooth");
   }
   return (
     <div className="feedback-browser">
@@ -114,7 +120,15 @@ export function FeedbackRail({ children, count }: { children: ReactNode; count: 
       {count > 1 && <p className="feedback-scroll-hint">Swipe or scroll to browse feedback.</p>}
       <div
         className="feedback-rail" ref={rail} id={id} role="region" aria-label="Customer feedback" tabIndex={0}
-
+        onFocusCapture={(event) => {
+          const element = event.currentTarget;
+          const card = event.target.closest(".testimonial-card");
+          if (!card || card.parentElement !== element) return;
+          const index = Array.from(element.children).indexOf(card);
+          // Explicit alignment avoids native snap-stop retaining an offscreen focused card.
+          alignReview(element, index, "instant");
+          setPosition(index);
+        }}
       >
         {children}
       </div>

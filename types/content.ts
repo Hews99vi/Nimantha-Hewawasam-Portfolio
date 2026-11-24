@@ -1,6 +1,7 @@
 export type IconKey =
   | "linkedin"
   | "github"
+  | "whatsapp"
   | "code2"
   | "briefcaseBusiness"
   | "camera"
@@ -45,6 +46,7 @@ export type ContactSection = {
   title: string;
   body: string;
   email: string;
+  whatsapp_number: string | null;
   location: string;
   availability: string;
 };

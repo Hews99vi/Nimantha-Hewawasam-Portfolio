@@ -55,7 +55,7 @@ export default async function ContactPage() {
               </nav>
             )}
           </section>
-          <ContactSignal email={contact.email} location={contact.location} />
+          <ContactSignal email={contact.email} location={contact.location} whatsappNumber={contact.whatsapp_number} />
         </div>
       </InteriorMotion>
     </main>

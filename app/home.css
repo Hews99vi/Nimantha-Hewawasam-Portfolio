@@ -156,6 +156,9 @@
 .feedback-rail::-webkit-scrollbar {
   display: none;
 }
+.feedback-rail:focus-within {
+  scroll-snap-type: none;
+}
 .feedback-rail .testimonial-card {
   flex: 0 0 100%;
   scroll-snap-align: start;

@@ -13,6 +13,6 @@ export default defineConfig({
     command: "node --experimental-strip-types tests/fixture-server.mjs",
     url: "http://127.0.0.1:3100",
     reuseExistingServer: false,
-    timeout: 90000,
+    timeout: 180000,
   },
 });

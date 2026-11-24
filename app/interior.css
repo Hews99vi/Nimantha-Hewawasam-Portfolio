@@ -488,6 +488,39 @@
 .contact-signal .text-action {
   color: var(--paper);
 }
+.contact-whatsapp-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  margin-top: 16px;
+  padding-top: 20px;
+  border-top: 1px solid #52616b;
+}
+.contact-whatsapp-link > svg {
+  flex-shrink: 0;
+}
+.contact-whatsapp-link > span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4px;
+}
+.contact-whatsapp-link strong {
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #52616b;
+  text-underline-offset: 5px;
+}
+.contact-whatsapp-link span > span {
+  font-size: 0.85rem;
+  color: #c2cbd0;
+  overflow-wrap: anywhere;
+}
+.contact-whatsapp-link:hover strong {
+  text-decoration-color: var(--paper);
+}
 .contact-signal .copy-email .text-action:hover {
   color: var(--paper);
   text-decoration-color: var(--paper);

@@ -30,5 +30,5 @@ export const collectionMap = {
 export type CollectionKey = keyof typeof collectionMap;
 
 export function getCollectionConfig(collection: string) {
-  return collectionMap[collection as CollectionKey] ?? null;
+  return Object.hasOwn(collectionMap, collection) ? collectionMap[collection as CollectionKey] : null;
 }

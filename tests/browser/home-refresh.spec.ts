@@ -32,7 +32,7 @@ test("reduced motion keeps service graphics static and feedback scrolling immedi
   await page.goto("/");
   await page.locator(".home-service-links a").nth(1).focus();
   const traces = page.locator(".home-service-preview .diagram-trace");
-  expect(await traces.evaluateAll(nodes => nodes.every(node => getComputedStyle(node).animationName === "none"))).toBe(true);
+  await expect.poll(() => traces.evaluateAll(nodes => nodes.length > 0 && nodes.every(node => getComputedStyle(node).animationName === "none"))).toBe(true);
   const next = page.getByRole("button", { name: "Next review" });
   if (await next.count()) {
     await next.click();

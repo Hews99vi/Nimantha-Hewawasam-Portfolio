@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Mail } from "lucide-react";
 import { CopyEmail } from "@/components/CopyEmail";
+import { WhatsAppIcon } from "@/components/BrandIcons";
+import { whatsAppUrl } from "@/lib/whatsapp";
 
 function LocalClock({ location }: { location: string }) {
   const isSriLanka = /sri lanka/i.test(location);
@@ -34,10 +36,13 @@ function LocalClock({ location }: { location: string }) {
 export function ContactSignal({
   email,
   location,
+  whatsappNumber,
 }: {
   email: string;
   location: string;
+  whatsappNumber?: string | null;
 }) {
+  const whatsapp = whatsAppUrl(whatsappNumber);
   return (
     <div className="contact-signal" data-reveal>
       <div className="contact-globe" aria-hidden="true">
@@ -71,6 +76,12 @@ export function ContactSignal({
           <span>{email}</span>
         </a>
         <CopyEmail email={email} />
+        {whatsapp && (
+          <a className="contact-whatsapp-link" href={whatsapp} target="_blank" rel="noreferrer">
+            <WhatsAppIcon size={23} />
+            <span><strong>Chat on WhatsApp</strong><span>{whatsappNumber}</span></span>
+          </a>
+        )}
       </div>
     </div>
   );

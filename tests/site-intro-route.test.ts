@@ -60,7 +60,7 @@ describe("Introduction saving", () => {
         body: JSON.stringify(defaultPortfolioContent.siteIntro),
       }),
     );
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(503);
     expect(mocks.revalidateAdminPaths).not.toHaveBeenCalled();
   });
 });

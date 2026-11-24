@@ -207,12 +207,12 @@ The same family carries compact labels, readable prose, and tightly tracked head
 
 ### Hierarchy
 
-- **Display:** general page headings; the project title and article title use their own smaller responsive clamps in source.
+- **Display:** general page headings; project, journal, and article titles have their own responsive clamps in source. The journal title uses (2.8–4.5rem) with (1.1) leading; reader titles use (2.2–3.6rem) with (1.15) leading and a (22ch) maximum measure.
 - **Hero Display:** heavier, tighter name lettering. The desktop token is overridden by tablet and phone rules described in Layout.
 - **Headline:** section headings; **Title:** normal third-level headings.
 - **Body:** inherited base size with relaxed leading. **Lead:** introductory copy.
 - **Label:** navigation. **Button:** slightly heavier action text.
-- **Article Body:** longer reading text, with a centered reading column, explicit heading spacing, and underlined inline links.
+- **Article Body:** longer reading text within the reader's copy column, with explicit heading spacing and underlined inline links. Journal card titles use (1.35–1.85rem) with (1.3) leading; the featured title uses (1.7–2.5rem).
 
 Use the token roles as the default hierarchy, not as a requirement to make every page title identical. Introductory copy is commonly limited to (65ch); section-heading descriptions use (30ch).
 
@@ -220,15 +220,17 @@ Use the token roles as the default hierarchy, not as a requirement to make every
 
 The main shell is centered with a maximum width of (1180px) and desktop side gutters of (40px). The header has its own wider maximum of (1320px). Sections normally use (100px) vertical padding; page introductions use (85px) above and (65px) below. Open two-column grids, dividers, and changes in surface color establish grouping.
 
-Project lists use two columns with (65px) row and (35px) column gaps. The first featured project spans the grid with a (1.5fr / 1fr) image-and-caption split and a divider. Other projects use image or text previews above captions. The first blog item also spans its grid with an image-and-text composition. The article reading shell is capped at (760px).
+Project lists use two columns with (65px) row and (35px) column gaps. The first featured project spans the grid with a (1.5fr / 1fr) image-and-caption split and a divider. Other projects use image or text previews above captions.
+
+The journal uses the shared shell, a compact opening, and a separate featured image-and-copy split of (1.1fr / 1fr). The archive has three columns with (48px) row and (28px) column gaps, becoming two columns at or below (1100px) and one at or below (600px). The featured split also stacks at (600px), while the opening stacks at (800px). Journal visuals use a (600/380) aspect ratio. Reader headers pair the title and metadata with a compact square visual; at (800px), the visual moves below the title and uses a wide (600/280) ratio with a (300px) maximum height. Reader copy is capped at (740px), beside a sticky contents column above (800px). Below that breakpoint, native contents sit above the copy; contents links use two columns until (600px), then one. Without headings, the copy column is centered. Related reading uses two columns, stacking at (600px).
 
 The desktop hero sits inside a (30px) surround, up to (1760px) wide, with a viewport-related height clamped by (720px) minimum and (980px) maximum. The name anchors left, the portrait is centered at (51%) and sized to (80%) height, and the introduction sits right. The transparent portrait remains fully visible rather than becoming a cropped cover.
 
 Responsive behavior follows the actual CSS cascade:
 
 - At or below (1100px), the hero stacks into name → portrait → introduction. The dedicated (801px–1100px) override removes the maximum height, uses a (480px) portrait and (5rem) name, and keeps the normal desktop navigation until its own breakpoint. The portrait is centered with normal flow and no translate transform.
-- At or below (800px), the shell gutters become (20px), section padding becomes (65px), navigation becomes a menu panel, and the hero uses a (14px) surround, (390px) portrait, and responsive name size. Featured projects and the leading blog card become vertical. Split copy and contact sections stack; many other content grids remain two-column.
-- At or below (560px), project, service, project-context, blog, and media-editor grids become one column. The portrait becomes (330px) tall. Hero actions share a wrapping row; the stacked frame grows with longer labels. Brand logos form two columns and footer rows stack. About and testimonials have their own content-driven breakpoints described below.
+- At or below (800px), the shell gutters become (20px), section padding becomes (65px), navigation becomes a menu panel, and the hero uses a (14px) surround, (390px) portrait, and responsive name size. Featured projects become vertical. Split copy and contact sections stack; many other content grids remain two-column. The journal and reader follow their own breakpoints above.
+- At or below (560px), project, service, project-context, and media-editor grids become one column. The portrait becomes (330px) tall. Hero actions share a wrapping row; the stacked frame grows with longer labels. Brand logos form two columns and footer rows stack. About and testimonials have their own content-driven breakpoints described below.
 - Above (1500px), the hero name’s maximum width tightens to (42%); the portrait remains centered at (51%).
 
 About has its own responsive layout: facts become two columns at or below (960px). At or below (700px), the opening becomes title → portrait → introduction; the portrait is capped at (420px) wide, while biography and principle rows stack. The toolkit keeps a connected two-column discipline map beside its selected tools; at (1000px), the columns tighten and button icons sit above their labels. At (640px), the selected tools move below the map, and project previews become one column. Long discipline and tool names wrap within their available width.
@@ -316,7 +318,7 @@ The schematic uses code-native interface, logic, data, and flow geometry chosen 
 
 The shared contact invitation remains a dark tonal section with a large underlined contact link. The Contact page uses a smaller editorial heading beside a dark connection panel with code-native globe geometry. The globe is decorative, not a map of client locations or activity. Saved location and availability remain visible beside active, non-placeholder social profile links. Existing LinkedIn and GitHub brand icons retain their established treatment.
 
-The panel repeats the saved location beside a real clock with tabular numerals. A location matching “Sri Lanka” uses `Asia/Colombo` and the “Local time” label; other saved locations use an explicit “UTC” label rather than an inferred local zone. The direct email link uses `mailto:`. Copy email keeps its text action and reserved status area; actual clipboard success or failure is announced and cleared after (5s). Email text wraps, and panel actions receive a paper-colored keyboard focus outline for contrast.
+The panel repeats the saved location beside a real clock with tabular numerals. A location matching “Sri Lanka” uses `Asia/Colombo` and the “Local time” label; other saved locations use an explicit “UTC” label rather than an inferred local zone. The direct email link uses `mailto:`. Copy email keeps its text action and reserved status area; actual clipboard success or failure is announced and cleared after (5s). Email text wraps, and panel actions receive a paper-colored keyboard focus outline for contrast. The optional WhatsApp action sits below Copy email, separated by a fine rule, with the Font Awesome brand SVG, “Chat on WhatsApp,” and the saved number. It inherits the panel foreground and focus treatment; absent or invalid numbers produce no action. Admin Contact includes a labeled optional telephone field, format example, associated guidance, and validation.
 
 Home testimonials form an open editorial composition on the soft surface. A compact heading column sits beside an automatically advancing native scroll-snap rail with manual controls with a (48–100px) responsive gap. Each review occupies the rail’s full width and preserves its complete quotation, a small cobalt quote mark, and initials-only attribution. All quotes use the same responsive (1.35–1.85rem) scale with (1.6) leading and a (42ch) measure. Circular (44px) initials sit beside the name and role/company, (32px) below the quotation. There are no white panels, enclosing card borders, card radii, or hover lift. The heading stacks above the rail at (960px).
 
@@ -326,11 +328,23 @@ After JavaScript enhancement, a fine ruled control row shows a “Review n of to
 
 There is no public contact form. The media editor’s labeled inputs/textareas have a fine neutral border, full width, square corners, (9px) padding, and a small label gap. Existing login and other CMS controls retain legacy navy/white utility colors and square forms. This document records that pre-existing variation; it does not declare a completed CMS visual migration.
 
+### Journal discovery and article reader
+
+The saved blog page heading (the CMS `eyebrow` field) becomes the journal's actual page title; the saved `title` is its opening statement. The complete saved introduction lives in a native “About this journal” disclosure. Featured copy remains below the feature, and the saved featured title labels its section for assistive technology. The featured article is omitted from the ordinary archive to avoid duplicate cards; filtered results may include it. Published article titles, excerpts, metadata, and active topics remain CMS-owned.
+
+Cards keep open captions below rounded visuals, with quiet metadata, underlined topic links, and a “Read article” action. Real uploaded covers remain unchanged and use cover fitting. Absent or failed covers, and only the exact shipped portrait seed path `/images/nimantha-hero.png`, reveal topic-based code-native geometry. These decorative SVGs are conceptual editorial art, not product screenshots. Featured geometry uses paper strokes on cobalt; ordinary cards and readers use cobalt strokes on the soft surface. No generated raster is required.
+
+The ruled discovery bar pairs wrapping topic links with a labeled search field and a (44px) icon submit button. Active topics use cobalt text and a (2px) underline; the field uses a single charcoal bottom rule. Search and topic selection persist as `q` and `topic` URL parameters, preserving shareable links, browser history, and native GET submission without JavaScript. Search matches the title, excerpt, and active topic names. Clear-filter and empty-result paths lead back to the archive. Existing loader rules remain authoritative for drafts and inactive categories; this visual change adds no database or blog API contract.
+
+Article contents are a native open disclosure with links to stable, unique heading IDs; second-level and third-level headings appear in the list, with nested headings indented. Complete source wording is retained. A fixed cobalt (3px) reading-position bar measures article copy through animation-frame updates. Up to two published articles close the reader, prioritizing shared topics and preserving saved order for ties and remaining suggestions. Ordinary links, native disclosures, and the shared focus treatment remain usable without enhancement.
+
 ### Motion and reading
 
 Project hover uses the shared easing; primary and text actions use brief color transitions. About, Services, and Contact add one-time section entrances of (550ms) with a small (12px) vertical movement. Content is visible before enhancement; the observer unobserves entered sections and disconnects on unmount. Toolkit selection uses a (250ms) entrance. Service traces run once over (900ms); the contact connection trace runs once over (1400ms). These interior effects add no infinite decorative loops. Home reuses the service trace on selection; the feedback rail advances every (6s) when visible and idle, with reading pauses and manual navigation. Reduced motion disables this automatic rotation.
 
 Reduced motion leaves all content and selected state visible, stops spatial entrances and wire traces, and removes toolkit/toggle transitions. Smooth page scrolling is also disabled, with existing global animations and transitions effectively removed. Articles use deliberate paragraph/heading spacing, underlined cobalt links, dark code blocks, and horizontally scrollable code or tables where required.
+
+Only the journal's featured conceptual visual draws its connection trace, once over (900ms); archive and reader visuals remain still. Reduced motion removes the trace animation. The journal adds no autoplay.
 
 ## Do's and Don'ts
 
@@ -349,3 +363,5 @@ Reduced motion leaves all content and selected state visible, stops spatial entr
 - **Don't** spread the hero’s blue-gray surface across every page; ordinary content uses paper and surface neutrals.
 - **Don't** replace open lists and dividers with nested cards or add unrelated gradients and glow.
 - **Don't** treat fixture-based review or the limited finish review as live Supabase or full-site approval.
+
+Public element defaults belong to Tailwind's base layer so admin utility typography and control sizing take precedence. Testimonial focus explicitly aligns the focused review with the visible rail; reduced-motion settings keep that alignment immediate. These fixes preserve the existing public palette and compositions.

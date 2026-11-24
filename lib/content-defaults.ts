@@ -31,6 +31,7 @@ export const defaultPortfolioContent: PortfolioContent = {
     body:
       "I'm available for web applications, mobile apps, dashboards, CMS platforms, automation systems, and AI-powered solutions.",
     email: "vidunethnim@gmail.com",
+    whatsapp_number: null,
     location: "Sri Lanka",
     availability: "Open for international freelance projects",
   },

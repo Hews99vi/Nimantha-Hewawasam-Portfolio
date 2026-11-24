@@ -1,7 +1,7 @@
 // Isolated browser-test backend. Never loaded by the application or deployment.
 import { createServer } from "node:http";
 import { spawn } from "node:child_process";
-import { cp, mkdtemp, rm, symlink } from "node:fs/promises";
+import { cp, mkdtemp, rm, symlink, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
@@ -113,6 +113,7 @@ const server = createServer((request, response) => {
 // Next dev locks its project directory. Use an isolated copy so tests can run
 // alongside the owner's local server without changing generated files or config.
 const projectDirectory = process.cwd();
+const production = process.argv.includes("--production");
 const testDirectory = await mkdtemp(join(tmpdir(), "portfolio-browser-"));
 for (const source of [
   "app",
@@ -126,49 +127,41 @@ for (const source of [
   "next-env.d.ts",
   "next.config.ts",
   "postcss.config.mjs",
+  "proxy.ts",
+  "instrumentation.ts",
 ]) {
   await cp(join(projectDirectory, source), join(testDirectory, source), {
     recursive: true,
   });
 }
+// Allow loopback image fixtures only in the disposable test copy.
+const fixtureConfigPath = join(testDirectory, "next.config.ts");
+await writeFile(fixtureConfigPath, (await readFile(fixtureConfigPath, "utf8")).replace("images: {", "images: { dangerouslyAllowLocalIP: true,"));
+if (production) {
+  await cp(join(projectDirectory, "node_modules"), join(testDirectory, "node_modules"), { recursive: true, mode: (await import("node:fs")).constants.COPYFILE_FICLONE });
+} else {
 await symlink(
   join(projectDirectory, "node_modules"),
   join(testDirectory, "node_modules"),
   "dir",
 );
-server.listen(4318, "127.0.0.1", () => {
-  const child = spawn(
-    process.execPath,
-    [
-      join(projectDirectory, "node_modules/next/dist/bin/next"),
-      "dev",
-      testDirectory,
-      "--webpack",
-      "--hostname",
-      "127.0.0.1",
-      "--port",
-      "3100",
-    ],
-    {
-      stdio: "inherit",
-      cwd: testDirectory,
-      env: {
-        ...process.env,
-        NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:4318",
-        NEXT_PUBLIC_SUPABASE_ANON_KEY: "test-fixture-public-key",
-        NEXT_PUBLIC_SITE_URL: "http://127.0.0.1:3100",
-      },
-    },
-  );
-  const stop = () => {
-    child.kill("SIGTERM");
-    server.close();
-  };
+}
+server.listen(4318, "127.0.0.1", async () => {
+  const env = { ...process.env, NEXT_PUBLIC_SUPABASE_URL: "http://127.0.0.1:4318", NEXT_PUBLIC_SUPABASE_ANON_KEY: "test-fixture-public-key", NEXT_PUBLIC_SITE_URL: "http://127.0.0.1:3100", PORTFOLIO_REVISION: "a".repeat(40), PORT: "3100", HOSTNAME: "127.0.0.1" };
+  let child;
+  const stop = () => { child?.kill("SIGTERM"); server.close(); };
   process.on("SIGTERM", stop);
   process.on("SIGINT", stop);
-  child.on("exit", async (code) => {
-    server.close();
-    await rm(testDirectory, { recursive: true, force: true });
-    process.exit(code ?? 0);
-  });
+  if (production) {
+    const build = spawn(process.execPath, [join(testDirectory, "node_modules/next/dist/bin/next"), "build"], { cwd: testDirectory, env, stdio: "inherit" });
+    child = build;
+    const code = await new Promise(resolve => build.on("exit", resolve));
+    if (code !== 0) { server.close(); await rm(testDirectory, { recursive: true, force: true }); process.exit(1); }
+    await cp(join(testDirectory, "public"), join(testDirectory, ".next/standalone/public"), { recursive: true });
+    await cp(join(testDirectory, ".next/static"), join(testDirectory, ".next/standalone/.next/static"), { recursive: true });
+    child = spawn(process.execPath, [join(testDirectory, ".next/standalone/server.js")], { cwd: join(testDirectory, ".next/standalone"), env, stdio: "inherit" });
+  } else {
+    child = spawn(process.execPath, [join(projectDirectory, "node_modules/next/dist/bin/next"), "dev", testDirectory, "--webpack", "--hostname", "127.0.0.1", "--port", "3100"], { cwd: testDirectory, env, stdio: "inherit" });
+  }
+  child.on("exit", async code => { server.close(); await rm(testDirectory, { recursive: true, force: true }); process.exit(code ?? 0); });
 });

@@ -20,6 +20,8 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { BlogCategoriesEditor, BlogPostsEditor, BlogSettingsEditor } from "@/app/admin/BlogEditors";
 import { ProjectMediaEditor } from "@/app/admin/ProjectMediaEditor";
 import { IconSelect } from "@/app/admin/IconSelect";
+import { requestJson } from "@/app/admin/admin-utils";
+import { WhatsAppField } from "@/app/admin/WhatsAppField";
 
 type AdminDashboardProps = {
   initialData: PortfolioContent;
@@ -52,14 +54,6 @@ const sectionTabs = [
 
 const TEMP_ID_PREFIX = "temp-";
 
-type ApiResult<T> = {
-  success: boolean;
-  message?: string;
-  data?: T;
-  fieldErrors?: Record<string, string[]>;
-  cleanupPaths?: string[];
-};
-
 function createTempId() {
   return `${TEMP_ID_PREFIX}${crypto.randomUUID()}`;
 }
@@ -70,26 +64,6 @@ function isTempId(id: string) {
 
 function getErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : "Something went wrong.";
-}
-
-async function requestJson<T>(
-  endpoint: string,
-  options: RequestInit,
-): Promise<ApiResult<T>> {
-  const response = await fetch(endpoint, options);
-  const result = (await response.json()) as ApiResult<T>;
-
-  if (!response.ok || !result.success) {
-    const fieldMessage = result.fieldErrors
-      ? Object.values(result.fieldErrors)
-          .flat()
-          .filter(Boolean)
-          .join(" ")
-      : "";
-    throw new Error(fieldMessage || result.message || "Request failed.");
-  }
-
-  return result;
 }
 
 function updateCollectionItem<T extends { id: string }>(
@@ -515,6 +489,10 @@ export function AdminDashboard({ initialData, adminEmail }: AdminDashboardProps)
                   onChange={(value) => updateSingleton("contactSection", "availability", value)}
                 />
               </div>
+              <WhatsAppField
+                value={data.contactSection.whatsapp_number ?? ""}
+                onChange={(value) => updateSingleton("contactSection", "whatsapp_number", value)}
+              />
               <SaveButton
                 pending={isPending}
                 onClick={() =>

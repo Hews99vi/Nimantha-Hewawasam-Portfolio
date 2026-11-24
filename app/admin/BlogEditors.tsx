@@ -121,8 +121,8 @@ export function BlogSettingsEditor({
 
   return (
     <div className="space-y-5">
-      <TextField label="Eyebrow" value={settings.eyebrow} onChange={(value) => update("eyebrow", value)} />
-      <TextField label="Title" value={settings.title} onChange={(value) => update("title", value)} />
+      <TextField label="Page heading" value={settings.eyebrow} onChange={(value) => update("eyebrow", value)} />
+      <TextField label="Opening statement" value={settings.title} onChange={(value) => update("title", value)} />
       <TextAreaField label="Intro" value={settings.intro} onChange={(value) => update("intro", value)} />
       <TextField
         label="Featured Label"
@@ -419,7 +419,7 @@ export function BlogPostsEditor({
               label="Published At"
               type="datetime-local"
               value={toDateTimeLocal(post.published_at)}
-              onChange={(value) => updatePost(post.id, "published_at", value || null)}
+              onChange={(value) => updatePost(post.id, "published_at", value ? new Date(value).toISOString() : null)}
             />
             <TextField
               label="Order"
