@@ -1,7 +1,7 @@
 // Isolated browser-test backend. Never loaded by the application or deployment.
 import { createServer } from "node:http";
 import { spawn } from "node:child_process";
-import { cp, mkdtemp, rm, symlink, readFile, writeFile } from "node:fs/promises";
+import { cp, mkdtemp, rm, symlink, readFile, writeFile, mkdir } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
@@ -160,6 +160,10 @@ server.listen(4318, "127.0.0.1", async () => {
     if (code !== 0) { server.close(); await rm(testDirectory, { recursive: true, force: true }); process.exit(1); }
     const { prepareDirect } = await import("../scripts/deploy/direct.mjs");
     const bundle = await prepareDirect(testDirectory, "a".repeat(40), env);
+    // Model Selector's application-root symlink; Next must use its nested runtime.
+    const selectorModules = join(testDirectory, "selector-virtualenv-node-modules");
+    await mkdir(selectorModules);
+    await symlink(selectorModules, join(bundle.directory, "node_modules"), "dir");
     child = spawn(process.execPath, [join(bundle.directory, "server.js")], { cwd: bundle.directory, env, stdio: "inherit" });
   } else {
     child = spawn(process.execPath, [join(projectDirectory, "node_modules/next/dist/bin/next"), "dev", testDirectory, "--webpack", "--hostname", "127.0.0.1", "--port", "3100"], { cwd: testDirectory, env, stdio: "inherit" });
