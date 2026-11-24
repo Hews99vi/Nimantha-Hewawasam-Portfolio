@@ -1,4 +1,4 @@
-import { rename, writeFile, rm, mkdtemp, mkdir } from 'node:fs/promises';
+import { rename, writeFile, rm, mkdtemp, mkdir, readdir, lstat, readFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,10 +14,16 @@ export async function prepareDirect(root, revision, env = process.env) {
     values[name] = env[name];
   }
   const bundle = await prepareRelease(root, revision);
-  await rename(join(bundle.directory, 'server.js'), join(bundle.directory, 'portfolio-server.cjs'));
-  // These are public build settings, never a service-role key. Synchronize runtime
-  // with this build without modifying the owner's .env or cPanel environment.
-  await writeFile(join(bundle.directory, 'server.js'), `// Generated portfolio startup file.\nif (Number(process.versions.node.split('.')[0]) !== 22) throw new Error('Select Node.js 22 in cPanel before restarting this application.');\nObject.assign(process.env, ${JSON.stringify({ ...values, PORTFOLIO_REVISION: revision })});\nrequire('./portfolio-server.cjs');\n`);
+  // CloudLinux owns application-root/node_modules. Keep Next's complete traced
+  // runtime together underneath it, preserving ordinary Node resolution paths.
+  const entries = await readdir(bundle.directory);
+  const runtime = join(bundle.directory, 'portfolio-runtime');
+  await mkdir(runtime);
+  for (const entry of entries) await rename(join(bundle.directory, entry), join(runtime, entry));
+  await writeFile(join(bundle.directory, 'package.json'), JSON.stringify({ name: 'portfolio-host', private: true, type: 'commonjs', engines: { node: '>=22.12 <23' } }));
+  await writeFile(join(bundle.directory, 'DEPLOYED_SHA'), revision + '\n');
+  // Public build settings synchronize runtime without modifying cPanel secrets.
+  await writeFile(join(bundle.directory, 'server.js'), `// Generated portfolio startup file.\nif (Number(process.versions.node.split('.')[0]) !== 22) throw new Error('Select Node.js 22 in cPanel before restarting this application.');\nObject.assign(process.env, ${JSON.stringify({ ...values, PORTFOLIO_REVISION: revision })});\nrequire('./portfolio-runtime/server.js');\n`);
   // Completion markers/launcher belong to the optional versioned release system.
   await rm(bundle.marker, { force: true });
   await rm(join(root, '.release/server.cjs'), { force: true });
@@ -47,6 +53,14 @@ function run(name, args) {
  */
 export async function uploadDirect(config, directory, revision, { execute = run, temporary, verify = sha => verifyRelease(config.origin, sha) }) {
   if (!revisionPattern.test(revision)) throw new Error('A full commit SHA is required.');
+  // Never let a future packaging regression replace CloudLinux's managed link.
+  const rootModules = await lstat(join(directory, 'node_modules')).catch(error => {
+    if (error.code !== 'ENOENT') throw error;
+    return null;
+  });
+  if (rootModules) throw new Error('Invalid bundle: application-root node_modules is reserved for CloudLinux.');
+  const runtimeServer = await readFile(join(directory, 'portfolio-runtime/server.js'), 'utf8');
+  if (!runtimeServer.trim()) throw new Error('The packaged runtime server is missing or empty.');
   const destination = `${config.user}@${config.host}:${config.root}/`;
   const flags = ['-P', config.port, '-o', 'BatchMode=yes', '-o', 'StrictHostKeyChecking=yes', '-o', 'ConnectTimeout=30'];
   // Keep the prior startup entry while transferring the complete application.
